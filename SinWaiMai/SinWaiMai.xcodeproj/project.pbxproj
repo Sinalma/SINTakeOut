@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18EA61761E25DA9D009D826E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61751E25DA9D009D826E /* main.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
-		18EA617C1E25DA9D009D826E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA617B1E25DA9D009D826E /* ViewController.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
-		18EA61811E25DA9D009D826E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61801E25DA9D009D826E /* Assets.xcassets */; };
 		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
 		18EA618F1E25DA9D009D826E /* SinWaiMaiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA618E1E25DA9D009D826E /* SinWaiMaiTests.m */; };
 		18EA619A1E25DA9D009D826E /* SinWaiMaiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61991E25DA9D009D826E /* SinWaiMaiUITests.m */; };
+		18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61A71E2620AF009D826E /* Assets.xcassets */; };
+		18EA61C01E262590009D826E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61BD1E262590009D826E /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +35,9 @@
 
 /* Begin PBXFileReference section */
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		18EA61751E25DA9D009D826E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		18EA617A1E25DA9D009D826E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		18EA617B1E25DA9D009D826E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		18EA617E1E25DA9D009D826E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		18EA61801E25DA9D009D826E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18EA61831E25DA9D009D826E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18EA61851E25DA9D009D826E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18EA618A1E25DA9D009D826E /* SinWaiMaiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinWaiMaiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +46,8 @@
 		18EA61951E25DA9D009D826E /* SinWaiMaiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinWaiMaiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EA61991E25DA9D009D826E /* SinWaiMaiUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinWaiMaiUITests.m; sourceTree = "<group>"; };
 		18EA619B1E25DA9D009D826E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18EA61A71E2620AF009D826E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18EA61BD1E262590009D826E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +100,7 @@
 			children = (
 				18EA61771E25DA9D009D826E /* AppDelegate.h */,
 				18EA61781E25DA9D009D826E /* AppDelegate.m */,
-				18EA617A1E25DA9D009D826E /* ViewController.h */,
-				18EA617B1E25DA9D009D826E /* ViewController.m */,
-				18EA617D1E25DA9D009D826E /* Main.storyboard */,
-				18EA61801E25DA9D009D826E /* Assets.xcassets */,
-				18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */,
-				18EA61851E25DA9D009D826E /* Info.plist */,
+				18EA61A91E262590009D826E /* Classes */,
 				18EA61741E25DA9D009D826E /* Supporting Files */,
 			);
 			path = SinWaiMai;
@@ -117,7 +109,10 @@
 		18EA61741E25DA9D009D826E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				18EA61751E25DA9D009D826E /* main.m */,
+				18EA61A71E2620AF009D826E /* Assets.xcassets */,
+				18EA61851E25DA9D009D826E /* Info.plist */,
+				18EA617D1E25DA9D009D826E /* Main.storyboard */,
+				18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -138,6 +133,182 @@
 				18EA619B1E25DA9D009D826E /* Info.plist */,
 			);
 			path = SinWaiMaiUITests;
+			sourceTree = "<group>";
+		};
+		18EA61A91E262590009D826E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61AA1E262590009D826E /* Guide */,
+				18EA61AE1E262590009D826E /* Homepage */,
+				18EA61B21E262590009D826E /* Mine */,
+				18EA61B61E262590009D826E /* Order */,
+				18EA61BA1E262590009D826E /* Other */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		18EA61AA1E262590009D826E /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61AB1E262590009D826E /* Controller */,
+				18EA61AC1E262590009D826E /* Model */,
+				18EA61AD1E262590009D826E /* View */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
+		18EA61AB1E262590009D826E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18EA61AC1E262590009D826E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EA61AD1E262590009D826E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EA61AE1E262590009D826E /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61AF1E262590009D826E /* Controller */,
+				18EA61B01E262590009D826E /* Model */,
+				18EA61B11E262590009D826E /* View */,
+			);
+			path = Homepage;
+			sourceTree = "<group>";
+		};
+		18EA61AF1E262590009D826E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18EA61B01E262590009D826E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EA61B11E262590009D826E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EA61B21E262590009D826E /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61B31E262590009D826E /* Controller */,
+				18EA61B41E262590009D826E /* Model */,
+				18EA61B51E262590009D826E /* View */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		18EA61B31E262590009D826E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18EA61B41E262590009D826E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EA61B51E262590009D826E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EA61B61E262590009D826E /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61B71E262590009D826E /* Controller */,
+				18EA61B81E262590009D826E /* Model */,
+				18EA61B91E262590009D826E /* View */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		18EA61B71E262590009D826E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18EA61B81E262590009D826E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EA61B91E262590009D826E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18EA61BA1E262590009D826E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61BB1E262590009D826E /* Category */,
+				18EA61BC1E262590009D826E /* Controller */,
+				18EA61BD1E262590009D826E /* main.m */,
+				18EA61BE1E262590009D826E /* Model */,
+				18EA61BF1E262590009D826E /* View */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		18EA61BB1E262590009D826E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		18EA61BC1E262590009D826E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18EA61BE1E262590009D826E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18EA61BF1E262590009D826E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,7 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
-				18EA61811E25DA9D009D826E /* Assets.xcassets in Resources */,
+				18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */,
 				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,9 +444,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18EA617C1E25DA9D009D826E /* ViewController.m in Sources */,
+				18EA61C01E262590009D826E /* main.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
-				18EA61761E25DA9D009D826E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +594,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SinWaiMai/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
@@ -435,6 +606,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SinWaiMai/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
@@ -507,6 +679,7 @@
 				18EA61A01E25DA9D009D826E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18EA61A11E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +688,7 @@
 				18EA61A31E25DA9D009D826E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18EA61A41E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +697,7 @@
 				18EA61A61E25DA9D009D826E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
