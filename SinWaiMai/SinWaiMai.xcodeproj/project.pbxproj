@@ -1,0 +1,530 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18EA61761E25DA9D009D826E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61751E25DA9D009D826E /* main.m */; };
+		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
+		18EA617C1E25DA9D009D826E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA617B1E25DA9D009D826E /* ViewController.m */; };
+		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
+		18EA61811E25DA9D009D826E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61801E25DA9D009D826E /* Assets.xcassets */; };
+		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
+		18EA618F1E25DA9D009D826E /* SinWaiMaiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA618E1E25DA9D009D826E /* SinWaiMaiTests.m */; };
+		18EA619A1E25DA9D009D826E /* SinWaiMaiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61991E25DA9D009D826E /* SinWaiMaiUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18EA618B1E25DA9D009D826E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18EA61691E25DA9D009D826E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18EA61701E25DA9D009D826E;
+			remoteInfo = SinWaiMai;
+		};
+		18EA61961E25DA9D009D826E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18EA61691E25DA9D009D826E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18EA61701E25DA9D009D826E;
+			remoteInfo = SinWaiMai;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EA61751E25DA9D009D826E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		18EA617A1E25DA9D009D826E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		18EA617B1E25DA9D009D826E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		18EA617E1E25DA9D009D826E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		18EA61801E25DA9D009D826E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18EA61831E25DA9D009D826E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18EA61851E25DA9D009D826E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18EA618A1E25DA9D009D826E /* SinWaiMaiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinWaiMaiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EA618E1E25DA9D009D826E /* SinWaiMaiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinWaiMaiTests.m; sourceTree = "<group>"; };
+		18EA61901E25DA9D009D826E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18EA61951E25DA9D009D826E /* SinWaiMaiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinWaiMaiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EA61991E25DA9D009D826E /* SinWaiMaiUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinWaiMaiUITests.m; sourceTree = "<group>"; };
+		18EA619B1E25DA9D009D826E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18EA616E1E25DA9D009D826E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61871E25DA9D009D826E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61921E25DA9D009D826E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18EA61681E25DA9D009D826E = {
+			isa = PBXGroup;
+			children = (
+				18EA61731E25DA9D009D826E /* SinWaiMai */,
+				18EA618D1E25DA9D009D826E /* SinWaiMaiTests */,
+				18EA61981E25DA9D009D826E /* SinWaiMaiUITests */,
+				18EA61721E25DA9D009D826E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18EA61721E25DA9D009D826E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61711E25DA9D009D826E /* SinWaiMai.app */,
+				18EA618A1E25DA9D009D826E /* SinWaiMaiTests.xctest */,
+				18EA61951E25DA9D009D826E /* SinWaiMaiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18EA61731E25DA9D009D826E /* SinWaiMai */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61771E25DA9D009D826E /* AppDelegate.h */,
+				18EA61781E25DA9D009D826E /* AppDelegate.m */,
+				18EA617A1E25DA9D009D826E /* ViewController.h */,
+				18EA617B1E25DA9D009D826E /* ViewController.m */,
+				18EA617D1E25DA9D009D826E /* Main.storyboard */,
+				18EA61801E25DA9D009D826E /* Assets.xcassets */,
+				18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */,
+				18EA61851E25DA9D009D826E /* Info.plist */,
+				18EA61741E25DA9D009D826E /* Supporting Files */,
+			);
+			path = SinWaiMai;
+			sourceTree = "<group>";
+		};
+		18EA61741E25DA9D009D826E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61751E25DA9D009D826E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18EA618D1E25DA9D009D826E /* SinWaiMaiTests */ = {
+			isa = PBXGroup;
+			children = (
+				18EA618E1E25DA9D009D826E /* SinWaiMaiTests.m */,
+				18EA61901E25DA9D009D826E /* Info.plist */,
+			);
+			path = SinWaiMaiTests;
+			sourceTree = "<group>";
+		};
+		18EA61981E25DA9D009D826E /* SinWaiMaiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				18EA61991E25DA9D009D826E /* SinWaiMaiUITests.m */,
+				18EA619B1E25DA9D009D826E /* Info.plist */,
+			);
+			path = SinWaiMaiUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18EA61701E25DA9D009D826E /* SinWaiMai */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18EA619E1E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMai" */;
+			buildPhases = (
+				18EA616D1E25DA9D009D826E /* Sources */,
+				18EA616E1E25DA9D009D826E /* Frameworks */,
+				18EA616F1E25DA9D009D826E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SinWaiMai;
+			productName = SinWaiMai;
+			productReference = 18EA61711E25DA9D009D826E /* SinWaiMai.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18EA61891E25DA9D009D826E /* SinWaiMaiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18EA61A11E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiTests" */;
+			buildPhases = (
+				18EA61861E25DA9D009D826E /* Sources */,
+				18EA61871E25DA9D009D826E /* Frameworks */,
+				18EA61881E25DA9D009D826E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18EA618C1E25DA9D009D826E /* PBXTargetDependency */,
+			);
+			name = SinWaiMaiTests;
+			productName = SinWaiMaiTests;
+			productReference = 18EA618A1E25DA9D009D826E /* SinWaiMaiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		18EA61941E25DA9D009D826E /* SinWaiMaiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18EA61A41E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiUITests" */;
+			buildPhases = (
+				18EA61911E25DA9D009D826E /* Sources */,
+				18EA61921E25DA9D009D826E /* Frameworks */,
+				18EA61931E25DA9D009D826E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18EA61971E25DA9D009D826E /* PBXTargetDependency */,
+			);
+			name = SinWaiMaiUITests;
+			productName = SinWaiMaiUITests;
+			productReference = 18EA61951E25DA9D009D826E /* SinWaiMaiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18EA61691E25DA9D009D826E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = sinalma;
+				TargetAttributes = {
+					18EA61701E25DA9D009D826E = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					18EA61891E25DA9D009D826E = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 18EA61701E25DA9D009D826E;
+					};
+					18EA61941E25DA9D009D826E = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 18EA61701E25DA9D009D826E;
+					};
+				};
+			};
+			buildConfigurationList = 18EA616C1E25DA9D009D826E /* Build configuration list for PBXProject "SinWaiMai" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18EA61681E25DA9D009D826E;
+			productRefGroup = 18EA61721E25DA9D009D826E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18EA61701E25DA9D009D826E /* SinWaiMai */,
+				18EA61891E25DA9D009D826E /* SinWaiMaiTests */,
+				18EA61941E25DA9D009D826E /* SinWaiMaiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18EA616F1E25DA9D009D826E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
+				18EA61811E25DA9D009D826E /* Assets.xcassets in Resources */,
+				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61881E25DA9D009D826E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61931E25DA9D009D826E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18EA616D1E25DA9D009D826E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EA617C1E25DA9D009D826E /* ViewController.m in Sources */,
+				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
+				18EA61761E25DA9D009D826E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61861E25DA9D009D826E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EA618F1E25DA9D009D826E /* SinWaiMaiTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EA61911E25DA9D009D826E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18EA619A1E25DA9D009D826E /* SinWaiMaiUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18EA618C1E25DA9D009D826E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18EA61701E25DA9D009D826E /* SinWaiMai */;
+			targetProxy = 18EA618B1E25DA9D009D826E /* PBXContainerItemProxy */;
+		};
+		18EA61971E25DA9D009D826E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18EA61701E25DA9D009D826E /* SinWaiMai */;
+			targetProxy = 18EA61961E25DA9D009D826E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18EA617D1E25DA9D009D826E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EA617E1E25DA9D009D826E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18EA61831E25DA9D009D826E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18EA619C1E25DA9D009D826E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18EA619D1E25DA9D009D826E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18EA619F1E25DA9D009D826E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SinWaiMai/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		18EA61A01E25DA9D009D826E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SinWaiMai/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		18EA61A21E25DA9D009D826E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SinWaiMaiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMaiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SinWaiMai.app/SinWaiMai";
+			};
+			name = Debug;
+		};
+		18EA61A31E25DA9D009D826E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SinWaiMaiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMaiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SinWaiMai.app/SinWaiMai";
+			};
+			name = Release;
+		};
+		18EA61A51E25DA9D009D826E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SinWaiMaiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMaiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SinWaiMai;
+			};
+			name = Debug;
+		};
+		18EA61A61E25DA9D009D826E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SinWaiMaiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMaiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SinWaiMai;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18EA616C1E25DA9D009D826E /* Build configuration list for PBXProject "SinWaiMai" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EA619C1E25DA9D009D826E /* Debug */,
+				18EA619D1E25DA9D009D826E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18EA619E1E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMai" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EA619F1E25DA9D009D826E /* Debug */,
+				18EA61A01E25DA9D009D826E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		18EA61A11E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EA61A21E25DA9D009D826E /* Debug */,
+				18EA61A31E25DA9D009D826E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		18EA61A41E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMaiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18EA61A51E25DA9D009D826E /* Debug */,
+				18EA61A61E25DA9D009D826E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18EA61691E25DA9D009D826E /* Project object */;
+}
