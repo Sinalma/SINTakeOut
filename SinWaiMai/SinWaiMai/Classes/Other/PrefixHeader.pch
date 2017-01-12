@@ -1,0 +1,18 @@
+//
+//  PrefixHeader.pch
+//  SinWaiMai
+//
+//  Created by apple on 11/01/2017.
+//  Copyright © 2017 sinalma. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "UIColor+Category.h"
+
+#import "SINConst.h"
+
+#import "UIView+Category.h"
+
+#endif /* PrefixHeader_pch */
