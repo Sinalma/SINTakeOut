@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
+		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
+		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
+		1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164C1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m */; };
+		188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */; };
+		188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316511E28DA2700CE1455 /* SINSecondModuleView.xib */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
 		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
@@ -23,6 +29,7 @@
 		18EA61D91E262E83009D826E /* SINConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61D81E262E83009D826E /* SINConst.m */; };
 		18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61DB1E26483D009D826E /* UIView+Category.m */; };
 		18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61DE1E267C88009D826E /* SINNavigationController.m */; };
+		F28C3E9B11C8840B5AD4E502 /* Pods_SinWaiMai.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +50,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		170B5698B7CE52EBFF5EB519 /* Pods-SinWaiMai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinWaiMai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai.debug.xcconfig"; sourceTree = "<group>"; };
+		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
+		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
+		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
+		188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNewUserEnjorView.m; sourceTree = "<group>"; };
+		188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINNewUserEnjorView.xib; sourceTree = "<group>"; };
+		1883164B1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CALayer+SINXibBorderColor.h"; path = "../View/CALayer+SINXibBorderColor.h"; sourceTree = "<group>"; };
+		1883164C1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CALayer+SINXibBorderColor.m"; path = "../View/CALayer+SINXibBorderColor.m"; sourceTree = "<group>"; };
+		1883164E1E28DA1C00CE1455 /* SINSecondModuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINSecondModuleView.h; sourceTree = "<group>"; };
+		1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINSecondModuleView.m; sourceTree = "<group>"; };
+		188316511E28DA2700CE1455 /* SINSecondModuleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINSecondModuleView.xib; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -76,6 +94,8 @@
 		18EA61DB1E26483D009D826E /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
 		18EA61DD1E267C88009D826E /* SINNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNavigationController.h; sourceTree = "<group>"; };
 		18EA61DE1E267C88009D826E /* SINNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNavigationController.m; sourceTree = "<group>"; };
+		55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinWaiMai.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8D71FBF722A8B130D442433 /* Pods-SinWaiMai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinWaiMai.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F28C3E9B11C8840B5AD4E502 /* Pods_SinWaiMai.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13E845240EB855C7676BB326 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				170B5698B7CE52EBFF5EB519 /* Pods-SinWaiMai.debug.xcconfig */,
+				D8D71FBF722A8B130D442433 /* Pods-SinWaiMai.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		18EA61681E25DA9D009D826E = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +140,8 @@
 				18EA618D1E25DA9D009D826E /* SinWaiMaiTests */,
 				18EA61981E25DA9D009D826E /* SinWaiMaiUITests */,
 				18EA61721E25DA9D009D826E /* Products */,
+				13E845240EB855C7676BB326 /* Pods */,
+				DDAE73BA44D153C162841A2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,8 +200,8 @@
 			children = (
 				18EA61AE1E262590009D826E /* Homepage */,
 				18EA61AA1E262590009D826E /* Guide */,
-				18EA61B21E262590009D826E /* Mine */,
 				18EA61B61E262590009D826E /* Order */,
+				18EA61B21E262590009D826E /* Mine */,
 				18EA61BA1E262590009D826E /* Other */,
 			);
 			path = Classes;
@@ -237,6 +269,12 @@
 		18EA61B11E262590009D826E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */,
+				188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */,
+				188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */,
+				1883164E1E28DA1C00CE1455 /* SINSecondModuleView.h */,
+				1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */,
+				188316511E28DA2700CE1455 /* SINSecondModuleView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -323,6 +361,8 @@
 		18EA61BB1E262590009D826E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1883164B1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.h */,
+				1883164C1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m */,
 				18EA61D31E262BC8009D826E /* UIColor+Category.h */,
 				18EA61D41E262BC8009D826E /* UIColor+Category.m */,
 				18EA61D71E262E83009D826E /* SINConst.h */,
@@ -354,8 +394,18 @@
 		18EA61BF1E262590009D826E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				188316431E2888FA00CE1455 /* SINNormalButton.h */,
+				188316441E2888FA00CE1455 /* SINNormalButton.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DDAE73BA44D153C162841A2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,9 +415,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18EA619E1E25DA9D009D826E /* Build configuration list for PBXNativeTarget "SinWaiMai" */;
 			buildPhases = (
+				F4F2A6F719E0CC7E4D8C7955 /* [CP] Check Pods Manifest.lock */,
 				18EA616D1E25DA9D009D826E /* Sources */,
 				18EA616E1E25DA9D009D826E /* Frameworks */,
 				18EA616F1E25DA9D009D826E /* Resources */,
+				5A5CB4B684724E3A4060B661 /* [CP] Embed Pods Frameworks */,
+				4F0FDBD1F39D81CC33B46D89 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -465,8 +518,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */,
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
 				18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */,
+				188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */,
 				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +542,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4F0FDBD1F39D81CC33B46D89 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A5CB4B684724E3A4060B661 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4F2A6F719E0CC7E4D8C7955 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		18EA616D1E25DA9D009D826E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -495,11 +598,15 @@
 				18EA61C01E262590009D826E /* main.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
+				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
+				188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
 				18EA61C61E26294D009D826E /* SINGuideViewController.m in Sources */,
+				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
+				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
 				18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */,
 				18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */,
@@ -649,6 +756,7 @@
 		};
 		18EA619F1E25DA9D009D826E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 170B5698B7CE52EBFF5EB519 /* Pods-SinWaiMai.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -657,11 +765,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
 		};
 		18EA61A01E25DA9D009D826E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8D71FBF722A8B130D442433 /* Pods-SinWaiMai.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -670,6 +780,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;
 		};

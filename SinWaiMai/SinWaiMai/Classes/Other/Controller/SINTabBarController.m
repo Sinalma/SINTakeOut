@@ -34,7 +34,7 @@
 - (void)setupAllChildVC
 {
     SINHomepageViewController *homepage = [[SINHomepageViewController alloc] init];
-    [self setupChildVC:homepage title:nil];
+    [self setupChildVC:homepage title:@"首页"];
     
     SINGuideViewController *guide = [[SINGuideViewController alloc] init];
     [self setupChildVC:guide title:@"指南"];
@@ -52,7 +52,8 @@
 - (void)setupChildVC:(UIViewController *)vc title:(NSString *)title
 {
     SINNavigationController *naviVC = [[SINNavigationController alloc] initWithRootViewController:vc];
-    vc.title = title;
+
+    vc.navigationController.title = title;
     vc.view.backgroundColor = [UIColor randomColor];
     [self addChildViewController:naviVC];
 }

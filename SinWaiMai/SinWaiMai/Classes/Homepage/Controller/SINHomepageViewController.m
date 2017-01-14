@@ -30,13 +30,21 @@
 
 #import "SINHomepageViewController.h"
 
+#import "Masonry.h"
+
+#import "SINNormalButton.h"
+
+#import "SINNewUserEnjorView.h"
+
+#import "SINSecondModuleView.h"
+
 /** 首页顶部广告图片数量 */
-#define adImageCount 3
+#define AdImageCount 3
 
 /** 首页外卖类型数量 */
-#define waiMaitypeCount 19
+#define WMTypeCount 15
 
-@interface SINHomepageViewController ()
+@interface SINHomepageViewController () <UIScrollViewDelegate>
 
 /** 整体的scrollView */
 @property (nonatomic,strong) UIScrollView *gobalScrollView;
@@ -44,38 +52,204 @@
 /** 顶部广告scrollView */
 @property (nonatomic,strong) UIScrollView *adScrollView;
 
+/** 选择外卖类型的scrollView */
+@property (nonatomic,strong) UIScrollView *wMTypesScrollView;
+
+/** 存放外卖所有类型的图片名 */
+@property (nonatomic,strong) NSMutableArray *wMTypesImgNs;
+
+/** 存放外卖所有类型类型名 */
+@property (nonatomic,strong) NSArray *wMTypesNames;
+
+/** 新人专享view */
+@property (nonatomic,strong) SINNewUserEnjorView *newuserEnjorView;
+
+/** 模块二view */
+@property (nonatomic,strong) SINSecondModuleView *secondModuleView;
+
 @end
 
-@implementation SINHomepageViewController
+/** 整体的scrollView不能滚动，但是滚动条却能动，是否因为嵌套了scrollView而引发的手势冲突，暂时不知，现在准备改用collectionView */
 
+@implementation SINHomepageViewController
+- (SINNewUserEnjorView *)newuserEnjorView
+{
+    if (_newuserEnjorView == nil) {
+        _newuserEnjorView = [SINNewUserEnjorView newUserEnjorView];
+    }
+    return _newuserEnjorView;
+}
+
+- (SINSecondModuleView *)secondModuleView
+{
+    if (_secondModuleView == nil) {
+        _secondModuleView = [SINSecondModuleView secondModuleView];
+    }
+    return _secondModuleView;
+}
+
+#pragma mark - 首页启动入口
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     // 初始化导航栏
     [self setupNavi];
     
-    // 初始化整体的scrollView
-    [self setupGobalScrollView];
-    
-    // 给整体的scollView添加子控件
-    [self setupGobalScrollViewChildView];
+    // 添加和布局整体scrollView子控件
+    [self layoutGobalScrollViewChildView];
     
     // 给广告scrollView添加子控件
     [self setupAdScrollViewChildView];
     
-    // 添加广告底部的外卖类型模块
-    [self setupWaiMaiTypeContainer];
+    // 给外卖类型scrollView添加子控件
+    [self setupWMTypeScrollViewChildView];
+    
+    self.adScrollView.delegate = self;
+    self.wMTypesScrollView.delegate = self;
+    self.gobalScrollView.delegate = self;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (scrollView == self.gobalScrollView) {
+        
+        NSLog(@"gobalScrollView滚动了");
+        self.adScrollView.scrollEnabled = NO;
+        self.wMTypesScrollView.scrollEnabled = NO;
+    }else if (scrollView == self.adScrollView)
+    {
+        
+        NSLog(@"adScrollView滚动了");
+    }else
+    {
+        
+        NSLog(@"WMScrollView滚动了");
+    }
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [super viewDidAppear:animated];
+    
+    // 设置整体scrollView的内容尺寸
+    CGFloat contentH =HomepageAdHeight + HomepageWmTypeHeight + HomepageNewUserHeight + HomepageTwoModuleHeight;
+    
+    [self.gobalScrollView setContentSize:CGSizeMake(600, contentH * 2)];
+    self.gobalScrollView.scrollEnabled = YES;
+    self.gobalScrollView.userInteractionEnabled = YES;
+}
+
+#pragma mark - 自定义方法
+/**
+ * 给外卖类型ScrollView添加子控件
+ */
+- (void)setupWMTypeScrollViewChildView
+{
+    // 设置scrollView的内容尺寸
+    CGFloat margin = 10;
+    
+    // 行数
+    int rowCount = 2;
+    // 一页列数
+    int columnCount = 5;
+    
+    // 求出总共的列数
+    // 这里可以用公式
+    CGFloat colFloat = WMTypeCount % 2;
+    int colInt = WMTypeCount / 2;
+    NSLog(@"%f %d",colFloat,colInt);
+    if (colFloat > 0) {
+        colInt += 1;
+    }
+    
+    CGFloat x = 0;
+    CGFloat y = 0;
+    CGFloat w = (self.view.width - (columnCount + 1) * margin) / columnCount;
+    CGFloat h = (150 - (rowCount + 1) * margin) / rowCount;
+    
+    
+    CGFloat contentSizeW = margin + colInt * (w + margin);
+    CGFloat contentSizeH = margin + rowCount * (h + margin);
+    self.wMTypesScrollView.contentSize = CGSizeMake(contentSizeW, contentSizeH);
+    
+    for (int i = 0; i < WMTypeCount; i++) {
+        
+        SINNormalButton *btn = [[SINNormalButton alloc] init];
+        
+        [btn setImage:[UIImage imageNamed:self.wMTypesImgNs[i]] forState:UIControlStateNormal];
+        [btn setTitle:self.wMTypesNames[i] forState:UIControlStateNormal];
+
+        
+        int row = i / colInt;
+        int col = i % colInt;
+        
+        x = margin + (col * (w + margin));
+        y = margin + (row * (h + margin));
+        
+        btn.frame = CGRectMake(x, y, w, h);
+        
+        btn.tag = i;
+        [btn addTarget:self action:@selector(wMTypeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.wMTypesScrollView addSubview:btn];
+    }
+}
+
+- (void)wMTypeBtnClick:(UIButton *)btn
+{
+    NSLog(@"点击了外卖类型->%@",btn.titleLabel.text);
 }
 
 /**
- * 添加广告底部的外卖类型模块
+ * 添加和布局整体scrollView子控件
  */
-- (void)setupWaiMaiTypeContainer
+- (void)layoutGobalScrollViewChildView
 {
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    
+    // 1. 添加子控件
+    [self.view addSubview:self.gobalScrollView];
+    
+    [self.gobalScrollView addSubview:self.adScrollView];
+    
+    [self.gobalScrollView addSubview:self.wMTypesScrollView];
+    
+    // 添加新人专享view
+    [self.gobalScrollView addSubview:self.newuserEnjorView];
+    
+    // 模块二
+    [self.gobalScrollView addSubview:self.secondModuleView];
     
     
+    // 2. 布局子控件
+    [self.gobalScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
+    }];
+    
+    [self.adScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.equalTo(@(HomepageAdHeight));
+    }];
+    
+    [self.wMTypesScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.adScrollView.mas_bottom);
+        make.left.right.equalTo(self.adScrollView);
+        make.height.equalTo(@(HomepageWmTypeHeight));
+    }];
+    
+    // 新人专享view
+    [self.newuserEnjorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.wMTypesScrollView.mas_bottom).offset(10);
+        make.left.right.equalTo(self.wMTypesScrollView);
+        make.height.equalTo(@(HomepageNewUserHeight));
+    }];
+    
+    // 模块二
+    [self.secondModuleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.newuserEnjorView.mas_bottom).offset(10);
+        make.left.right.equalTo(self.newuserEnjorView);
+        make.height.equalTo(@(HomepageTwoModuleHeight));
+    }];
 }
 
 
@@ -89,7 +263,7 @@
     CGFloat w = self.adScrollView.width;
     CGFloat h = self.adScrollView.height;
     
-    for (int i = 0; i < adImageCount; i++) {
+    for (int i = 0; i < AdImageCount; i++) {
         
         UIImageView *imageV = [[UIImageView alloc] init];
         
@@ -104,48 +278,6 @@
 }
 
 /**
- * 给整体的scrollView添加子控件
- */
-- (void)setupGobalScrollViewChildView
-{
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    
-    scrollView.backgroundColor = [UIColor redColor];
-    
-    scrollView.frame = CGRectMake(0, 0, SINScreenW, 150);
-    
-    scrollView.contentSize = CGSizeMake(SINScreenW * adImageCount, 0);
-    
-    scrollView.pagingEnabled = YES;
-    
-    [self.gobalScrollView addSubview:scrollView];
-    
-    self.adScrollView = scrollView;
-    
-    
-}
-
-/**
- * 初始化整体的scrollView
- */
-- (void)setupGobalScrollView
-{
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
-    
-    scrollView.frame = self.view.frame;
-    
-    scrollView.backgroundColor = [UIColor grayColor];
-    
-    scrollView.showsVerticalScrollIndicator = NO;
-    
-    [self.view addSubview:scrollView];
-    
-    self.gobalScrollView = scrollView;
-    
-    self.gobalScrollView.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
-}
-
-/**
  * 初始化导航栏
  */
 - (void)setupNavi
@@ -156,9 +288,74 @@
 }
 
 
-//- (UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
+#pragma mark - 懒加载
+// 整体的scrollView
+- (UIScrollView *)gobalScrollView
+{
+    if (_gobalScrollView == nil) {
+        
+        _gobalScrollView = [[UIScrollView alloc] init];
+        
+        _gobalScrollView.showsHorizontalScrollIndicator = NO;
+        _gobalScrollView.showsVerticalScrollIndicator = NO;
+    }
+    
+    return _gobalScrollView;
+}
+
+// 广告scrollView
+- (UIScrollView *)adScrollView
+{
+    if (_adScrollView == nil) {
+        _adScrollView = [[UIScrollView alloc] init];
+        
+        
+        _adScrollView.frame = CGRectMake(0, 0, SINScreenW, 150);
+        
+        _adScrollView.contentSize = CGSizeMake(SINScreenW * AdImageCount, 0);
+        
+        _adScrollView.pagingEnabled = YES;
+        
+    }
+    return _adScrollView;
+}
+
+// 选择外卖类型的scrollView
+- (UIScrollView *)wMTypesScrollView
+{
+    if (_wMTypesScrollView == nil) {
+        _wMTypesScrollView = [[UIScrollView alloc] init];
+        _wMTypesScrollView.showsHorizontalScrollIndicator = NO;
+        _wMTypesScrollView.backgroundColor = [UIColor whiteColor];
+    }
+    return _wMTypesScrollView;
+}
+
+// 存放所有外卖类型名称的数组
+- (NSArray *)wMTypesNames
+{
+    if (_wMTypesNames == nil) {
+        _wMTypesNames = @[@"餐饮",@"超市购",@"百度专送",@"早餐",@"品牌馆",@"百度糯米",@"鲜花蛋糕",@"土豪特供",@"新店特惠",@"水果生鲜",@"质享生活",@"领券",@"火锅",@"商务快食",@"送药上门"];
+    }
+    return _wMTypesNames;
+}
+
+// 存放所有外卖类型的图片名的数组
+- (NSMutableArray *)wMTypesImgNs
+{
+    if (_wMTypesImgNs == nil) {
+        
+        _wMTypesImgNs = [NSMutableArray array];
+        
+        for (int i = 0; i < WMTypeCount; i++) {
+            
+            NSString *str = [NSString stringWithFormat:@"WMType0%d",i + 1];
+            
+            [_wMTypesImgNs addObject:str];
+        }
+    }
+    
+    return _wMTypesImgNs;
+}
 
 @end
