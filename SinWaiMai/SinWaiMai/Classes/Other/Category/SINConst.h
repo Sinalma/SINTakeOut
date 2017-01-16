@@ -20,3 +20,5 @@ UIKIT_EXTERN CGFloat const HomepageWmTypeHeight;
 UIKIT_EXTERN CGFloat const HomepageNewUserHeight;
 /** 首页 - 第二模块的高度 */
 UIKIT_EXTERN CGFloat const HomepageTwoModuleHeight;
+/** 首页 - 第三模块的高度 */
+UIKIT_EXTERN CGFloat const HomepageThirdModuleHeight;

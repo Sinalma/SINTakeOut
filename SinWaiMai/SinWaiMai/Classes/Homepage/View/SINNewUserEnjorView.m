@@ -11,7 +11,9 @@
 @interface SINNewUserEnjorView ()
 
 @property (weak, nonatomic) IBOutlet UILabel *lastLabel;
+@property (weak, nonatomic) IBOutlet UIView *leftView;
 
+@property (weak, nonatomic) IBOutlet UIView *rightView;
 
 @end
 
@@ -19,11 +21,31 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        
-        self.height = 120;
-        NSLog(@"initWithFrame%f",self.height);
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    // 添加手势
+    UITapGestureRecognizer *leftTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftViewClick:)];
+    [self.leftView addGestureRecognizer:leftTap];
+    
+    UITapGestureRecognizer *rightTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightViewClick:)];
+    [self.rightView addGestureRecognizer:rightTap];
+    
+}
+
+- (void)leftViewClick:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"leftViewClick");
+}
+
+- (void)rightViewClick:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"rightViewClick");
 }
 
 + (instancetype)newUserEnjorView

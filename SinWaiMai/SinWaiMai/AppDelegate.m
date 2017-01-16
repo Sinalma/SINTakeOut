@@ -22,6 +22,12 @@
     
     self.window = [[UIWindow alloc] init];
     
+    // 没有设置尺寸，会导致运行在真机时触摸事件不能传递
+    self.window.frame = [UIScreen mainScreen].bounds;
+    /**
+      unexpected nil window in _UIApplicationHandleEventFromQueueEvent, _windowServerHitTestWindow: <UIWindow: 0x17663920; frame = (0 0; 0 0); gestureRecognizers = <NSArray: 0x176641c0>; layer = <UIWindowLayer: 0x17663b30>>
+     */
+    
     self.window.rootViewController = [[SINTabBarController alloc] init];
     
     [self.window makeKeyAndVisible];

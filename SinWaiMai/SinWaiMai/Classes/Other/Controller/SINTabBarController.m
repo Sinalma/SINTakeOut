@@ -8,12 +8,12 @@
 
 #import "SINTabBarController.h"
 
+#import "SINNavigationController.h"
+
 #import "SINHomepageViewController.h"
 #import "SINGuideViewController.h"
 #import "SINOrderViewController.h"
 #import "SINMineViewController.h"
-
-#import "SINNavigationController.h"
 
 @interface SINTabBarController ()
 
