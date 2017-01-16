@@ -15,15 +15,11 @@
 @end
 
 @implementation SINNavigationController
-//- (UIViewController *)childViewControllerForStatusBarStyle
-//{
-//    return self;
-//}
-
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     
     self = [super initWithRootViewController:rootViewController];
     
+    // 不是首页控制器，将导航栏背景换成红色
     if (![rootViewController isKindOfClass:[SINHomepageViewController class]]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"newuser_bg"] forBarMetrics:UIBarMetricsDefault];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];

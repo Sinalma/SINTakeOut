@@ -13,6 +13,8 @@
 		1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164C1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m */; };
 		188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */; };
 		188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316511E28DA2700CE1455 /* SINSecondModuleView.xib */; };
+		188316621E2B521600CE1455 /* text in Resources */ = {isa = PBXBuildFile; fileRef = 188316611E2B521600CE1455 /* text */; };
+		188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C51E26294D009D826E /* SINGuideViewController.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
 		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
@@ -21,7 +23,6 @@
 		18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61A71E2620AF009D826E /* Assets.xcassets */; };
 		18EA61C01E262590009D826E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61BD1E262590009D826E /* main.m */; };
 		18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C21E26286F009D826E /* SINTabBarController.m */; };
-		18EA61C61E26294D009D826E /* SINGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C51E26294D009D826E /* SINGuideViewController.m */; };
 		18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C81E262960009D826E /* SINHomepageViewController.m */; };
 		18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61CB1E262971009D826E /* SINMineViewController.m */; };
 		18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61CE1E26297F009D826E /* SINOrderViewController.m */; };
@@ -61,6 +62,7 @@
 		1883164E1E28DA1C00CE1455 /* SINSecondModuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINSecondModuleView.h; sourceTree = "<group>"; };
 		1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINSecondModuleView.m; sourceTree = "<group>"; };
 		188316511E28DA2700CE1455 /* SINSecondModuleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINSecondModuleView.xib; sourceTree = "<group>"; };
+		188316611E2B521600CE1455 /* text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				18EA61AF1E262590009D826E /* Controller */,
 				18EA61B01E262590009D826E /* Model */,
 				18EA61B11E262590009D826E /* View */,
+				188316611E2B521600CE1455 /* text */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */,
+				188316621E2B521600CE1455 /* text in Resources */,
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
 				18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */,
 				188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */,
@@ -604,7 +608,7 @@
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
-				18EA61C61E26294D009D826E /* SINGuideViewController.m in Sources */,
+				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
