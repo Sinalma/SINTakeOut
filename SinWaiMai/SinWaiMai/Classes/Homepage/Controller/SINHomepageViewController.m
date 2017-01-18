@@ -24,6 +24,10 @@
 
 #import "SINShoppeTableViewCell.h"
 
+#import "AFNetworking.h"
+
+#import "SINShoppe.h"
+
 /** 首页顶部广告图片数量 */
 #define AdImageCount 3
 
@@ -62,6 +66,9 @@
 /** 商品tableView */
 @property (nonatomic,strong) UITableView *shoppeView;
 
+/** 保存所有商户的数组 */
+@property (nonatomic,strong) NSMutableArray *shoppes;
+
 @end
 
 @implementation SINHomepageViewController
@@ -74,9 +81,84 @@
     
     // 添加和布局整体scrollView子控件
     [self layoutGobalScrollViewChildView];
+    
+    // 发送网络请求
+    [self sendNetworkRespond];
 }
 
 #pragma mark - 自定义方法
+
+/**
+ * 请求网络数据
+ resid	1001
+ channel	appstore
+ screen	320x568
+ net_type	wifi
+ loc_lat	2557437.974165
+ hot_fix	1
+ msgcuid
+ model	iPhone5,2
+ taste
+ uuid	1FA51EE8-84D5-4128-8E34-CC04862C07CE
+ sv	4.3.3
+ cuid	41B3367F-BE44-4E5B-94C2-D7ABBAE1F880
+ vmgdb
+ isp	46001
+ da_ext
+ jailbreak	0
+ aoi_id	14203335102845747
+ lng	12617386.904808
+ from	na-iphone
+ page	1
+ idfa	7C8188F1-1611-43E1-8919-ACDB26F86FEE
+ count	20
+ city_id	187
+ sortby
+ os	8.2
+ lat	2557445.778459
+ request_time	2147483647
+ address	龙瑞文化广场
+ loc_lng	12617396.259449
+ promotion
+ device_name	“Administrator”的 iPhone (4)
+ alipay	0
+ return_type	launch
+ 
+ 
+ NSDictiontary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557437.974165",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617386.904808",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557445.778459",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617396.259449",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch"};
+ */
+
+- (void)sendNetworkRespond
+{
+    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
+    
+    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paing"};
+    
+    [mgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+//        [responseObject[@"result"][@"shop_info"] writeToFile:@"/Users/apple/desktop/sdfsdfsd.plist" atomically:YES];
+        
+        for (NSDictionary *dict in responseObject[@"result"][@"shop_info"]) {
+            SINShoppe *shoppe = [SINShoppe shoppeWithDict:dict];
+            
+            [self.shoppes addObject:shoppe];
+        }
+        
+        for (int i = 0; i < self.shoppes.count; i++) {
+            
+        }
+        
+        for (SINShoppe *shop in self.shoppes) {
+            
+//            NSString *log = [shop.logo_url componentsSeparatedByString:@"@"][1];
+            NSLog(@"%@",shop.logo_url);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求数据失败 error : %@",error);
+    }];
+}
+
 /**
  * 添加和布局整体scrollView子控件
  */
@@ -96,7 +178,6 @@
     [self.gobalScrollView addSubview:self.thirdModuleView];
     
     [self.gobalScrollView addSubview:self.shoppeView];
-    
     
     // 布局子控件
     // 广告scrollView
@@ -299,6 +380,14 @@ static NSString *const cellID = @"shoppeCell";
         _thirdModuleView = [SINThirdModuleView thirdModuleView];
     }
     return _thirdModuleView;
+}
+
+- (NSMutableArray *)shoppes
+{
+    if (_shoppes == nil) {
+        _shoppes = [NSMutableArray array];
+    }
+    return _shoppes;
 }
 
 @end

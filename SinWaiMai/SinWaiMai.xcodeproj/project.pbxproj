@@ -13,6 +13,8 @@
 		180001E21E2C84FB00B7599B /* SINThirdModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180001E11E2C84FB00B7599B /* SINThirdModuleView.xib */; };
 		180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001E41E2CAF0500B7599B /* SINShoppeTableViewCell.m */; };
 		180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180001E51E2CAF0500B7599B /* SINShoppeTableViewCell.xib */; };
+		180001EA1E2F452900B7599B /* SINShoppe.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001E91E2F452900B7599B /* SINShoppe.m */; };
+		180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001EC1E2F472B00B7599B /* SINWelfare.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
 		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
@@ -68,6 +70,10 @@
 		180001E31E2CAF0500B7599B /* SINShoppeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeTableViewCell.h; sourceTree = "<group>"; };
 		180001E41E2CAF0500B7599B /* SINShoppeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeTableViewCell.m; sourceTree = "<group>"; };
 		180001E51E2CAF0500B7599B /* SINShoppeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINShoppeTableViewCell.xib; sourceTree = "<group>"; };
+		180001E81E2F452900B7599B /* SINShoppe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppe.h; sourceTree = "<group>"; };
+		180001E91E2F452900B7599B /* SINShoppe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppe.m; sourceTree = "<group>"; };
+		180001EB1E2F472B00B7599B /* SINWelfare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWelfare.h; sourceTree = "<group>"; };
+		180001EC1E2F472B00B7599B /* SINWelfare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWelfare.m; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
 		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
 		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
@@ -281,6 +287,10 @@
 		18EA61B01E262590009D826E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				180001E81E2F452900B7599B /* SINShoppe.h */,
+				180001E91E2F452900B7599B /* SINShoppe.m */,
+				180001EB1E2F472B00B7599B /* SINWelfare.h */,
+				180001EC1E2F472B00B7599B /* SINWelfare.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -629,12 +639,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				18EA61C01E262590009D826E /* main.m in Sources */,
+				180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
 				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,
 				180001DA1E2C6A9600B7599B /* SINAdScrollView.m in Sources */,
+				180001EA1E2F452900B7599B /* SINShoppe.m in Sources */,
 				188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */,
 				180001E01E2C84EC00B7599B /* SINThirdModuleView.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
