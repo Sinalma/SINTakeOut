@@ -29,3 +29,43 @@ _token_bindmobile" = "9513m8GLg4lCEE7T+5h91+mgWgctxf205vC/9vMI7/Sl64Fbt3JiU05LSe
 
 channel_id": "device:1001:41B3367F-BE44-4E5B-94C2-D7ABBAE1F880
 */
+
+/**
+* 请求网络数据
+resid	1001
+channel	appstore
+screen	320x568
+net_type	wifi
+loc_lat	2557437.974165
+hot_fix	1
+msgcuid
+model	iPhone5,2
+taste
+uuid	1FA51EE8-84D5-4128-8E34-CC04862C07CE
+sv	4.3.3
+cuid	41B3367F-BE44-4E5B-94C2-D7ABBAE1F880
+vmgdb
+isp	46001
+da_ext
+jailbreak	0
+aoi_id	14203335102845747
+lng	12617386.904808
+from	na-iphone
+page	1
+idfa	7C8188F1-1611-43E1-8919-ACDB26F86FEE
+count	20
+city_id	187
+sortby
+os	8.2
+lat	2557445.778459
+request_time	2147483647
+address	龙瑞文化广场
+loc_lng	12617396.259449
+promotion
+device_name	“Administrator”的 iPhone (4)
+alipay	0
+return_type	launch
+
+
+NSDictiontary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557437.974165",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617386.904808",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557445.778459",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617396.259449",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch"};
+*/

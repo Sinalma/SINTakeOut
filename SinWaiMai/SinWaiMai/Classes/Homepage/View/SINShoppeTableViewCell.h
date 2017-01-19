@@ -8,6 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SINShoppe.h"
+
+@class SINShoppeTableViewCell;
+
+@protocol SINShoppeTableViewCellDelegate <NSObject>
+
+@optional
+- (void)shoppeCellWelfareContainerClick:(SINShoppeTableViewCell *)cell;
+
+@end
+
 @interface SINShoppeTableViewCell : UITableViewCell
+
+/** 商户模型 */
+@property (nonatomic,strong) SINShoppe *shoppe;
+
+/** cell高度 */
+@property (nonatomic,assign) CGFloat cellHeight;
+
+@property (nonatomic,weak) id<SINShoppeTableViewCellDelegate> delegate;
 
 @end

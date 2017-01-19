@@ -14,10 +14,10 @@
 @property (nonatomic,strong) NSString *average_score;
 
 /** 外送时间 */
-@property (nonatomic,assign) int *delivery_time;
+@property (nonatomic,assign) int delivery_time;
 
 /** 距离 */
-@property (nonatomic,assign) int *distance;
+@property (nonatomic,assign) int distance;
 
 /** 外送类型名称 */
 @property (nonatomic,strong) NSString *front_logistics_text;
@@ -29,7 +29,7 @@
 @property (nonatomic,strong) NSString *logo_url;
 
 /** 月销售量 */
-@property (nonatomic,assign) int *saled_month;
+@property (nonatomic,assign) int saled_month;
 
 /** 商户id */
 @property (nonatomic,strong) NSString *shop_id;
@@ -43,6 +43,11 @@
 /** 起送价 */
 @property (nonatomic,strong) NSString *takeout_price;
 
+/** 保存商家优惠信息的数组 */
+@property (nonatomic,strong) NSArray *welfare_act_info;
+
+/** 新店图标 */
+@property (nonatomic,strong) NSString *shop_mark_pic;
 
 + (instancetype)shoppeWithDict:(NSDictionary *)dict;
 

@@ -10,6 +10,9 @@
 
 @interface SINSecondModuleView : UIView
 
+/** 模型数组 */
+@property (nonatomic,strong) NSMutableArray *activities;
+
 + (instancetype)secondModuleView;
 
 @end

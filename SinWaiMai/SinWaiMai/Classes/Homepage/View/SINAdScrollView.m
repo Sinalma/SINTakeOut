@@ -43,7 +43,6 @@
         imageV.frame = CGRectMake(x, y, w, h);
         
 //        imageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"ad0%d",i + 1]];
-        NSLog(@"%@",self.adImgArr[i]);
         imageV.image = [UIImage imageNamed:self.adImgArr[i]];
         
         [self addSubview:imageV];

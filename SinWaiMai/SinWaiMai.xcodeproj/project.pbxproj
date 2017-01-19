@@ -15,6 +15,9 @@
 		180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180001E51E2CAF0500B7599B /* SINShoppeTableViewCell.xib */; };
 		180001EA1E2F452900B7599B /* SINShoppe.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001E91E2F452900B7599B /* SINShoppe.m */; };
 		180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001EC1E2F472B00B7599B /* SINWelfare.m */; };
+		180001F01E2F78F100B7599B /* NSString+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001EF1E2F78F100B7599B /* NSString+Category.m */; };
+		180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F21E2F9B2800B7599B /* UILabel+Category.m */; };
+		180001F91E30D72600B7599B /* SINActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F81E30D72600B7599B /* SINActivity.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
 		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
@@ -74,6 +77,12 @@
 		180001E91E2F452900B7599B /* SINShoppe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppe.m; sourceTree = "<group>"; };
 		180001EB1E2F472B00B7599B /* SINWelfare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWelfare.h; sourceTree = "<group>"; };
 		180001EC1E2F472B00B7599B /* SINWelfare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWelfare.m; sourceTree = "<group>"; };
+		180001EE1E2F78F100B7599B /* NSString+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Category.h"; path = "../Controller/NSString+Category.h"; sourceTree = "<group>"; };
+		180001EF1E2F78F100B7599B /* NSString+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Category.m"; path = "../Controller/NSString+Category.m"; sourceTree = "<group>"; };
+		180001F11E2F9B2800B7599B /* UILabel+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Category.h"; sourceTree = "<group>"; };
+		180001F21E2F9B2800B7599B /* UILabel+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Category.m"; sourceTree = "<group>"; };
+		180001F71E30D72600B7599B /* SINActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINActivity.h; sourceTree = "<group>"; };
+		180001F81E30D72600B7599B /* SINActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINActivity.m; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
 		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
 		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
@@ -291,6 +300,8 @@
 				180001E91E2F452900B7599B /* SINShoppe.m */,
 				180001EB1E2F472B00B7599B /* SINWelfare.h */,
 				180001EC1E2F472B00B7599B /* SINWelfare.m */,
+				180001F71E30D72600B7599B /* SINActivity.h */,
+				180001F81E30D72600B7599B /* SINActivity.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -408,6 +419,10 @@
 				18EA61D81E262E83009D826E /* SINConst.m */,
 				18EA61DA1E26483D009D826E /* UIView+Category.h */,
 				18EA61DB1E26483D009D826E /* UIView+Category.m */,
+				180001EE1E2F78F100B7599B /* NSString+Category.h */,
+				180001EF1E2F78F100B7599B /* NSString+Category.m */,
+				180001F11E2F9B2800B7599B /* UILabel+Category.h */,
+				180001F21E2F9B2800B7599B /* UILabel+Category.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -654,9 +669,12 @@
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
+				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
+				180001F91E30D72600B7599B /* SINActivity.m in Sources */,
 				180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
+				180001F01E2F78F100B7599B /* NSString+Category.m in Sources */,
 				18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */,
 				18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */,
 			);

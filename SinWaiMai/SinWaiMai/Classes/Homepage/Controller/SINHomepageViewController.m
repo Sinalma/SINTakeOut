@@ -9,24 +9,16 @@
 /** ad为广告的缩写 */
 
 #import "SINHomepageViewController.h"
-
 #import "Masonry.h"
-
 #import "SINAdScrollView.h"
-
 #import "SINWMTypeScrollView.h"
-
 #import "SINNewUserEnjorView.h"
-
 #import "SINSecondModuleView.h"
-
 #import "SINThirdModuleView.h"
-
 #import "SINShoppeTableViewCell.h"
-
 #import "AFNetworking.h"
-
 #import "SINShoppe.h"
+#import "SINActivity.h"
 
 /** 首页顶部广告图片数量 */
 #define AdImageCount 3
@@ -37,7 +29,7 @@
 /** 普通间距 */
 #define margin 10
 
-@interface SINHomepageViewController () <UITableViewDataSource,UIScrollViewDelegate>
+@interface SINHomepageViewController () <UITableViewDataSource,UIScrollViewDelegate,SINShoppeTableViewCellDelegate,UITableViewDelegate>
 
 /** 整体的scrollView */
 @property (nonatomic,strong) UIScrollView *gobalScrollView;
@@ -69,6 +61,12 @@
 /** 保存所有商户的数组 */
 @property (nonatomic,strong) NSMutableArray *shoppes;
 
+/** 保存所有商户的数组 */
+@property (nonatomic,strong) NSMutableArray *yummyShoppes;
+
+/** 保存活动的数组 */
+@property (nonatomic,strong) NSMutableArray *activties;
+
 @end
 
 @implementation SINHomepageViewController
@@ -82,77 +80,53 @@
     // 添加和布局整体scrollView子控件
     [self layoutGobalScrollViewChildView];
     
-    // 发送网络请求
-    [self sendNetworkRespond];
+    // 请求商户网络数据
+    [self sendShoppesRequest];
 }
 
 #pragma mark - 自定义方法
-
-/**
- * 请求网络数据
- resid	1001
- channel	appstore
- screen	320x568
- net_type	wifi
- loc_lat	2557437.974165
- hot_fix	1
- msgcuid
- model	iPhone5,2
- taste
- uuid	1FA51EE8-84D5-4128-8E34-CC04862C07CE
- sv	4.3.3
- cuid	41B3367F-BE44-4E5B-94C2-D7ABBAE1F880
- vmgdb
- isp	46001
- da_ext
- jailbreak	0
- aoi_id	14203335102845747
- lng	12617386.904808
- from	na-iphone
- page	1
- idfa	7C8188F1-1611-43E1-8919-ACDB26F86FEE
- count	20
- city_id	187
- sortby
- os	8.2
- lat	2557445.778459
- request_time	2147483647
- address	龙瑞文化广场
- loc_lng	12617396.259449
- promotion
- device_name	“Administrator”的 iPhone (4)
- alipay	0
- return_type	launch
- 
- 
- NSDictiontary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557437.974165",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617386.904808",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557445.778459",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617396.259449",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch"};
- */
-
-- (void)sendNetworkRespond
+static int networkPage = 1;
+- (void)sendShoppesRequest
 {
+    if (networkPage > 2) {
+        return;
+    }
     AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
     
-    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paing"};
+    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paing"};
     
     [mgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-//        [responseObject[@"result"][@"shop_info"] writeToFile:@"/Users/apple/desktop/sdfsdfsd.plist" atomically:YES];
+//        NSLog(@"%@",responseObject);
+        // shop_info
+        [responseObject writeToFile:@"/Users/apple/desktop/total.plist" atomically:YES];
         
         for (NSDictionary *dict in responseObject[@"result"][@"shop_info"]) {
             SINShoppe *shoppe = [SINShoppe shoppeWithDict:dict];
             
-            [self.shoppes addObject:shoppe];
+            if (networkPage == 2) {
+                [self.yummyShoppes addObject:shoppe];
+            }else if (networkPage == 1)
+            {
+                [self.shoppes addObject:shoppe];
+            }
         }
         
-        for (int i = 0; i < self.shoppes.count; i++) {
+        // 活动数据
+        if (networkPage == 1) {
             
+            for (NSDictionary *dict in responseObject[@"result"][@"activity_list"]) {
+                SINActivity *act = [SINActivity activityWithDict:dict];
+                [self.activties addObject:act];
+            }
+            self.secondModuleView.activities = self.activties;
+            [self.secondModuleView layoutIfNeeded];
         }
         
-        for (SINShoppe *shop in self.shoppes) {
-            
-//            NSString *log = [shop.logo_url componentsSeparatedByString:@"@"][1];
-            NSLog(@"%@",shop.logo_url);
-        }
+        networkPage += 1;
+        [self sendShoppesRequest];
+        
+        // 刷新tableView
+        [self.shoppeView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"请求数据失败 error : %@",error);
@@ -241,7 +215,16 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    if (section == 0) {
+        
+        return self.shoppes.count;
+    }else if (section == 1)
+    {
+        return self.yummyShoppes.count;
+    }else
+    {
+        return 10;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -252,10 +235,83 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SINShoppeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    cell.delegate = self;
+    
+    if (indexPath.section == 1) {
+        cell.shoppe = self.yummyShoppes[indexPath.row];
+    }else if (indexPath.section == 0)
+    {
+        cell.shoppe = self.shoppes[indexPath.row];
+    }
     
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SINShoppeTableViewCell *cell = [self.shoppeView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.cellHeight != 0) {
+        
+        return cell.cellHeight;
+    }
+    return 170;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 170;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *titleLab = [[UILabel alloc] init];
+    titleLab.textColor = [UIColor redColor];
+    titleLab.font = [UIFont systemFontOfSize:13];
+    titleLab.frame = CGRectMake(30, 10, 50, 20);
+    
+    if (section == 0) {
+        
+        titleLab.text = @"附近商户";
+    }else if (section == 1)
+    {
+        titleLab.text = @"附近美食";
+    }
+    return titleLab;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"附近商户";
+    }else if (section == 1)
+    {
+        return @"附近美食";
+    }else
+    {
+        return @"";
+    }
+}
+
+#pragma mark - SINShoppeTableViewCellDelegate
+/**
+ * 点击了商户cell底部优惠容器的回调
+ */
+- (void)shoppeCellWelfareContainerClick:(SINShoppeTableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.shoppeView indexPathForCell:cell];
+    [UIView animateWithDuration:0.35 animations:^{
+        
+        cell.height = cell.cellHeight;
+    }];
+
+    [self.shoppeView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 
 #pragma mark - 懒加载
 static NSString *const cellID = @"shoppeCell";
@@ -265,11 +321,12 @@ static NSString *const cellID = @"shoppeCell";
         _shoppeView = [[UITableView alloc] init];
         
         _shoppeView.dataSource = self;
+        _shoppeView.delegate = self;
         
         [_shoppeView registerNib:[UINib nibWithNibName:NSStringFromClass([SINShoppeTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellID];
         
-        _shoppeView.rowHeight = 175;
-        _shoppeView.estimatedRowHeight = 175;
+//        _shoppeView.rowHeight = UITableViewAutomaticDimension;
+//        _shoppeView.estimatedRowHeight = 170;
     }
     return _shoppeView;
 }
@@ -388,6 +445,22 @@ static NSString *const cellID = @"shoppeCell";
         _shoppes = [NSMutableArray array];
     }
     return _shoppes;
+}
+
+- (NSMutableArray *)yummyShoppes
+{
+    if (_yummyShoppes == nil) {
+        _yummyShoppes = [NSMutableArray array];
+    }
+    return _yummyShoppes;
+}
+
+- (NSMutableArray *)activties
+{
+    if (_activties == nil) {
+        _activties = [NSMutableArray array];
+    }
+    return _activties;
 }
 
 @end

@@ -15,4 +15,6 @@
 
 #import "UIView+Category.h"
 
+#import "NSString+Category.h"
+
 #endif /* PrefixHeader_pch */
