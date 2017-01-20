@@ -10,6 +10,8 @@
 
 @interface SINNewUserEnjorView : UIView
 
+// 模型数组
+@property (nonatomic,strong) NSArray *newuesrentries;
 
 + (instancetype)newUserEnjorView;
 

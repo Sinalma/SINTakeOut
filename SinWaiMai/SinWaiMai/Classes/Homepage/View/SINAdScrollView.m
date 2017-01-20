@@ -8,14 +8,21 @@
 
 #import "SINAdScrollView.h"
 
+#import "UIImageView+SINWebCache.h"
+
 @implementation SINAdScrollView
+
+- (void)setAdImgArr:(NSArray *)adImgArr
+{
+    _adImgArr = adImgArr;
+    
+    [self setup];
+}
 
 - (instancetype)init
 {
     if (self = [super init]) {
         
-        // 初始化设置
-//        [self setup];
     }
     return self;
 }
@@ -23,18 +30,18 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    [self setup];
 }
 - (void)setup
 {
+    NSInteger adImgCount = self.adImgArr.count;
+    
     // 添加子控件
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat w = self.width;
     CGFloat h = self.height;
     
-    for (int i = 0; i < self.adImgCount; i++) {
+    for (int i = 0; i < adImgCount; i++) {
         
         UIImageView *imageV = [[UIImageView alloc] init];
         
@@ -42,11 +49,13 @@
         
         imageV.frame = CGRectMake(x, y, w, h);
         
-//        imageV.image = [UIImage imageNamed:[NSString stringWithFormat:@"ad0%d",i + 1]];
-        imageV.image = [UIImage imageNamed:self.adImgArr[i]];
+        [imageV sin_setImageWithURL:[NSURL URLWithString:self.adImgArr[i]]];
         
         [self addSubview:imageV];
     }
+    
+    // 设置内容尺寸
+    self.contentSize = CGSizeMake(SINScreenW * adImgCount, HomepageAdHeight);
 }
 
 @end

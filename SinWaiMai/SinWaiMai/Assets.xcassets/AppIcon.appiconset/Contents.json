@@ -195,13 +195,6 @@
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
-    },
-    {
-      "size" : "29x29",
-      "idiom" : "ipad",
-      "filename" : "AppIcon29x29~ipad.png",
-      "unassigned" : true,
-      "scale" : "1x"
     }
   ],
   "info" : {

@@ -18,6 +18,7 @@
 		180001F01E2F78F100B7599B /* NSString+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001EF1E2F78F100B7599B /* NSString+Category.m */; };
 		180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F21E2F9B2800B7599B /* UILabel+Category.m */; };
 		180001F91E30D72600B7599B /* SINActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F81E30D72600B7599B /* SINActivity.m */; };
+		180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
 		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
@@ -41,6 +42,12 @@
 		18EA61D91E262E83009D826E /* SINConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61D81E262E83009D826E /* SINConst.m */; };
 		18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61DB1E26483D009D826E /* UIView+Category.m */; };
 		18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61DE1E267C88009D826E /* SINNavigationController.m */; };
+		18EAC8E51E31C562007FE5E0 /* SINNetWorkingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAC8E41E31C562007FE5E0 /* SINNetWorkingManager.m */; };
+		18EAC8E81E31E8D1007FE5E0 /* parameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18EAC8E71E31E8D1007FE5E0 /* parameters.plist */; };
+		18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAC8EA1E31F6D7007FE5E0 /* SINWMType.m */; };
+		18EAC8EE1E31F9F8007FE5E0 /* UIButton+SINWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAC8ED1E31F9F8007FE5E0 /* UIButton+SINWebCache.m */; };
+		18EAC8F11E320CD7007FE5E0 /* SINNewuserentry.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAC8F01E320CD7007FE5E0 /* SINNewuserentry.m */; };
+		18EAC8F41E322917007FE5E0 /* NSString+SINFilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAC8F31E322917007FE5E0 /* NSString+SINFilePath.m */; };
 		F28C3E9B11C8840B5AD4E502 /* Pods_SinWaiMai.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +90,8 @@
 		180001F21E2F9B2800B7599B /* UILabel+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Category.m"; sourceTree = "<group>"; };
 		180001F71E30D72600B7599B /* SINActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINActivity.h; sourceTree = "<group>"; };
 		180001F81E30D72600B7599B /* SINActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINActivity.m; sourceTree = "<group>"; };
+		180001FB1E310EC100B7599B /* UIImageView+SINWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SINWebCache.h"; sourceTree = "<group>"; };
+		180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SINWebCache.m"; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
 		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
 		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
@@ -127,6 +136,17 @@
 		18EA61DB1E26483D009D826E /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
 		18EA61DD1E267C88009D826E /* SINNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNavigationController.h; sourceTree = "<group>"; };
 		18EA61DE1E267C88009D826E /* SINNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNavigationController.m; sourceTree = "<group>"; };
+		18EAC8E31E31C562007FE5E0 /* SINNetWorkingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNetWorkingManager.h; sourceTree = "<group>"; };
+		18EAC8E41E31C562007FE5E0 /* SINNetWorkingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNetWorkingManager.m; sourceTree = "<group>"; };
+		18EAC8E71E31E8D1007FE5E0 /* parameters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = parameters.plist; sourceTree = "<group>"; };
+		18EAC8E91E31F6D7007FE5E0 /* SINWMType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWMType.h; sourceTree = "<group>"; };
+		18EAC8EA1E31F6D7007FE5E0 /* SINWMType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWMType.m; sourceTree = "<group>"; };
+		18EAC8EC1E31F9F8007FE5E0 /* UIButton+SINWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SINWebCache.h"; sourceTree = "<group>"; };
+		18EAC8ED1E31F9F8007FE5E0 /* UIButton+SINWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SINWebCache.m"; sourceTree = "<group>"; };
+		18EAC8EF1E320CD7007FE5E0 /* SINNewuserentry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewuserentry.h; sourceTree = "<group>"; };
+		18EAC8F01E320CD7007FE5E0 /* SINNewuserentry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNewuserentry.m; sourceTree = "<group>"; };
+		18EAC8F21E322917007FE5E0 /* NSString+SINFilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SINFilePath.h"; sourceTree = "<group>"; };
+		18EAC8F31E322917007FE5E0 /* NSString+SINFilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SINFilePath.m"; sourceTree = "<group>"; };
 		55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinWaiMai.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8D71FBF722A8B130D442433 /* Pods-SinWaiMai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinWaiMai.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +184,15 @@
 				D8D71FBF722A8B130D442433 /* Pods-SinWaiMai.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		180001FA1E310E1900B7599B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				18EAC8E31E31C562007FE5E0 /* SINNetWorkingManager.h */,
+				18EAC8E41E31C562007FE5E0 /* SINNetWorkingManager.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		18EA61681E25DA9D009D826E = {
@@ -302,6 +331,10 @@
 				180001EC1E2F472B00B7599B /* SINWelfare.m */,
 				180001F71E30D72600B7599B /* SINActivity.h */,
 				180001F81E30D72600B7599B /* SINActivity.m */,
+				18EAC8E91E31F6D7007FE5E0 /* SINWMType.h */,
+				18EAC8EA1E31F6D7007FE5E0 /* SINWMType.m */,
+				18EAC8EF1E320CD7007FE5E0 /* SINNewuserentry.h */,
+				18EAC8F01E320CD7007FE5E0 /* SINNewuserentry.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -398,10 +431,12 @@
 		18EA61BA1E262590009D826E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				180001FA1E310E1900B7599B /* Common */,
 				18EA61BB1E262590009D826E /* Category */,
 				18EA61BC1E262590009D826E /* Controller */,
 				18EA61BE1E262590009D826E /* Model */,
 				18EA61BF1E262590009D826E /* View */,
+				18EAC8E61E31E8BB007FE5E0 /* Resource */,
 				18EA61BD1E262590009D826E /* main.m */,
 				18EA61D61E262CB2009D826E /* PrefixHeader.pch */,
 			);
@@ -423,6 +458,12 @@
 				180001EF1E2F78F100B7599B /* NSString+Category.m */,
 				180001F11E2F9B2800B7599B /* UILabel+Category.h */,
 				180001F21E2F9B2800B7599B /* UILabel+Category.m */,
+				180001FB1E310EC100B7599B /* UIImageView+SINWebCache.h */,
+				180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */,
+				18EAC8EC1E31F9F8007FE5E0 /* UIButton+SINWebCache.h */,
+				18EAC8ED1E31F9F8007FE5E0 /* UIButton+SINWebCache.m */,
+				18EAC8F21E322917007FE5E0 /* NSString+SINFilePath.h */,
+				18EAC8F31E322917007FE5E0 /* NSString+SINFilePath.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -452,6 +493,14 @@
 				188316441E2888FA00CE1455 /* SINNormalButton.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		18EAC8E61E31E8BB007FE5E0 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				18EAC8E71E31E8D1007FE5E0 /* parameters.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		DDAE73BA44D153C162841A2D /* Frameworks */ = {
@@ -581,6 +630,7 @@
 				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
 				180001E21E2C84FB00B7599B /* SINThirdModuleView.xib in Resources */,
 				180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */,
+				18EAC8E81E31E8D1007FE5E0 /* parameters.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,23 +705,29 @@
 			files = (
 				18EA61C01E262590009D826E /* main.m in Sources */,
 				180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */,
+				18EAC8E51E31C562007FE5E0 /* SINNetWorkingManager.m in Sources */,
+				18EAC8F41E322917007FE5E0 /* NSString+SINFilePath.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
+				18EAC8F11E320CD7007FE5E0 /* SINNewuserentry.m in Sources */,
 				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,
 				180001DA1E2C6A9600B7599B /* SINAdScrollView.m in Sources */,
 				180001EA1E2F452900B7599B /* SINShoppe.m in Sources */,
+				18EAC8EE1E31F9F8007FE5E0 /* UIButton+SINWebCache.m in Sources */,
 				188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */,
 				180001E01E2C84EC00B7599B /* SINThirdModuleView.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
+				18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				180001F91E30D72600B7599B /* SINActivity.m in Sources */,
+				180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */,
 				180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
 				180001F01E2F78F100B7599B /* NSString+Category.m in Sources */,

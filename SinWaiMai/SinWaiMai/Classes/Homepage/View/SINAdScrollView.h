@@ -10,8 +10,6 @@
 
 @interface SINAdScrollView : UIScrollView
 
-@property (nonatomic,assign) NSInteger adImgCount;
-
-@property (nonatomic,strong) NSMutableArray *adImgArr;
+@property (nonatomic,strong) NSArray *adImgArr;
 
 @end

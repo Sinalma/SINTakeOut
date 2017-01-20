@@ -8,12 +8,17 @@
 
 #import "SINShoppeTableViewCell.h"
 
-#import "UIImageView+WebCache.h"
+#import "UIImageView+SINWebCache.h"
 
 #import "UILabel+Category.h"
 
+#import "NSString+SINFilePath.h"
+
+#import "UIImageView+SINWebCache.h"
+
 @interface SINShoppeTableViewCell ()
 
+#pragma mark - 控件
 /** 新店图标 */
 @property (weak, nonatomic) IBOutlet UIImageView *shop_mark_picView;
 
@@ -44,15 +49,27 @@
 /** 底部优惠信息容器View */
 @property (weak, nonatomic) IBOutlet UIView *welfareContainer;
 
+#pragma mark - 数据
+/** 保存优惠信息图标地址的字典 */
+@property (nonatomic,strong) NSDictionary *welfareIconUrls;
+
 @end
 
 @implementation SINShoppeTableViewCell
+- (NSDictionary *)welfareIconUrls
+{
+    if (_welfareIconUrls == nil) {
+        _welfareIconUrls = [NSDictionary dictionaryWithContentsOfFile:ShoppeWelfareIconUrlFilePath.cachePath];
+    }
+    return _welfareIconUrls;
+}
+
 - (void)setShoppe:(SINShoppe *)shoppe
 {
     _shoppe = shoppe;
     
     // 商户logo
-    [self.logoImageView sd_setImageWithURL:[NSURL URLWithString:shoppe.logo_url] placeholderImage:nil];
+    [self.logoImageView sin_setImageWithURL:[NSURL URLWithString:shoppe.logo_url] placeholderImage:nil];
     
     // 商户名称
     self.shopNameLabel.text = shoppe.shop_name;
@@ -128,7 +145,7 @@
     if (shoppe.shop_mark_pic.length) {
         
         self.shop_mark_picView.hidden = NO;
-        [self.shop_mark_picView sd_setImageWithURL:[NSURL URLWithString:shoppe.shop_mark_pic]];
+        [self.shop_mark_picView sin_setImageWithURL:[NSURL URLWithString:shoppe.shop_mark_pic]];
     }else if (!shoppe.shop_mark_pic.length)
     {
         self.shop_mark_picView.hidden = YES;
@@ -145,13 +162,15 @@
     }
     
     for (int i = 0; i < welCount; i++) {
-        
+        // 优惠信息图标
         UIImageView *imgV = [[UIImageView alloc] init];
-        imgV.image = [UIImage imageNamed:@"newSign"];
+        NSString *signType = shoppe.welfare_act_info[i][@"type"];
+        NSString *signUrl = self.welfareIconUrls[signType];
+        [imgV sin_setImageWithURL:[NSURL URLWithString:signUrl]];
         imgY = (imgH + margin) * i;
         imgV.frame = CGRectMake(imgX, imgY, imgW, imgH);
         [self.welfareContainer addSubview:imgV];
-        
+        // 优惠信息标题
         UILabel *label = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
         label.text = shoppe.welfare_act_info[i][@"msg"];
         labX = CGRectGetMaxX(imgV.frame) + 10;

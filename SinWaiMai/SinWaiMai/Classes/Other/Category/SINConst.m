@@ -19,3 +19,6 @@ CGFloat const HomepageNewUserHeight = 220;
 CGFloat const HomepageTwoModuleHeight = 200;
 /** 首页 - 第三模块的高度 */
 CGFloat const HomepageThirdModuleHeight = 180;
+
+/** 商户 - 保存优惠信息图标地址的数组 */
+NSString const *ShoppeWelfareIconUrlFilePath = @"ShoppeWelfareIconUrlFilePathKey";

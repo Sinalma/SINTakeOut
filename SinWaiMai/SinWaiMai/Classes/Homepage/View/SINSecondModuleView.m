@@ -8,7 +8,7 @@
 
 #import "SINSecondModuleView.h"
 
-#import "UIImageView+WebCache.h"
+#import "UIImageView+SINWebCache.h"
 
 #import "SINActivity.h"
 
@@ -49,31 +49,29 @@
         
         if (i == 0) { // 设置左边模块数据
             
-            [self.leftTextImageView sd_setImageWithURL:[NSURL URLWithString:act.head_icon]];
+            [self.leftTextImageView sin_setImageWithURL:[NSURL URLWithString:act.head_icon]];
             
             self.leftTextLabel.text = act.desc;
             // 颜色没设置
             
-            [self.leftOutImageView sd_setImageWithURL:[NSURL URLWithString:act.spec_icon]];
-            [self.leftInnerImageView sd_setImageWithURL:[NSURL URLWithString:act.img_url]];
+            [self.leftOutImageView sin_setImageWithURL:[NSURL URLWithString:act.spec_icon]];
+            [self.leftInnerImageView sin_setImageWithURL:[NSURL URLWithString:act.img_url]];
             
         }else if (i == 1){
             
-            [self.rightTopImageView sd_setImageWithURL:[NSURL URLWithString:act.img_url]];
+            [self.rightTopImageView sin_setImageWithURL:[NSURL URLWithString:act.img_url]];
             
             self.rightTopTitleLabel.text = act.title;
             self.rightTopDescLabel.text = act.desc;
             
         }else if (i == 2)
         {
-            [self.rightBottomImageView sd_setImageWithURL:[NSURL URLWithString:act.img_url]];
+            [self.rightBottomImageView sin_setImageWithURL:[NSURL URLWithString:act.img_url]];
             
             self.rightBottomTitleLabel.text = act.title;
             self.rightBottomDescLabel.text = act.desc;
         }
     }
-    
-    [self layoutIfNeeded];
 }
 
 - (void)awakeFromNib
@@ -91,11 +89,15 @@
     [self.rightBottomView addGestureRecognizer:rightBottomTap];
 }
 
+/**
+ * 快速加载xib控件
+ */
 + (instancetype)secondModuleView
 {
     return [[[NSBundle mainBundle] loadNibNamed:@"SINSecondModuleView" owner:nil options:nil] lastObject];
 }
 
+#pragma mark - 监听点击事件
 - (void)leftViewClick:(UITapGestureRecognizer *)tap
 {
     NSLog(@"二-点击了左侧view");

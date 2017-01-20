@@ -10,10 +10,7 @@
 
 @interface SINWMTypeScrollView : UIScrollView
 
-@property (nonatomic,assign) int wMTypeCount;
-
-@property (nonatomic,strong) NSMutableArray *wMTypeImgNs;
-
-@property (nonatomic,strong) NSArray *wMTypeNames;
+/** 存储外卖模型的数组 */
+@property (nonatomic,strong) NSArray *wMTypes;
 
 @end

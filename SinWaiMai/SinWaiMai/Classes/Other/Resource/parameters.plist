@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>address</key>
+	<string></string>
+	<key>alipay</key>
+	<string>0</string>
+	<key>aoi_id</key>
+	<string></string>
+	<key>channel</key>
+	<string>appstore</string>
+	<key>city_id</key>
+	<string></string>
+	<key>count</key>
+	<string>20</string>
+	<key>cuid</key>
+	<string>41B3367F-BE44-4E5B-94C2-D7ABBAE1F880</string>
+	<key>da_ext</key>
+	<string></string>
+	<key>device_name</key>
+	<string>“Administrator”的 iPhone (4)</string>
+	<key>from</key>
+	<string>na-iphone</string>
+	<key>hot_fix</key>
+	<string>1</string>
+	<key>idfa</key>
+	<string>7C8188F1-1611-43E1-8919-ACDB26F86FEE</string>
+	<key>isp</key>
+	<string>46001</string>
+	<key>jailbreak</key>
+	<string>0</string>
+	<key>lng</key>
+	<string></string>
+	<key>loc_lat</key>
+	<string>2557450.785649</string>
+	<key>loc_lng</key>
+	<string>12617392.000621</string>
+	<key>model</key>
+	<string>iPhone5,2</string>
+	<key>msgcuid</key>
+	<string></string>
+	<key>net_type</key>
+	<string>wifi</string>
+	<key>os</key>
+	<string>8.2</string>
+	<key>page</key>
+	<string>1</string>
+	<key>promotion</key>
+	<string></string>
+	<key>request_time</key>
+	<string>2147483647</string>
+	<key>resid</key>
+	<string>1001</string>
+	<key>return_type</key>
+	<string>launch</string>
+	<key>screen</key>
+	<string>320x568</string>
+	<key>sortby</key>
+	<string></string>
+	<key>sv</key>
+	<string>4.4.0</string>
+	<key>taste</key>
+	<string></string>
+	<key>uuid</key>
+	<string>1FA51EE8-84D5-4128-8E34-CC04862C07CE</string>
+	<key>vmgdb</key>
+	<string></string>
+</dict>
+</plist>

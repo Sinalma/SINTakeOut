@@ -172,8 +172,13 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="lastLabel" destination="H8k-ku-FUk" id="lKx-k2-9yx"/>
+                <outlet property="leftImageView" destination="PzE-ZP-qHJ" id="D7l-v0-kjR"/>
+                <outlet property="leftSubTitleLabel" destination="H8k-ku-FUk" id="93E-BX-m8s"/>
+                <outlet property="leftTitleLabel" destination="JXm-SL-bZk" id="IJa-LR-Vyp"/>
                 <outlet property="leftView" destination="nkU-jD-DgR" id="jux-gI-TgF"/>
+                <outlet property="rightImageView" destination="C03-Xc-lgh" id="tyF-aM-LTR"/>
+                <outlet property="rightSubTitleLabel" destination="Xoz-mH-0b3" id="YLw-QR-rDh"/>
+                <outlet property="rightTitleLabel" destination="AD1-9w-NaH" id="vtT-hi-mEv"/>
                 <outlet property="rightView" destination="COV-dB-1a2" id="bdg-rG-QVq"/>
             </connections>
             <point key="canvasLocation" x="33" y="-391"/>

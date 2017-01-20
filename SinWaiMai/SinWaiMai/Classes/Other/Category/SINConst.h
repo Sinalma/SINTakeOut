@@ -22,3 +22,5 @@ UIKIT_EXTERN CGFloat const HomepageNewUserHeight;
 UIKIT_EXTERN CGFloat const HomepageTwoModuleHeight;
 /** 首页 - 第三模块的高度 */
 UIKIT_EXTERN CGFloat const HomepageThirdModuleHeight;
+/** 商户 - 保存优惠信息图标地址的数组 */
+UIKIT_EXTERN NSString const *ShoppeWelfareIconUrlFilePath;

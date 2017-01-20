@@ -37,10 +37,10 @@
                             <rect key="frame" x="10" y="106" width="131" height="71"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gGC-EP-5xE" userLabel="TwoModuleLeftInner">
-                            <rect key="frame" x="38" y="117" width="75" height="50"/>
+                            <rect key="frame" x="38" y="112" width="75" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="75" id="FZb-as-cmP"/>
-                                <constraint firstAttribute="height" constant="50" id="e7t-nD-6Db"/>
+                                <constraint firstAttribute="height" constant="60" id="e7t-nD-6Db"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icz-K9-egR" userLabel="leftTapView">
@@ -74,7 +74,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="208" height="99"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每日一元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJQ-oP-TfS">
-                                    <rect key="frame" x="10" y="30" width="108" height="17"/>
+                                    <rect key="frame" x="10" y="30" width="93" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="b3I-qZ-cTq"/>
                                     </constraints>
@@ -83,15 +83,15 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超值管饱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0s-Mw-uyn">
-                                    <rect key="frame" x="10" y="57" width="108" height="16"/>
+                                    <rect key="frame" x="10" y="57" width="93" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwoModuleRightTop" translatesAutoresizingMaskIntoConstraints="NO" id="TsC-4X-ifx">
-                                    <rect key="frame" x="128" y="20" width="60" height="60"/>
+                                    <rect key="frame" x="113" y="20" width="75" height="60"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="60" id="ccx-63-YsN"/>
+                                        <constraint firstAttribute="width" constant="75" id="ccx-63-YsN"/>
                                         <constraint firstAttribute="height" constant="60" id="nJe-Tx-2tQ"/>
                                     </constraints>
                                 </imageView>
@@ -120,7 +120,7 @@
                             <rect key="frame" x="0.0" y="100" width="208" height="97"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每日一元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YyO-b7-njd">
-                                    <rect key="frame" x="10" y="30" width="108" height="17"/>
+                                    <rect key="frame" x="10" y="30" width="93" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="OcQ-Tq-fDU"/>
                                     </constraints>
@@ -129,15 +129,15 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="超值管饱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OiC-zF-mWB">
-                                    <rect key="frame" x="10" y="57" width="108" height="16"/>
+                                    <rect key="frame" x="10" y="57" width="93" height="16"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwoModuleRightBottom" translatesAutoresizingMaskIntoConstraints="NO" id="KdY-fk-jGZ">
-                                    <rect key="frame" x="128" y="20" width="60" height="60"/>
+                                    <rect key="frame" x="113" y="20" width="75" height="60"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="60" id="Vg2-Kb-R9o"/>
+                                        <constraint firstAttribute="width" constant="75" id="Vg2-Kb-R9o"/>
                                         <constraint firstAttribute="height" constant="60" id="puo-qS-F9n"/>
                                     </constraints>
                                 </imageView>
@@ -204,7 +204,7 @@
                 <outlet property="rightTopTitleLabel" destination="oJQ-oP-TfS" id="gop-z2-C9R"/>
                 <outlet property="rightTopView" destination="Ibb-NR-bpH" id="AFF-Ct-DJf"/>
             </connections>
-            <point key="canvasLocation" x="184" y="-1.5"/>
+            <point key="canvasLocation" x="6" y="23"/>
         </view>
     </objects>
     <resources>

@@ -10,17 +10,33 @@
 
 #import "SINNormalButton.h"
 
+#import "SINWMType.h"
+
+#import "UIButton+SINWebCache.h"
+
+
 @implementation SINWMTypeScrollView
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
     // 初始化子控件
+//    [self setup];
+}
+
+- (void)setWMTypes:(NSArray *)wMTypes
+{
+    _wMTypes = wMTypes;
+    // 初始化子控件
     [self setup];
 }
 
-
+/**
+ * 初始化子控件
+ */
 - (void)setup{
+    
+    NSInteger wMTypeCount = self.wMTypes.count;
     
     // 间距
     CGFloat margin = 10;
@@ -32,8 +48,8 @@
     
     // 求出总共的列数
     // 这里可以用公式
-    CGFloat colFloat = self.wMTypeCount % 2;
-    int colInt = self.wMTypeCount / 2;
+    CGFloat colFloat = wMTypeCount % 2;
+    NSInteger colInt = wMTypeCount / 2;
     
     if (colFloat > 0) {
         colInt += 1;
@@ -50,12 +66,14 @@
     
     self.contentSize = CGSizeMake(contentSizeW, contentSizeH);
     
-    for (int i = 0; i < self.wMTypeCount; i++) {
+    for (int i = 0; i < wMTypeCount; i++) {
         
         SINNormalButton *btn = [[SINNormalButton alloc] init];
         
-        [btn setImage:[UIImage imageNamed:self.wMTypeImgNs[i]] forState:UIControlStateNormal];
-        [btn setTitle:self.wMTypeNames[i] forState:UIControlStateNormal];
+        SINWMType *wMtype = self.wMTypes[i];
+        
+        [btn sin_setImageWithURL:[NSURL URLWithString:wMtype.pic] forState:UIControlStateNormal];
+        [btn setTitle:wMtype.name forState:UIControlStateNormal];
         
         
         int row = i / colInt;
