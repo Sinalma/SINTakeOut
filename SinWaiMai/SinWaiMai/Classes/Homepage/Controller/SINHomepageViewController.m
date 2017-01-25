@@ -22,6 +22,9 @@
 #import "SINWMType.h"
 #import "SINNewuserentry.h"
 #import "NSString+SINFilePath.h"
+#import "MJRefresh.h"
+#import "UILabel+Category.h"
+#import "SINShoppeViewController.h"
 
 /** 普通间距 */
 #define margin 10
@@ -84,12 +87,48 @@
     
     // 添加和布局整体scrollView子控件
     [self layoutGobalScrollViewChildView];
+    
+    // 初始化刷新控件
+    [self setupRefreshing];
+}
 
+/**
+ * 初始化刷新控件
+ */
+- (void)setupRefreshing
+{
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    [header setImages:@[] forState:MJRefreshStateIdle];
+    self.gobalScrollView.mj_header = header;
+    [self.gobalScrollView.mj_header beginRefreshing];
+
+    self.shoppeView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    [self.shoppeView.mj_footer beginRefreshing];
+}
+
+/**
+ * 下拉刷新调用
+ * 进入首页默认下拉刷新请求网络数据
+ */
+- (void)loadMoreData
+{
+    [self sendShoppesRequest];
+}
+
+/**
+ * 上拉刷新调用
+ */
+- (void)loadNewData
+{
+    networkPage = 1;
+    [self.yummyShoppes removeAllObjects];
+    self.yummyShoppes = nil;
+    [self.shoppes removeAllObjects];
+    self.shoppes = nil;
+    [self sendShoppesRequest];
+    
     // 获取其他模块数据
     [self sendOtherRequest];
-    
-    // 请求商户网络数据
-    [self sendShoppesRequest];
 }
 
 #pragma mark - 自定义方法
@@ -113,13 +152,19 @@
         self.adView.adImgArr = adArrM;
         
         // 新人专享模块
-        NSMutableArray *newuserArrM = [NSMutableArray array];
-        for (NSDictionary *dict in responseObject[@"result"][@"newuserentry"][@"entries"]) {
-            SINNewuserentry *entry = [SINNewuserentry newuserentryWithDict:dict];
-            [newuserArrM addObject:entry];
+//        NSMutableArray *newuserArrM = [NSMutableArray array];
+//        NSLog(@"%@",responseObject[@"result"]);
+//        [responseObject writeToFile:@"/Users/apple/desktop/error.plist" atomically:YES];
+        /*
+        if (responseObject[@"result"][@"newuserentry"][@"entries"]) {
+            for (NSDictionary *dict in responseObject[@"result"][@"newuserentry"][@"entries"]) {
+                SINNewuserentry *entry = [SINNewuserentry newuserentryWithDict:dict];
+                [newuserArrM addObject:entry];
+            }
+            self.newuesrentries = newuserArrM;
+            self.newuserEnjorView.newuesrentries = newuserArrM;
         }
-        self.newuesrentries = newuserArrM;
-        self.newuserEnjorView.newuesrentries = newuserArrM;
+        */
         
         // 外卖类型模块数据
         NSMutableArray *arrM = [NSMutableArray array];
@@ -150,17 +195,18 @@
         self.welfareSignUrls = welIconDict;
         // 将地址字典存到沙盒
         [self.welfareSignUrls writeToFile:ShoppeWelfareIconUrlFilePath.cachePath atomically:YES];
-       
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"请求其他数据失败 error : %@",error);
     }];
 }
 
+// 本方法请求数据page参数的值
 static int networkPage = 1;
 - (void)sendShoppesRequest
 {
-    if (networkPage > 2) {
+    // 暂定只有4页
+    if (networkPage > 4) {
         return;
     }
     
@@ -168,13 +214,15 @@ static int networkPage = 1;
     NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paging"};
     
     [mgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-//        NSLog(@"%@",responseObject[@"result"]);
+    
+        [self.gobalScrollView.mj_header endRefreshing];
+        [self.shoppeView.mj_footer endRefreshing];
         
         for (NSDictionary *dict in responseObject[@"result"][@"shop_info"]) {
             SINShoppe *shoppe = [SINShoppe shoppeWithDict:dict];
             
-            if (networkPage == 2) {
+            // 第二页开始都属于附近美食组
+            if (networkPage >= 2) {
                 [self.yummyShoppes addObject:shoppe];
             }else if (networkPage == 1)
             {
@@ -183,13 +231,22 @@ static int networkPage = 1;
         }
         
         networkPage += 1;
-        [self sendShoppesRequest];
+        // 进入首页默认加载加载两次商户数据
+        // 这里只需要调用一次sendShoppesRequest
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            
+            [self sendShoppesRequest];
+        });
         
         // 刷新tableView
         [self.shoppeView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"请求商户数据失败 error : %@",error);
+        networkPage -= 1;
+        [self.gobalScrollView.mj_header endRefreshing];
+        [self.shoppeView.mj_footer endRefreshing];
     }];
 }
 
@@ -270,6 +327,67 @@ static int networkPage = 1;
     // 把状态栏文字改为白色
     // -[UIViewController preferredStatusBarStyle]
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+//    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    
+    // navigationBar添加子控件
+    UIView *cusView = [[UIView alloc] init];
+    cusView.frame = CGRectMake(0, 0, 110, 20);
+    
+    UIImageView *bicycleImg = [[UIImageView alloc] init];
+    bicycleImg.frame = CGRectMake(0, 0, 15, 15);
+    bicycleImg.image = [UIImage imageNamed:@"bicycle"];
+    [cusView addSubview:bicycleImg];
+    
+    UILabel *label = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
+    label.text = @"龙瑞文化广场";
+    // 要在设置尺寸之前调用，否则设置尺寸不准确
+    [label sizeToFit];
+    label.x = CGRectGetMaxX(bicycleImg.frame) + 5;
+    label.centerY = bicycleImg.y + bicycleImg.height / 2;
+    [cusView addSubview:label];
+    
+    UIImageView *arrowDown = [[UIImageView alloc] init];
+    arrowDown.image = [UIImage imageNamed:@"arrowDown"];
+    arrowDown.size = CGSizeMake(7, 7);
+    arrowDown.x = CGRectGetMaxX(label.frame) + 5;
+    arrowDown.centerY = label.y  + label.height / 2;
+    [cusView addSubview:arrowDown];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:cusView];
+    
+    self.navigationItem.leftBarButtonItem = item;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    NSLog(@"%f",scrollView.contentOffset.y);
+    
+    if ([scrollView isEqual:self.gobalScrollView]) {
+        
+        if (scrollView.contentOffset.y < 966) {
+            self.gobalScrollView.scrollEnabled = YES;
+            self.shoppeView.scrollEnabled = NO;
+        }else if (scrollView.contentOffset.y >= 990)
+        {
+            NSLog(@"%f",self.gobalScrollView.contentOffset.y);
+            self.gobalScrollView.scrollEnabled = NO;
+            self.shoppeView.scrollEnabled = YES;
+        }
+    }
+    
+    if ([scrollView isEqual:self.shoppeView]) {
+        NSLog(@"%f",self.shoppeView.contentOffset.y);
+        if (self.shoppeView.contentOffset.y <= 0.0) {
+            self.gobalScrollView.scrollEnabled = YES;
+            self.shoppeView.scrollEnabled = NO;
+        }else if (self.shoppeView.contentOffset.y > 0)
+        {
+            self.gobalScrollView.scrollEnabled = NO;
+            self.shoppeView.scrollEnabled = YES;
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource,UITableVIewDelegate
@@ -326,6 +444,10 @@ static int networkPage = 1;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+   
+    SINShoppeViewController *shoppeVC = [[SINShoppeViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:shoppeVC];
+    [self presentViewController:navi animated:YES completion:nil];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -455,6 +577,7 @@ static NSString *const cellID = @"shoppeCell";
     return _thirdModuleView;
 }
 
+// 附近商户模型数组
 - (NSMutableArray *)shoppes
 {
     if (_shoppes == nil) {
@@ -463,6 +586,7 @@ static NSString *const cellID = @"shoppeCell";
     return _shoppes;
 }
 
+// 附近美食模型数组
 - (NSMutableArray *)yummyShoppes
 {
     if (_yummyShoppes == nil) {
