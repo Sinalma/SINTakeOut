@@ -36,6 +36,15 @@
 /** 爱心提醒模块 */
 @property (nonatomic,strong) UIView *remindV;
 
+/** 左侧商品类型tableView */
+@property (nonatomic,strong) UITableView *typeTableView;
+
+/** 右侧食物tableView */
+@property (nonatomic,strong) UITableView *foodTableView;
+
+/** 装tableView的scrollView */
+@property (nonatomic,strong) UIScrollView *tabScrollView;
+
 @end
 
 @implementation SINShoppeViewController
@@ -348,11 +357,8 @@ static int welfareOpenState = 0;
     }];
     
     // 创建商品scrollView
-    UIScrollView *tabScrollV = [[UIScrollView alloc] init];
-    tabScrollV.backgroundColor = [UIColor whiteColor];
-    tabScrollV.contentSize = CGSizeMake(SINScreenW * 3, 0);
-    [self.contentScrollV addSubview:tabScrollV];
-    [tabScrollV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.contentScrollV addSubview:self.tabScrollView];
+    [self.tabScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentScrollV);
         make.top.equalTo(diactorV.mas_bottom);
         make.height.equalTo(@(SINScreenH - diactorH - btnH));
@@ -360,13 +366,20 @@ static int welfareOpenState = 0;
     }];
     
     // 创建左侧tableView
-    UITableView *typeTableV = [[UITableView alloc] init];
-    typeTableV.dataSource = self;
-    [self.contentScrollV addSubview:typeTableV];
-    [typeTableV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(tabScrollV);
+    [self.contentScrollV addSubview:self.typeTableView];
+    [self.typeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.equalTo(self.tabScrollView);
         make.width.equalTo(@(SINScreenW * tableViewP));
         make.height.equalTo(@(SINScreenH - diactorH - btnH));
+    }];
+    
+    // 右侧食物tableView
+    [self.contentScrollV addSubview:self.foodTableView];
+    [self.foodTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.typeTableView.mas_right);
+        make.top.equalTo(self.typeTableView);
+        make.width.equalTo(@(SINScreenW * (1 - tableViewP)));
+        make.height.equalTo(self.typeTableView);
     }];
 }
 
@@ -377,17 +390,32 @@ static int welfareOpenState = 0;
 }
 
 static NSString *typeTableViewCellID = @"typeTableViewCell";
+static NSString *foodTableViewCellID = @"foodTableViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *typeCell = [tableView dequeueReusableCellWithIdentifier:typeTableViewCellID];
-    
-    if (typeCell == nil) {
-        typeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:typeTableViewCellID];
+    UITableViewCell *cell = nil;
+    if ([tableView isEqual:self.typeTableView]) {
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:typeTableViewCellID];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:typeTableViewCellID];
+        }
+        
+        cell.textLabel.text = @"热销";
+        
+    }else if ([tableView isEqual:self.foodTableView])
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:foodTableViewCellID];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:foodTableViewCellID];
+        }
+        cell.textLabel.text = @"食物";
     }
     
-    typeCell.textLabel.text = @"热销";
     
-    return typeCell;
+    return cell;
 }
 
 /**
@@ -420,6 +448,35 @@ static NSString *typeTableViewCellID = @"typeTableViewCell";
         _gobalView.contentSize = CGSizeMake(0, 0);
     }
     return _gobalView;
+}
+
+// 商品scrollView
+- (UIScrollView *)tabScrollView
+{
+    if (_tabScrollView == nil) {
+        _tabScrollView = [[UIScrollView alloc] init];
+        _tabScrollView.backgroundColor = [UIColor whiteColor];
+        _tabScrollView.contentSize = CGSizeMake(SINScreenW * 3, 0);
+    }
+    return _tabScrollView;
+}
+
+- (UITableView *)typeTableView
+{
+    if (_typeTableView == nil) {
+        _typeTableView = [[UITableView alloc] init];
+        _typeTableView.dataSource = self;
+    }
+    return _typeTableView;
+}
+
+- (UITableView *)foodTableView
+{
+    if (_foodTableView == nil) {
+        _foodTableView = [[UITableView alloc] init];
+        _foodTableView.dataSource = self;
+    }
+    return _foodTableView;
 }
 
 @end
