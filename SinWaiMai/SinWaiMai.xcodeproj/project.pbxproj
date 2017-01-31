@@ -19,14 +19,15 @@
 		180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F21E2F9B2800B7599B /* UILabel+Category.m */; };
 		180001F91E30D72600B7599B /* SINActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F81E30D72600B7599B /* SINActivity.m */; };
 		180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */; };
-		1807A5751E379DDE00F746BA /* SINTypeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807A5741E379DDE00F746BA /* SINTypeTableView.m */; };
-		1807A5791E37A37000F746BA /* SINFoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1807A5771E37A37000F746BA /* SINFoodCell.m */; };
-		1807A57A1E37A37000F746BA /* SINFoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1807A5781E37A37000F746BA /* SINFoodCell.xib */; };
 		1811061A1E331B4400E3FD84 /* SINUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106191E331B4400E3FD84 /* SINUserInfoView.m */; };
 		1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061C1E331CD000E3FD84 /* SINUserInfo.m */; };
 		181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061F1E331DD400E3FD84 /* SINWalletItem.m */; };
 		181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106221E331E6B00E3FD84 /* SINUserCenterItem.m */; };
-		181106261E33A20900E3FD84 /* SINShoppeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106251E33A20900E3FD84 /* SINShoppeViewController.m */; };
+		182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933311E3DC0C900E0C110 /* SINShoppeViewController.m */; };
+		1829333A1E3DC0C900E0C110 /* SINFoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933351E3DC0C900E0C110 /* SINFoodCell.m */; };
+		1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182933361E3DC0C900E0C110 /* SINFoodCell.xib */; };
+		1829333C1E3DC0C900E0C110 /* SINTypeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933381E3DC0C900E0C110 /* SINTypeTableView.m */; };
+		1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
 		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
@@ -34,6 +35,12 @@
 		188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */; };
 		188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316511E28DA2700CE1455 /* SINSecondModuleView.xib */; };
 		188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C51E26294D009D826E /* SINGuideViewController.m */; };
+		18C019B91E3ED37300B8A910 /* SINTakeoutMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C019B81E3ED37300B8A910 /* SINTakeoutMenu.m */; };
+		18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C019BB1E3ED53100B8A910 /* SINFood.m */; };
+		18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C3731E405D0800609BC1 /* SINShopCarView.m */; };
+		18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C3751E405D2400609BC1 /* SINShopCarView.xib */; };
+		18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C3781E40634500609BC1 /* SINFoodView.m */; };
+		18C9C37B1E40635300609BC1 /* SINFoodView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C37A1E40635300609BC1 /* SINFoodView.xib */; };
 		18D6820B1E34EEDC006158E0 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6820A1E34EEDC006158E0 /* Text.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
@@ -100,11 +107,6 @@
 		180001F81E30D72600B7599B /* SINActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINActivity.m; sourceTree = "<group>"; };
 		180001FB1E310EC100B7599B /* UIImageView+SINWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SINWebCache.h"; sourceTree = "<group>"; };
 		180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SINWebCache.m"; sourceTree = "<group>"; };
-		1807A5731E379DDE00F746BA /* SINTypeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINTypeTableView.h; sourceTree = "<group>"; };
-		1807A5741E379DDE00F746BA /* SINTypeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINTypeTableView.m; sourceTree = "<group>"; };
-		1807A5761E37A37000F746BA /* SINFoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodCell.h; sourceTree = "<group>"; };
-		1807A5771E37A37000F746BA /* SINFoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINFoodCell.m; sourceTree = "<group>"; };
-		1807A5781E37A37000F746BA /* SINFoodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINFoodCell.xib; sourceTree = "<group>"; };
 		181106181E331B4400E3FD84 /* SINUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINUserInfoView.h; sourceTree = "<group>"; };
 		181106191E331B4400E3FD84 /* SINUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINUserInfoView.m; sourceTree = "<group>"; };
 		1811061B1E331CD000E3FD84 /* SINUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINUserInfo.h; path = ../../Guide/Model/SINUserInfo.h; sourceTree = "<group>"; };
@@ -113,8 +115,15 @@
 		1811061F1E331DD400E3FD84 /* SINWalletItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINWalletItem.m; path = ../../Guide/Model/SINWalletItem.m; sourceTree = "<group>"; };
 		181106211E331E6B00E3FD84 /* SINUserCenterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINUserCenterItem.h; path = ../../Guide/Model/SINUserCenterItem.h; sourceTree = "<group>"; };
 		181106221E331E6B00E3FD84 /* SINUserCenterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINUserCenterItem.m; path = ../../Guide/Model/SINUserCenterItem.m; sourceTree = "<group>"; };
-		181106241E33A20900E3FD84 /* SINShoppeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeViewController.h; sourceTree = "<group>"; };
-		181106251E33A20900E3FD84 /* SINShoppeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeViewController.m; sourceTree = "<group>"; };
+		182933301E3DC0C900E0C110 /* SINShoppeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeViewController.h; sourceTree = "<group>"; };
+		182933311E3DC0C900E0C110 /* SINShoppeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeViewController.m; sourceTree = "<group>"; };
+		182933341E3DC0C900E0C110 /* SINFoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodCell.h; sourceTree = "<group>"; };
+		182933351E3DC0C900E0C110 /* SINFoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINFoodCell.m; sourceTree = "<group>"; };
+		182933361E3DC0C900E0C110 /* SINFoodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINFoodCell.xib; sourceTree = "<group>"; };
+		182933371E3DC0C900E0C110 /* SINTypeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINTypeTableView.h; sourceTree = "<group>"; };
+		182933381E3DC0C900E0C110 /* SINTypeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINTypeTableView.m; sourceTree = "<group>"; };
+		1829333D1E3DCEDB00E0C110 /* SINShoppeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeInfo.h; sourceTree = "<group>"; };
+		1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeInfo.m; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
 		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
 		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
@@ -125,6 +134,16 @@
 		1883164E1E28DA1C00CE1455 /* SINSecondModuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINSecondModuleView.h; sourceTree = "<group>"; };
 		1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINSecondModuleView.m; sourceTree = "<group>"; };
 		188316511E28DA2700CE1455 /* SINSecondModuleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINSecondModuleView.xib; sourceTree = "<group>"; };
+		18C019B71E3ED37300B8A910 /* SINTakeoutMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINTakeoutMenu.h; sourceTree = "<group>"; };
+		18C019B81E3ED37300B8A910 /* SINTakeoutMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINTakeoutMenu.m; sourceTree = "<group>"; };
+		18C019BA1E3ED53100B8A910 /* SINFood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFood.h; sourceTree = "<group>"; };
+		18C019BB1E3ED53100B8A910 /* SINFood.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINFood.m; sourceTree = "<group>"; };
+		18C9C3721E405D0800609BC1 /* SINShopCarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShopCarView.h; sourceTree = "<group>"; };
+		18C9C3731E405D0800609BC1 /* SINShopCarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShopCarView.m; sourceTree = "<group>"; };
+		18C9C3751E405D2400609BC1 /* SINShopCarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINShopCarView.xib; sourceTree = "<group>"; };
+		18C9C3771E40634500609BC1 /* SINFoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodView.h; sourceTree = "<group>"; };
+		18C9C3781E40634500609BC1 /* SINFoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINFoodView.m; sourceTree = "<group>"; };
+		18C9C37A1E40635300609BC1 /* SINFoodView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINFoodView.xib; sourceTree = "<group>"; };
 		18D682091E34EEDC006158E0 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
 		18D6820A1E34EEDC006158E0 /* Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Text.m; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +238,56 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		1829332E1E3DC0C900E0C110 /* Shoppe */ = {
+			isa = PBXGroup;
+			children = (
+				1829332F1E3DC0C900E0C110 /* Controller */,
+				182933321E3DC0C900E0C110 /* Model */,
+				182933331E3DC0C900E0C110 /* View */,
+			);
+			path = Shoppe;
+			sourceTree = "<group>";
+		};
+		1829332F1E3DC0C900E0C110 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				182933301E3DC0C900E0C110 /* SINShoppeViewController.h */,
+				182933311E3DC0C900E0C110 /* SINShoppeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		182933321E3DC0C900E0C110 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1829333D1E3DCEDB00E0C110 /* SINShoppeInfo.h */,
+				1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */,
+				18C019B71E3ED37300B8A910 /* SINTakeoutMenu.h */,
+				18C019B81E3ED37300B8A910 /* SINTakeoutMenu.m */,
+				18C019BA1E3ED53100B8A910 /* SINFood.h */,
+				18C019BB1E3ED53100B8A910 /* SINFood.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		182933331E3DC0C900E0C110 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				182933341E3DC0C900E0C110 /* SINFoodCell.h */,
+				182933351E3DC0C900E0C110 /* SINFoodCell.m */,
+				182933361E3DC0C900E0C110 /* SINFoodCell.xib */,
+				182933371E3DC0C900E0C110 /* SINTypeTableView.h */,
+				182933381E3DC0C900E0C110 /* SINTypeTableView.m */,
+				18C9C3721E405D0800609BC1 /* SINShopCarView.h */,
+				18C9C3731E405D0800609BC1 /* SINShopCarView.m */,
+				18C9C3751E405D2400609BC1 /* SINShopCarView.xib */,
+				18C9C3771E40634500609BC1 /* SINFoodView.h */,
+				18C9C3781E40634500609BC1 /* SINFoodView.m */,
+				18C9C37A1E40635300609BC1 /* SINFoodView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		18EA61681E25DA9D009D826E = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +353,7 @@
 		18EA61A91E262590009D826E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1829332E1E3DC0C900E0C110 /* Shoppe */,
 				18EA61AE1E262590009D826E /* Homepage */,
 				18EA61AA1E262590009D826E /* Guide */,
 				18EA61B61E262590009D826E /* Order */,
@@ -343,8 +413,6 @@
 			children = (
 				18EA61C71E262960009D826E /* SINHomepageViewController.h */,
 				18EA61C81E262960009D826E /* SINHomepageViewController.m */,
-				181106241E33A20900E3FD84 /* SINShoppeViewController.h */,
-				181106251E33A20900E3FD84 /* SINShoppeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -385,11 +453,6 @@
 				180001E31E2CAF0500B7599B /* SINShoppeTableViewCell.h */,
 				180001E41E2CAF0500B7599B /* SINShoppeTableViewCell.m */,
 				180001E51E2CAF0500B7599B /* SINShoppeTableViewCell.xib */,
-				1807A5731E379DDE00F746BA /* SINTypeTableView.h */,
-				1807A5741E379DDE00F746BA /* SINTypeTableView.m */,
-				1807A5761E37A37000F746BA /* SINFoodCell.h */,
-				1807A5771E37A37000F746BA /* SINFoodCell.m */,
-				1807A5781E37A37000F746BA /* SINFoodCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -663,13 +726,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */,
-				1807A57A1E37A37000F746BA /* SINFoodCell.xib in Resources */,
+				1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */,
+				18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */,
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
 				18EA61A81E2620AF009D826E /* Assets.xcassets in Resources */,
 				188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */,
 				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
 				180001E21E2C84FB00B7599B /* SINThirdModuleView.xib in Resources */,
 				180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */,
+				18C9C37B1E40635300609BC1 /* SINFoodView.xib in Resources */,
 				18EAC8E81E31E8D1007FE5E0 /* parameters.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -743,14 +808,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1807A5751E379DDE00F746BA /* SINTypeTableView.m in Sources */,
 				18EA61C01E262590009D826E /* main.m in Sources */,
 				180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */,
+				1829333A1E3DC0C900E0C110 /* SINFoodCell.m in Sources */,
 				18D6820B1E34EEDC006158E0 /* Text.m in Sources */,
 				18EAC8E51E31C562007FE5E0 /* SINNetWorkingManager.m in Sources */,
 				18EAC8F41E322917007FE5E0 /* NSString+SINFilePath.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
-				181106261E33A20900E3FD84 /* SINShoppeViewController.m in Sources */,
 				1811061A1E331B4400E3FD84 /* SINUserInfoView.m in Sources */,
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
 				18EAC8F11E320CD7007FE5E0 /* SINNewuserentry.m in Sources */,
@@ -763,24 +827,30 @@
 				188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */,
 				180001E01E2C84EC00B7599B /* SINThirdModuleView.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
+				18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
+				18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */,
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
+				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
+				1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */,
 				180001F91E30D72600B7599B /* SINActivity.m in Sources */,
 				181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */,
 				180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */,
 				180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
-				1807A5791E37A37000F746BA /* SINFoodCell.m in Sources */,
 				180001F01E2F78F100B7599B /* NSString+Category.m in Sources */,
 				1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */,
 				18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */,
 				181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */,
+				1829333C1E3DC0C900E0C110 /* SINTypeTableView.m in Sources */,
 				18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */,
+				18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */,
+				18C019B91E3ED37300B8A910 /* SINTakeoutMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

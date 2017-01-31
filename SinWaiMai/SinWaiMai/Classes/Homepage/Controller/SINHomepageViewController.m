@@ -441,11 +441,17 @@ static int networkPage = 1;
     return 170;
 }
 
+/**
+ * 点击cell
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
    
     SINShoppeViewController *shoppeVC = [[SINShoppeViewController alloc] init];
+    SINShoppe *shoppe = self.shoppes[indexPath.row];
+    // 传递id
+    shoppeVC.shop_id = shoppe.shop_id;
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:shoppeVC];
     [self presentViewController:navi animated:YES completion:nil];
 }
