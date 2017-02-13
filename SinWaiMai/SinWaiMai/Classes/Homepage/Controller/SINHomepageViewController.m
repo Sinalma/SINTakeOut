@@ -75,6 +75,9 @@
 /** 保存商户优惠信息图标地址 */
 @property (nonatomic,strong) NSMutableDictionary *welfareSignUrls;
 
+/** 网络管理类 */
+@property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
+
 @end
 
 @implementation SINHomepageViewController
@@ -90,6 +93,12 @@
     
     // 初始化刷新控件
     [self setupRefreshing];
+}
+
+- (void)dealloc
+{
+    self.networkMgr = nil;
+    
 }
 
 /**
@@ -125,6 +134,7 @@
     self.yummyShoppes = nil;
     [self.shoppes removeAllObjects];
     self.shoppes = nil;
+    
     [self sendShoppesRequest];
     
     // 获取其他模块数据
@@ -137,10 +147,10 @@
  */
 - (void)sendOtherRequest
 {
-    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
+//    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
     NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557449.874939",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"os":@"8.2",@"request_time":@"2147483647",@"loc_lng":@"12617391.151377",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch",@"lat":@"",@"lng":@"",@"city_id":@"",@"address":@""};
     
-    [mgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkMgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 //        [responseObject[@"result"][@"newuserentry"] writeToFile:@"/Users/apple/desktop/newuserentry.plist" atomically:YES];
         // 广告模块
@@ -210,10 +220,10 @@ static int networkPage = 1;
         return;
     }
     
-    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
+//    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
     NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paging"};
     
-    [mgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkMgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
         [self.gobalScrollView.mj_header endRefreshing];
         [self.shoppeView.mj_footer endRefreshing];
@@ -330,6 +340,8 @@ static int networkPage = 1;
     
 //    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     
+    return;
+    
     // navigationBar添加子控件
     UIView *cusView = [[UIView alloc] init];
     cusView.frame = CGRectMake(0, 0, 110, 20);
@@ -371,14 +383,14 @@ static int networkPage = 1;
             self.shoppeView.scrollEnabled = NO;
         }else if (scrollView.contentOffset.y >= 990)
         {
-            NSLog(@"%f",self.gobalScrollView.contentOffset.y);
+//            NSLog(@"%f",self.gobalScrollView.contentOffset.y);
             self.gobalScrollView.scrollEnabled = NO;
             self.shoppeView.scrollEnabled = YES;
         }
     }
     
     if ([scrollView isEqual:self.shoppeView]) {
-        NSLog(@"%f",self.shoppeView.contentOffset.y);
+//        NSLog(@"%f",self.shoppeView.contentOffset.y);
         if (self.shoppeView.contentOffset.y <= 0.0) {
             self.gobalScrollView.scrollEnabled = YES;
             self.shoppeView.scrollEnabled = NO;
@@ -599,6 +611,14 @@ static NSString *const cellID = @"shoppeCell";
         _yummyShoppes = [NSMutableArray array];
     }
     return _yummyShoppes;
+}
+
+- (AFHTTPSessionManager *)networkMgr
+{
+    if (_networkMgr == nil) {
+        _networkMgr = [[AFHTTPSessionManager alloc] init];
+    }
+    return _networkMgr;
 }
 
 @end

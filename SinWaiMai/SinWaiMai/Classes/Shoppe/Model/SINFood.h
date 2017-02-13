@@ -10,6 +10,9 @@
 
 @interface SINFood : NSObject
 
+/** 全部评价 */
+@property (nonatomic,strong) NSNumber *total_comment_num;
+
 /** 食物id */
 //@property (nonatomic,strong) NSString *category_id;
 

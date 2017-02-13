@@ -16,6 +16,9 @@
 #import "SINFoodCell.h"
 #import "SINShopCarView.h"
 #import "UIImageView+SINWebCache.h"
+#import "UIColor+SINRandomColor.h"
+#import "SINFoodViewController.h"
+#import "SINCommentViewController.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -62,6 +65,9 @@
 /** 存放外卖菜单的模型数组 */
 @property (nonatomic,strong) NSArray *takeoutMenues;
 
+/** 评论控制器的view */
+@property (nonatomic,strong) SINCommentViewController *commentVC;
+
 @end
 
 @implementation SINShoppeViewController
@@ -101,9 +107,26 @@
 }
 
 /**
- * 初始化子控件
+ * 初始化评价模块
  */
-- (void)setup
+- (void)setupCommentModule
+{
+    [self.tabScrollView addSubview:self.commentVC.view];
+    
+    [self.commentVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.tabScrollView).offset(SINScreenW);
+        make.top.equalTo(self.tabScrollView);
+        make.height.equalTo(@(SINScreenH));
+        make.width.equalTo(@(SINScreenW));
+    }];
+    
+    self.tabScrollView.contentSize = CGSizeMake(SINScreenW * 2, 0);
+}
+
+/**
+ * 初始化点菜模块
+ */
+- (void)setupOrderFoodMoudle
 {
     // 初始化顶部模块
     [self setupTopModule];
@@ -116,6 +139,7 @@
     
     // 初始化购物车提示view
     [self setupShopCarView];
+    
 }
 
 #pragma mark - 请求数据
@@ -127,7 +151,7 @@
     
     [mgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/shopmenu" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
-        [responseObject[@"result"] writeToFile:@"/Users/apple/desktop/shoppeDetail.plist" atomically:YES];
+//        [responseObject[@"result"] writeToFile:@"/Users/apple/desktop/shoppeDetail.plist" atomically:YES];
         
         // 商户基本信息
         NSDictionary *dict = responseObject[@"result"][@"shop_info"];
@@ -144,7 +168,8 @@
         self.takeoutMenues = takeoutMenues;
         
         // 初始化子控件
-        [self setup];
+        [self setupOrderFoodMoudle];
+        [self setupCommentModule];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"商户详情数据获取失败 error = %@",error);
@@ -175,7 +200,7 @@
         SINTakeoutMenu *takeoutMenu = self.takeoutMenues[section];
     
         NSArray *arr = takeoutMenu.data;
-        NSLog(@"%ld",arr.count);
+        
         return arr.count;
     }
     return 10;
@@ -234,12 +259,19 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     
     if ([tableView isEqual:self.typeTableView]) {
         
-        [self.foodTableView setContentOffset:self.foodTableView.tableHeaderView.center];
-        
+        // 点击左侧cell，右侧选择相应组cell
+        NSIndexPath *indexP = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
+        [self.foodTableView selectRowAtIndexPath:indexP animated:YES scrollPosition:UITableViewScrollPositionTop];
         
     }else if ([tableView isEqual:self.foodTableView])
     {
+        SINFoodViewController *foodVC = [[SINFoodViewController alloc] init];
         
+        SINTakeoutMenu *takeoutMenu = self.takeoutMenues[indexPath.section];
+        SINFood *food = takeoutMenu.data[indexPath.row];
+        foodVC.food = food;
+        
+        [self presentViewController:foodVC animated:YES completion:nil];
     }
 }
 
@@ -317,7 +349,7 @@ static int welfareOpenState = 0;
     [topModuleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.gobalView);
         make.width.equalTo(@(SINScreenW));
-        make.height.equalTo(@(110));
+        make.height.equalTo(@(105));
     }];
     
     // 头像
@@ -409,7 +441,7 @@ static int welfareOpenState = 0;
             
             // 优惠数提醒label
             UILabel *remindLab = [UILabel createLabelWithFont:12 textColor:[UIColor whiteColor]];
-            remindLab.text = [NSString stringWithFormat:@"%ld种优惠",welCount];
+            remindLab.text = [NSString stringWithFormat:@"%ld个活动",(long)welCount];
             remindLab.textAlignment = NSTextAlignmentRight;
             [welfareV addSubview:remindLab];
             [remindLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -556,7 +588,7 @@ static int welfareOpenState = 0;
     }];
     
     // 创建左侧tableView
-    [self.contentScrollV addSubview:self.typeTableView];
+    [self.tabScrollView addSubview:self.typeTableView];
     [self.typeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.tabScrollView);
         make.width.equalTo(@(SINScreenW * tableViewP));
@@ -564,7 +596,7 @@ static int welfareOpenState = 0;
     }];
     
     // 右侧食物tableView
-    [self.contentScrollV addSubview:self.foodTableView];
+    [self.tabScrollView addSubview:self.foodTableView];
     [self.foodTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.typeTableView.mas_right);
         make.top.equalTo(self.typeTableView);
@@ -582,8 +614,9 @@ static int welfareOpenState = 0;
     self.shopCarView = shopCarV;
     [self.view addSubview:shopCarV];
     [shopCarV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.equalTo(self.view);
-        make.height.equalTo(@(64));
+        make.left.bottom.equalTo(self.view);
+        make.width.equalTo(@(SINScreenW));
+        make.height.equalTo(@(44));
     }];
 }
 
@@ -595,6 +628,10 @@ static int welfareOpenState = 0;
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationController.navigationBar.backgroundColor = [UIColor orangeColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"orangeBG"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"orangeBG"]];
+    
+    self.navigationController.navigationBar.layer.masksToBounds = YES;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
 }
@@ -626,10 +663,12 @@ static int welfareOpenState = 0;
         _tabScrollView = [[UIScrollView alloc] init];
         _tabScrollView.backgroundColor = [UIColor whiteColor];
         _tabScrollView.contentSize = CGSizeMake(SINScreenW * 3, 0);
+        _tabScrollView.pagingEnabled = YES;
     }
     return _tabScrollView;
 }
 
+// 点菜模块-左侧类型tableView
 - (UITableView *)typeTableView
 {
     if (_typeTableView == nil) {
@@ -640,6 +679,7 @@ static int welfareOpenState = 0;
     return _typeTableView;
 }
 
+// 点菜模块-右侧食物tableView
 - (UITableView *)foodTableView
 {
     if (_foodTableView == nil) {
@@ -654,6 +694,14 @@ static int welfareOpenState = 0;
         [_foodTableView registerNib:[UINib nibWithNibName:@"SINFoodCell" bundle:nil] forCellReuseIdentifier:foodTableViewCellID];
     }
     return _foodTableView;
+}
+
+- (SINCommentViewController *)commentVC
+{
+    if (_commentVC == nil) {
+        _commentVC = [[SINCommentViewController alloc] init];
+    }
+    return _commentVC;
 }
 
 @end
