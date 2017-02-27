@@ -106,12 +106,17 @@
 - (void)rightTopViewClick:(UITapGestureRecognizer *)tap
 {
     NSLog(@"二-点击了右侧顶部view");
+    
+    // 跳转html页面
+    UIWebView *webView = [[UIWebView alloc] init];
+    webView.frame = [UIScreen mainScreen].bounds;
+    [self.window addSubview:webView];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:@"test.html"]]];
 }
 
 - (void)rightBottomViewClick:(UITapGestureRecognizer *)tap
 {
     NSLog(@"二-点击了右侧底部view");
 }
-
 
 @end

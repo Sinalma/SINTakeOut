@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SINShoppe.h"
+
 @interface SINCommentViewController : UITableViewController
+
+@property (nonatomic,strong) NSString *shop_id;
 
 @end

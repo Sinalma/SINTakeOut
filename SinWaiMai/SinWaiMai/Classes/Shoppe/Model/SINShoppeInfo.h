@@ -61,7 +61,7 @@
 /** 活动信息数组 显示在选择食物界面，主界面 */
 @property (nonatomic,strong) NSArray *welfare_act_info;
 
-/** 基本活动信息数组 先是在商家详情界面 */
+/** 基本活动信息数组 显示在商家详情界面 */
 @property (nonatomic,strong) NSArray *welfare_basic_info;
 
 

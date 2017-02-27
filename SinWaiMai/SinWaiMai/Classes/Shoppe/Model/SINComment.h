@@ -28,6 +28,9 @@
 /** 存放字典标签数组 - 字典内 content : 保存完好 */
 @property (nonatomic,strong) NSArray *comment_labels;
 
+/** 存放字典点赞食物数组 - 字典内 dish_name : 净云吞_干捞云吞 */
+@property (nonatomic,strong) NSArray *recommend_dishes;
+
 /** 评论内容 */
 @property (nonatomic,strong) NSString *content;
 
@@ -55,8 +58,9 @@
  */
 @property (nonatomic,strong) NSString *portrait_url;
 
+// 重复的key在真机运行会报错
 /** 点赞食物的数组-内为字典-字典内 dish_name : 咸鱼鸡粒炒饭_单点 */
-@property (nonatomic,strong) NSArray *recommend_dishes;
+//@property (nonatomic,strong) NSArray *recommend_dishes;
 
 /** 商家回复内容 */
 @property (nonatomic,strong) NSString *reply_content;
@@ -86,6 +90,5 @@
 @property (nonatomic,strong) NSString *waimai_release_id;
 
 + (instancetype)commentWithDict:(NSDictionary *)dict;
-
 
 @end

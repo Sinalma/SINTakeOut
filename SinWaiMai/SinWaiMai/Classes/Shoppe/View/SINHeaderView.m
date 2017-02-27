@@ -24,15 +24,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *outScoreLabel;
 
 /** 评论类型容器 */
-@property (weak, nonatomic) IBOutlet SINHeaderView *commentTypeView;
+@property (weak, nonatomic) IBOutlet UIView *commentTypeView;
 
 /** 是否显示只有内容的评论按钮 */
 @property (weak, nonatomic) IBOutlet UIButton *isShowContentButton;
 
-
 /** 当前选中的评论类型按钮 */
 @property (nonatomic,strong) UIButton *selCommentBtn;
-
 
 /** 存放所有评论类型按钮的数组 */
 @property (nonatomic,strong) NSMutableArray *commentBtns;
@@ -40,7 +38,7 @@
 @end
 
 @implementation SINHeaderView
-
+#pragma mark - 懒加载
 - (NSMutableArray *)commentBtns
 {
     if (_commentBtns == nil) {
@@ -49,18 +47,32 @@
     return _commentBtns;
 }
 
+#pragma mark - 重写方法
 - (instancetype)init
 {
     if (self = [super init]) {
     
-        [self setup];
+//        [self setup];
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+//        [self setup];
+}
+
++ (instancetype)headerView
+{
+    return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SINHeaderView class]) owner:nil options:nil] firstObject];
 }
 
 - (void)setShopComment:(SINShopComment *)shopComment
 {
     _shopComment = shopComment;
+    
     
     self.averageScoreLabel.text = shopComment.average_dish_score;
     
@@ -72,29 +84,40 @@
     
     self.outScoreLabel.text = shopComment.average_service_score;
     
-    [self setup];
+        [self setup];
+   
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-//    [self setup];
+
+#pragma mark - 自定义方法
+/**
+ * 是否显示有内容评论的按钮
+ */
+static BOOL isSelHook = YES;
+- (IBAction)showConetentBtnClick:(UIButton *)btn {
+    isSelHook = !isSelHook;
+    if (isSelHook) {
+        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }else
+    {
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    }
 }
 
-static UIButton *preBtn = nil;
 - (void)setup
 {
-//    NSArray *strArr = @[@"全部评论(317)",@"好评(179)",@"中评(60)",@"差评(78)",@"味道赞(31)",@"份量足(22)",@"包装精美(16)",@"价格实惠(15)"];
     
+    // 设置评论类型的按钮创建和数据
     NSArray *strArr = self.shopComment.labels;
     
-    CGFloat x = 10;
+    CGFloat x = 20;
     CGFloat y = 0;
     CGFloat w = 0;
-    CGFloat h = 20;
+    CGFloat h = 30;
     
     NSInteger commentTypeCount = strArr.count;
+    
+    UIButton *preBtn = nil;
     
     for (int i = 0;i < commentTypeCount + 4; i++) {
         
@@ -123,7 +146,7 @@ static UIButton *preBtn = nil;
         [button setTitle:str forState:UIControlStateNormal];
         
         button.titleLabel.font = [UIFont systemFontOfSize:12];
-        [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         
         button.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -133,7 +156,7 @@ static UIButton *preBtn = nil;
         
         CGRect strFrame = [str boundingRectWithSize:CGSizeMake(200, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil];
         
-        w = strFrame.size.width + 4;
+        w = strFrame.size.width + 20;
         button.width = w;
         
         if (preBtn != nil) {
@@ -146,7 +169,7 @@ static UIButton *preBtn = nil;
             }else
             {
                 y = CGRectGetMaxY(preBtn.frame) + 10;
-                x = 10;
+                x = 20;
             }
         }
         
@@ -162,6 +185,11 @@ static UIButton *preBtn = nil;
             [self commentTypeBtnClick:button];
         }
         
+        // 设置本身的高度
+        if (i == strArr.count - 1 + 4) {
+            
+            self.height = self.commentTypeView.y + CGRectGetMaxY(button.frame) + 10 + 20 + 10;
+        }
         [self.commentTypeView addSubview:button];
         
         [self.commentBtns addObject:button];
@@ -169,24 +197,19 @@ static UIButton *preBtn = nil;
 }
 
 /**
- * 电机了评论类型按钮
+ * 点击了评论类型按钮
  */
 - (void)commentTypeBtnClick:(UIButton *)btn
 {
     NSLog(@"点击了评论类型按钮 - %@",btn.titleLabel.text);
     
     self.selCommentBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    [self.selCommentBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.selCommentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     btn.layer.borderColor = [UIColor redColor].CGColor;
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     self.selCommentBtn = btn;
-}
-
-+ (instancetype)headerView
-{
-    return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SINHeaderView class]) owner:nil options:nil] firstObject];
 }
 
 @end

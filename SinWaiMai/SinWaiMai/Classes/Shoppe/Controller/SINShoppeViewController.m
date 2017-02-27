@@ -6,6 +6,21 @@
 //  Copyright © 2017 sinalma. All rights reserved.
 //
 
+/**
+ * Enter Shoppe Interface
+ *
+ * First ScrollView Can Scroll To Up
+                    Can Not Scroll To Down
+ * Second ScrollView Can Scroll To Down
+                     Can Scroll To Up
+ * Third ScrollView Can Left And After Can Right
+                    Can Scroll Up
+ */
+
+/**
+ *
+ */
+
 #import "SINShoppeViewController.h"
 #import "Masonry.h"
 #import "UILabel+Category.h"
@@ -19,6 +34,7 @@
 #import "UIColor+SINRandomColor.h"
 #import "SINFoodViewController.h"
 #import "SINCommentViewController.h"
+#import "SINDiscoveryView.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -57,6 +73,15 @@
 
 /** 购物车提示view */
 @property (nonatomic,strong) SINShopCarView *shopCarView;
+
+/** 指示条 */
+@property (nonatomic,strong) UIView *diactorView;
+
+/** 导航条的子按钮数组 */
+@property (nonatomic,strong) NSMutableArray *naviBtns;
+
+/** 当前选中的导航栏按钮 */
+@property (nonatomic,strong) UIButton *selNaviBtn;
 
 #pragma mark - 数据
 /** 存放所有数据的模型数组 */
@@ -104,6 +129,23 @@
     
     // 请求网络数据
     [self loadData];
+    
+}
+
+/**
+ * 初始化商家详情界面
+ */
+- (void)setupDiscoveryModule
+{
+    SINDiscoveryView *disV = [SINDiscoveryView discoveryView];
+    [self.tabScrollView addSubview:disV];
+    [disV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.tabScrollView).offset(SINScreenW * 2);
+        make.right.equalTo(self.tabScrollView);
+        make.width.equalTo(@(SINScreenW));
+        make.height.equalTo(@(SINScreenH));
+    }];
+//    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 2);
 }
 
 /**
@@ -112,6 +154,8 @@
 - (void)setupCommentModule
 {
     [self.tabScrollView addSubview:self.commentVC.view];
+    [self addChildViewController:self.commentVC];
+    self.commentVC.shop_id = self.shop_id;
     
     [self.commentVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.tabScrollView).offset(SINScreenW);
@@ -119,7 +163,6 @@
         make.height.equalTo(@(SINScreenH));
         make.width.equalTo(@(SINScreenW));
     }];
-    
     self.tabScrollView.contentSize = CGSizeMake(SINScreenW * 2, 0);
 }
 
@@ -139,7 +182,6 @@
     
     // 初始化购物车提示view
     [self setupShopCarView];
-    
 }
 
 #pragma mark - 请求数据
@@ -170,6 +212,7 @@
         // 初始化子控件
         [self setupOrderFoodMoudle];
         [self setupCommentModule];
+        [self setupDiscoveryModule];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"商户详情数据获取失败 error = %@",error);
@@ -275,6 +318,8 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     }
 }
 
+
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -290,6 +335,72 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
             self.contentScrollV.transform = CGAffineTransformMakeTranslation(0, -scrollView.contentOffset.y * 1.5);
         }
     }
+    
+    // 处理指示条滚动
+    if (scrollView == self.tabScrollView) {
+        
+        self.diactorView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x / 3, 0);
+    }
+    
+    // 粘住购物车view
+    if (scrollView == self.tabScrollView) {
+        self.shopCarView.transform = CGAffineTransformMakeTranslation(-scrollView.contentOffset.x, 0);
+    }
+    
+//    if (scrollView == self.gobalView) {
+//        CGFloat preOffsetX = 0;
+//        if (preOffsetX >= 0) {
+//            scrollView.contentOffset.x > preOffsetX ? (scrollView.scrollEnabled = NO) : (scrollView.scrollEnabled = YES);
+//        }
+//        
+//    }else if (scrollView == self.contentScrollV)
+//    {
+//        
+//    }
+}
+
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    // 处理导航条选中
+    if (scrollView == self.tabScrollView) {
+        NSInteger naviSelCount = scrollView.contentOffset.x / SINScreenW;
+        UIButton *selBtn = self.naviBtns[naviSelCount];
+        
+        [self selectNaviBtn:selBtn];
+    }
+}
+
+#pragma mark - 自定义监听方法
+/**
+ * 处理导航栏按钮的选中
+ * curBtn : 传进来当前需要选中的按钮
+ */
+- (void)selectNaviBtn:(UIButton *)curBtn
+{
+    [self.selNaviBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+    [curBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
+    self.selNaviBtn = curBtn;
+    
+    // 几等份
+    __block NSInteger por = 0;
+    
+    // 处理指示条滚动
+    [UIView animateWithDuration:0.5 animations:^{
+        if (self.selNaviBtn.tag > curBtn.tag) {
+            por = -3;
+        }else
+        {
+            por = 3;
+        }
+        
+        self.diactorView.transform = CGAffineTransformMakeTranslation(curBtn.tag * (SINScreenW / por), 0);
+    }];
+    
+    [self.tabScrollView setContentOffset:CGPointMake(curBtn.tag * SINScreenW, 0) animated:YES];
 }
 
 static NSInteger welCount = 3;
@@ -326,6 +437,15 @@ static int welfareOpenState = 0;
     }];
 }
 
+/**
+ * 点击了返回
+ */
+- (void)naviBackBtnClick
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - 自定义方法
 /**
  * 初始顶部模块
  */
@@ -500,6 +620,7 @@ static int welfareOpenState = 0;
     
     // 声音图标
     UIImageView *voiceImgV = [[UIImageView alloc] init];
+    voiceImgV.backgroundColor = [UIColor clearColor];
     voiceImgV.image = [UIImage imageNamed:@"arrowDown"];
     [remindV addSubview:voiceImgV];
     [voiceImgV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -534,10 +655,12 @@ static int welfareOpenState = 0;
  */
 - (void)setupShoppeModule
 {
+    NSArray *btnStrArr = @[@"推荐",@"评论",@"商家"];
+    
     // 创建导航条
-    NSInteger count = 3;
+    NSInteger count = btnStrArr.count;
     CGFloat offsetX = 0;
-    CGFloat btnW = SINScreenW / 3;
+    CGFloat btnW = SINScreenW / count;
     CGFloat btnH = 30;
     CGFloat diactorH = 5;
     
@@ -545,19 +668,21 @@ static int welfareOpenState = 0;
     CGFloat tableViewP = 0.3;
     
     for (int i = 0; i < count; i++) {
+        
         UIButton *button = [[UIButton alloc] init];
-        
-        [button setTitle:@"推荐" forState:UIControlStateNormal];
-        
+        [button setTitle:btnStrArr[i] forState:UIControlStateNormal];
         button.backgroundColor = [UIColor whiteColor];
-        
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         
         button.tag = i;
-        
+        [button addTarget:self action:@selector(selectNaviBtn:) forControlEvents:UIControlEventTouchUpInside];
         offsetX = i * btnW;
-        
         [self.contentScrollV addSubview:button];
+        
+        // 默认选中首个按钮
+        if (i == 0) {
+            [self selectNaviBtn:button];
+        }
         
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.remindV.mas_bottom);
@@ -565,6 +690,8 @@ static int welfareOpenState = 0;
             make.width.equalTo(@(btnW));
             make.height.equalTo(@(btnH));
         }];
+        
+        [self.naviBtns addObject:button];
     }
     
     // 创建指示条
@@ -577,6 +704,7 @@ static int welfareOpenState = 0;
         make.height.equalTo(@(diactorH));
         make.width.equalTo(@(btnW));
     }];
+    self.diactorView = diactorV;
     
     // 创建商品scrollView
     [self.contentScrollV addSubview:self.tabScrollView];
@@ -610,6 +738,7 @@ static int welfareOpenState = 0;
  */
 - (void)setupShopCarView
 {
+//    return;
     SINShopCarView *shopCarV = [SINShopCarView shopCarView];
     self.shopCarView = shopCarV;
     [self.view addSubview:shopCarV];
@@ -636,14 +765,6 @@ static int welfareOpenState = 0;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
 }
 
-/**
- * 点击了返回
- */
-- (void)naviBackBtnClick
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - 懒加载
 - (UIScrollView *)gobalView
 {
@@ -651,7 +772,7 @@ static int welfareOpenState = 0;
         _gobalView = [[UIScrollView alloc] init];
         _gobalView.backgroundColor = [UIColor orangeColor];
         _gobalView.frame = self.view.bounds;
-        _gobalView.contentSize = CGSizeMake(0, 0);
+        _gobalView.contentSize = CGSizeMake(0, SINScreenH+80);
     }
     return _gobalView;
 }
@@ -664,6 +785,7 @@ static int welfareOpenState = 0;
         _tabScrollView.backgroundColor = [UIColor whiteColor];
         _tabScrollView.contentSize = CGSizeMake(SINScreenW * 3, 0);
         _tabScrollView.pagingEnabled = YES;
+        _tabScrollView.delegate = self;
     }
     return _tabScrollView;
 }
@@ -702,6 +824,14 @@ static int welfareOpenState = 0;
         _commentVC = [[SINCommentViewController alloc] init];
     }
     return _commentVC;
+}
+
+- (NSMutableArray *)naviBtns
+{
+    if (_naviBtns == nil) {
+        _naviBtns = [NSMutableArray array];
+    }
+    return _naviBtns;
 }
 
 @end
