@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/** 全局颜色rgb */
+#define SINGobalColor [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
+
 /** 屏幕宽高 */
 #define SINScreenW [UIScreen mainScreen].bounds.size.width
 #define SINScreenH [UIScreen mainScreen].bounds.size.height

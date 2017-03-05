@@ -20,9 +20,17 @@
     self = [super initWithRootViewController:rootViewController];
     
     // 不是首页控制器，将导航栏背景换成红色
+    /*
     if (![rootViewController isKindOfClass:[SINHomepageViewController class]]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"newuser_bg"] forBarMetrics:UIBarMetricsDefault];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        return self;
+    }
+    */
+    
+    if (![rootViewController isKindOfClass:[SINHomepageViewController class]]) {
+        [self.navigationBar setBackgroundColor:SINGobalColor];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:SINGobalColor}];
         return self;
     }
     

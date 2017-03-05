@@ -18,7 +18,11 @@
  */
 
 /**
+ * 进入商户页面
  *
+ * typeTableView、foodTableView不能滚动，tabScrollView可以左右滚动，contentScrollView可以往下滚动，gobalView可以向上滚动
+ * gobalView增加额外滚动区域145Y值
+ * 当gobalView向上滚动到不能滚动时，让typeTableView和foodTableView可以向上滚动，但不能向下，这时候contentScrollView不能滚动
  */
 
 #import "SINShoppeViewController.h"
@@ -130,6 +134,10 @@
     // 请求网络数据
     [self loadData];
     
+    self.gobalView.scrollEnabled = YES;
+    self.contentScrollV.scrollEnabled = NO;
+    self.typeTableView.scrollEnabled = NO;
+    self.foodTableView.scrollEnabled = NO;
 }
 
 /**
@@ -145,7 +153,7 @@
         make.width.equalTo(@(SINScreenW));
         make.height.equalTo(@(SINScreenH));
     }];
-//    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 2);
+    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 3);
 }
 
 /**
@@ -318,18 +326,64 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     }
 }
 
-
-
+static CGFloat preOffsetY = 0;
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    // 导航条未至顶部时，gobalView可上滑，contentScrollV可下滑
+    CGFloat curOffsetY = scrollView.contentOffset.y;
+    if (self.gobalView.contentOffset.y < 145) {
+        NSLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
+        
+        if (curOffsetY - preOffsetY >= 1) {
+            self.gobalView.scrollEnabled = YES;
+            self.contentScrollV.scrollEnabled = NO;
+    }else
+    {
+        self.gobalView.scrollEnabled = NO;
+        self.contentScrollV.scrollEnabled = YES;
+    }
+    }else if (curOffsetY - preOffsetY < 1)
+    {
+        self.gobalView.scrollEnabled = NO;
+        self.contentScrollV.scrollEnabled = YES;
+    }
+    
+    // gobalView置顶
+    if (scrollView == self.gobalView) {
+        if (scrollView.contentOffset.y >= 145) {
+            [scrollView setContentOffset:CGPointMake(0, 145)];
+            
+            self.foodTableView.scrollEnabled = YES;
+            self.typeTableView.scrollEnabled = YES;
+        }
+    }
+    
+    if (self.gobalView.contentOffset.y >= 145) {
+        
+        self.contentScrollV.scrollEnabled = NO;
+        self.gobalView.scrollEnabled = YES;
+    }
+    
+    // 两个tableView不能下滚，在offset为0时
+    if (scrollView == self.foodTableView || scrollView == self.typeTableView) {
+        if (scrollView.contentOffset.y < 0) {
+            self.foodTableView.scrollEnabled = NO;
+            self.typeTableView.scrollEnabled = NO;
+        }
+    }
+    
+//    if (self.tabScrollView.contentOffset.x >= SINScreenW * 2) {
+//        self.contentScrollV.scrollEnabled = NO;
+//        self.gobalView.scrollEnabled = NO;
+//        self.tabScrollView.scrollEnabled = YES;
+//    }
+    
+    
     if ([scrollView isEqual:self.contentScrollV]) {
         
         if (scrollView.contentOffset.y > 0) {
             self.contentScrollV.transform = CGAffineTransformMakeTranslation(0, -scrollView.contentOffset.y);
-//            self.gobalView.scrollEnabled = YES;
-//            self.contentScrollV.scrollEnabled = NO;
-//            self.gobalView.contentSize = CGSizeMake(SINScreenW, SINScreenH + 150);
         }else
         {
             self.contentScrollV.transform = CGAffineTransformMakeTranslation(0, -scrollView.contentOffset.y * 1.5);
@@ -347,19 +401,8 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         self.shopCarView.transform = CGAffineTransformMakeTranslation(-scrollView.contentOffset.x, 0);
     }
     
-//    if (scrollView == self.gobalView) {
-//        CGFloat preOffsetX = 0;
-//        if (preOffsetX >= 0) {
-//            scrollView.contentOffset.x > preOffsetX ? (scrollView.scrollEnabled = NO) : (scrollView.scrollEnabled = YES);
-//        }
-//        
-//    }else if (scrollView == self.contentScrollV)
-//    {
-//        
-//    }
+    
 }
-
-
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -762,17 +805,21 @@ static int welfareOpenState = 0;
     
     self.navigationController.navigationBar.layer.masksToBounds = YES;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<--" style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
+    
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
 #pragma mark - 懒加载
+// 最底层scrollView
 - (UIScrollView *)gobalView
 {
     if (_gobalView == nil) {
         _gobalView = [[UIScrollView alloc] init];
         _gobalView.backgroundColor = [UIColor orangeColor];
         _gobalView.frame = self.view.bounds;
-        _gobalView.contentSize = CGSizeMake(0, SINScreenH+80);
+        _gobalView.contentSize = CGSizeMake(0, SINScreenH+145);
+        _gobalView.delegate = self;
     }
     return _gobalView;
 }

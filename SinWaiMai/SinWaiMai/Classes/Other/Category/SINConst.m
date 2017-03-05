@@ -8,7 +8,6 @@
 
 #import "SINConst.h"
 
-
 /** 首页 - 广告模块的高度 */
 CGFloat const HomepageAdHeight = 150;
 /** 首页 - 外卖类型模块的高度 */

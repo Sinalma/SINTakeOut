@@ -12,6 +12,14 @@
 #import "Masonry.h"
 #import "SINUserInfo.h"
 #import "SINUserInfoView.h"
+#import "SINWalletView.h"
+#import "SINWalletItem.h"
+#import "SINWallet.h"
+#import "SINUserCenterItem.h"
+#import "SINUserCenterView.h"
+
+#define MineLoginBtnW 120
+#define MineLoginBtnH 40
 
 @interface SINMineViewController ()
 
@@ -24,9 +32,34 @@
 /** 用户信息view */
 @property (nonatomic,strong) SINUserInfoView *userInfoView;
 
+/** 钱包view */
+@property (nonatomic,strong) SINWalletView *walletView;
+
+/** 用户中心view */
+@property (nonatomic,strong) SINUserCenterView *userCenterView;
+
+/** 登录view */
+@property (nonatomic,strong) UIView *loginView;
+
+/** 登录按钮 */
+@property (nonatomic,strong) UIButton *loginBtn;
+
 #pragma mark - 数据
 /** 保存用户信息模型的数组 */
 @property (nonatomic,strong) NSArray *userInfoes;
+
+/** 保存用户钱包模型的数组 */
+@property (nonatomic,strong) NSArray *walletItems;
+
+/** 保存钱包模块所有数据 */
+@property (nonatomic,strong) SINWallet *wallet;
+
+/** 保存用户中心模块数据 */
+@property (nonatomic,strong) NSArray *userCenterItems;
+
+/** 保存客服热线字典 */
+// name phone
+@property (nonatomic,strong) NSDictionary *customer_service_Dict;
 
 @end
 
@@ -55,6 +88,13 @@
     
     [self.netWorkMgr POST:@"http://client.waimai.baidu.com/mobileui/user/v2/usercenter" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
   
+//        [responseObject writeToFile:@"/Users/apple/desktop/mine.plist" atomically:YES];
+        
+        // 客服热线
+        self.customer_service_Dict = responseObject[@"result"][@"customer_service"];
+        self.userCenterView.customer_service_Dict = self.customer_service_Dict;
+        
+        
         NSMutableArray *userInfoArrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"user_info"]) {
 
@@ -63,6 +103,22 @@
         }
         self.userInfoes = userInfoArrM;
         self.userInfoView.userInfoes = userInfoArrM;
+        
+        // 钱包模块
+        NSDictionary *walletDict = responseObject[@"result"][@"baiduWallet"];
+        SINWallet *wallet = [SINWallet walletWithDict:walletDict];
+        self.wallet = wallet;
+        self.walletView.wallet = wallet;
+        
+        // 用户中心模块
+        NSMutableArray *userCenterItemArrM = [NSMutableArray array];
+        for (NSDictionary *dict in responseObject[@"result"][@"user_center_list"]) {
+            SINUserCenterItem *item = [SINUserCenterItem userCenterItemWithDict:dict];
+            [userCenterItemArrM addObject:item];
+        }
+        self.userCenterItems = userCenterItemArrM;
+        self.userCenterView.userCenterItems = userCenterItemArrM;
+        
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"我的控制器-数据加载失败 %@",error);
@@ -77,15 +133,55 @@
     // 创建子控件
     [self.view addSubview:self.gobalScrollView];
   
+    // 用户信息view
     [self.gobalScrollView addSubview:self.userInfoView];
     [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view);
+        make.left.equalTo(self.gobalScrollView);
+        make.top.equalTo(self.gobalScrollView).offset(100);
         make.width.equalTo(@(SINScreenW));
-        make.height.equalTo(@(100));
+        make.height.equalTo(@(117));
+    }];
+    
+    // 钱包view
+    [self.gobalScrollView addSubview:self.walletView];
+    [self.walletView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.gobalScrollView);
+        make.top.equalTo(self.userInfoView.mas_bottom).offset(-6);
+        make.width.equalTo(@(SINScreenW));
+        make.height.equalTo(@(115));
+    }];
+    
+    // 用户中心view
+    [self.gobalScrollView addSubview:self.userCenterView];
+    [self.userCenterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.gobalScrollView);
+        make.top.equalTo(self.walletView.mas_bottom);
+        make.width.equalTo(@(SINScreenW));
+        make.height.equalTo(@455);
     }];
     
     // 设置整体scrollView的内容尺寸
-    self.gobalScrollView.contentSize = CGSizeMake(SINScreenW, self.userInfoView.height * 2);
+//    CGFloat scrollVH = self.userInfoView.height + self.walletView.height + self.userCenterView.height;
+//    NSLog(@"scrollVH%f",scrollVH);
+    self.gobalScrollView.contentSize = CGSizeMake(0,739);
+    
+    
+    // 登录view
+    [self.view addSubview:self.loginView];
+    [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(64);
+        make.left.width.equalTo(self.view);
+        make.height.equalTo(@100);
+    }];
+    
+    // 登录view的登录按钮
+    [self.loginView addSubview:self.loginBtn];
+    [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.loginView);
+        make.height.equalTo(@(MineLoginBtnH));
+        make.width.equalTo(@(MineLoginBtnW));
+    }];
+    
 }
 
 /**
@@ -93,8 +189,14 @@
  */
 - (void)setupNavi
 {
+//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0];
     
+    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
 }
+
 
 #pragma mark - 懒加载
 - (AFHTTPSessionManager *)netWorkMgr
@@ -113,7 +215,7 @@
         
         _gobalScrollView.frame = self.view.bounds;
         
-        _gobalScrollView.backgroundColor = [UIColor orangeColor];
+        _gobalScrollView.backgroundColor = [UIColor whiteColor];
     }
     return _gobalScrollView;
 }
@@ -122,10 +224,52 @@
 {
     if (_userInfoView == nil) {
         _userInfoView = [[SINUserInfoView alloc] init];
-        _userInfoView.backgroundColor = [UIColor cyanColor];
+        _userInfoView.backgroundColor = [UIColor whiteColor];
 
     }
     return _userInfoView;
+}
+
+- (SINWalletView *)walletView
+{
+    if (_walletView == nil) {
+        _walletView = [[SINWalletView alloc] init];
+        _walletView.backgroundColor = [UIColor whiteColor];
+    }
+    return _walletView;
+}
+
+- (SINUserCenterView *)userCenterView
+{
+    if (_userCenterView == nil) {
+        _userCenterView = [[SINUserCenterView alloc] init];
+        _userCenterView.backgroundColor = [UIColor whiteColor];
+    }
+    return _userCenterView;
+}
+
+- (UIView *)loginView
+{
+    if (_loginView == nil) {
+        _loginView = [[UIView alloc] init];
+        _loginView.backgroundColor = [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0];
+        
+    }
+    return _loginView;
+}
+
+- (UIButton *)loginBtn
+{
+    if (_loginBtn == nil) {
+        _loginBtn = [[UIButton alloc] init];
+        _loginBtn.backgroundColor = [UIColor clearColor];
+        _loginBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_loginBtn setTitle:@"登录/注册" forState:UIControlStateNormal];
+        _loginBtn.layer.borderWidth = 1;
+        _loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        _loginBtn.layer.cornerRadius = 20;
+}
+    return _loginBtn;
 }
 
 @end

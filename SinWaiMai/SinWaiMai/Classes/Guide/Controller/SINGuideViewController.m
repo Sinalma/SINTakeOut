@@ -23,6 +23,8 @@
     
     self.title = @"指南";
     
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:246/255.0 green:46/255.0 blue:66/255.0 alpha:1.0]];
+    
     AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
     
     /** 
