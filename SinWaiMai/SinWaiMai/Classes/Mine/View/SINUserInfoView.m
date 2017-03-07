@@ -43,7 +43,7 @@
     CGFloat lineW = 0.5;
     
     CGFloat itemW = selfW / count;
-    NSLog(@"item - %f",itemW);
+    
     for (int i = 0; i < count; i++) {
     
         SINUserInfo *userInfo = self.userInfoes[i];
@@ -105,7 +105,7 @@
             [self addSubview:bLin];
             
             self.height = CGRectGetMaxY(bLin.frame) + margin;
-            NSLog(@"height->%f",self.height);
+            
         }
     }
 }

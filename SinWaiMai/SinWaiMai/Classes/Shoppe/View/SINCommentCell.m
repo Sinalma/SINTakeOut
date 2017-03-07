@@ -119,7 +119,7 @@
     UILabel *timeLab = [self alignmentWithLabStrs:@[self.comment.create_time] imgN:@"commentTime" startY:timeStartY superV:self.commentContentView];
     
     self.height = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + 10;
-    self.cellHeight = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + commentTypeMargin*0.5;
+    self.cellHeight = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + commentTypeMargin*2;
 }
 
 /**

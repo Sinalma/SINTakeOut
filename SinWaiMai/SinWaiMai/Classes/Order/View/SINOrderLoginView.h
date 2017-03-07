@@ -12,4 +12,6 @@
 
 + (instancetype)orderLoginView;
 
+- (void)startImgVAnimation;
+
 @end

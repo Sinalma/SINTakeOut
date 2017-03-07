@@ -333,7 +333,7 @@ static CGFloat preOffsetY = 0;
     // 导航条未至顶部时，gobalView可上滑，contentScrollV可下滑
     CGFloat curOffsetY = scrollView.contentOffset.y;
     if (self.gobalView.contentOffset.y < 145) {
-        NSLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
+//        NSLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
         
         if (curOffsetY - preOffsetY >= 1) {
             self.gobalView.scrollEnabled = YES;
@@ -805,7 +805,7 @@ static int welfareOpenState = 0;
     
     self.navigationController.navigationBar.layer.masksToBounds = YES;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<--" style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
     
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
 }

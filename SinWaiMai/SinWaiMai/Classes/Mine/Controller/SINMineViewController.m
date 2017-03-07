@@ -17,6 +17,7 @@
 #import "SINWallet.h"
 #import "SINUserCenterItem.h"
 #import "SINUserCenterView.h"
+#import "SINWaveView.h"
 
 #define MineLoginBtnW 120
 #define MineLoginBtnH 40
@@ -43,6 +44,7 @@
 
 /** 登录按钮 */
 @property (nonatomic,strong) UIButton *loginBtn;
+
 
 #pragma mark - 数据
 /** 保存用户信息模型的数组 */
@@ -76,6 +78,14 @@
     
     // 加载网络数据
     [self loadNetworkData];
+    
+//    [self waveViewAnim];
+}
+
+- (void)waveViewAnim
+{
+    SINWaveView *waveV = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 150)];
+    [self.view addSubview:waveV];
 }
 
 #pragma mark - 自定义方法
@@ -195,6 +205,13 @@
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
+    
+//    UILabel *lab = [[UILabel alloc] init];
+//    lab.text = @"我的";
+//    lab.font = [UIFont systemFontOfSize:19];
+//    lab.frame = CGRectMake(0, 0, 20, 50);
+//    lab.textColor = [UIColor whiteColor];
+//    self.navigationItem.titleView = lab;
 }
 
 

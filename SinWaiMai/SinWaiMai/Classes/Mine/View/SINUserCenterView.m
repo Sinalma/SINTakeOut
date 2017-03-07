@@ -57,7 +57,6 @@
             serviceLab.height = 20;
             serviceLab.y = CGRectGetMaxY(hV.frame) + 10;
             [self addSubview:serviceLab];
-            NSLog(@"serviceLab -> %f",CGRectGetMaxY(serviceLab.frame));
         }
     }
     

@@ -10,6 +10,14 @@
 #import "Masonry.h"
 #import "UILabel+Category.h"
 
+@interface SINOrderLoginView ()
+
+@property (nonatomic,strong) NSTimer *timer;
+
+@property (nonatomic,strong) UIImageView *imgV;
+
+@end
+
 @implementation SINOrderLoginView
 
 + (instancetype)orderLoginView
@@ -25,23 +33,45 @@
     return self;
 }
 
+- (void)startImgVAnimation
+{
+    __block int imgVAnimCount = 0;
+    __block int index = 0;
+
+        self.timer = [NSTimer timerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            if (index == 4) {
+                index = 0;
+                imgVAnimCount ++;
+            }
+            if (imgVAnimCount >= 2) {
+                return ;
+            }
+            NSString *imgN = [NSString stringWithFormat:@"no_login_0%d",index];
+            self.imgV.image = [UIImage imageNamed:imgN];
+            index++;
+        }];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+}
+
 - (void)setup
 {
     UIImageView *imgV = [[UIImageView alloc] init];
-    imgV.image = [UIImage imageNamed:@""];
+    imgV.image = [UIImage imageNamed:@"no_login_00"];
     [self addSubview:imgV];
     [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@200);
     }];
+    self.imgV = imgV;
     
-    UILabel *remLab = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
-    remLab.text = @"只有登录后才能查看订单哦";
+    UILabel *remLab = [UILabel createLabelWithFont:14 textColor:[UIColor lightGrayColor]];
+    remLab.text = @"登录后才能查看订单哦";
     remLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:remLab];
     [remLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imgV.mas_bottom).offset(20);
+        make.top.equalTo(imgV.mas_bottom).offset(30);
         make.left.right.equalTo(self);
         make.height.equalTo(@20);
     }];
@@ -54,7 +84,7 @@
     loginBtn.layer.cornerRadius = 20;
     [self addSubview:loginBtn];
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(remLab.mas_bottom).offset(10);
+        make.top.equalTo(remLab.mas_bottom).offset(30);
         make.left.right.equalTo(self);
         make.height.equalTo(@40);
     }];

@@ -37,11 +37,23 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.orderLoginView startImgVAnimation];
+}
+
 - (void)setupNaiv
 {
-    self.title = @"订单";
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:246/255.0 green:46/255.0 blue:66/255.0 alpha:1.0]];
+    UILabel *lab = [[UILabel alloc] init];
+    lab.text = @"订单";
+    lab.font = [UIFont systemFontOfSize:19];
+    lab.frame = CGRectMake(0, 0, 20, 50);
+    lab.textColor = [UIColor whiteColor];
+    self.navigationItem.titleView = lab;
+    
+    [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
 }
 
 - (SINOrderLoginView *)orderLoginView

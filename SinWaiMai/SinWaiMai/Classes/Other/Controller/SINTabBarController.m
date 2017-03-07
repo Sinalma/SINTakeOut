@@ -28,6 +28,7 @@
     [self setupAllChildVC];
 }
 
+
 /**
  * 添加所有子控制器
  */
@@ -52,9 +53,10 @@
 - (void)setupChildVC:(UIViewController *)vc title:(NSString *)title
 {
     SINNavigationController *naviVC = [[SINNavigationController alloc] initWithRootViewController:vc];
-
+    [naviVC.tabBarItem setImage:[UIImage imageNamed:@"tabBar_guide"]];
+    [naviVC.tabBarItem setSelectedImage:[UIImage imageNamed:@"tabBar_guideSel"]];
     vc.navigationController.title = title;
-    vc.view.backgroundColor = [UIColor randomColor];
+    vc.view.backgroundColor = [UIColor whiteColor];
     [self addChildViewController:naviVC];
 }
 
