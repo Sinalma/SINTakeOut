@@ -10,22 +10,18 @@
 #import "AFNetworking.h"
 #import "Masonry.h"
 #import "UILabel+Category.h"
-#import "SINTopic.h"
-#import "SINRecommend.h"
-#import "SINTopicCell.h"
-#import "SINTopTopicCell.h"
 #import "SINRecommendViewController.h"
 #import "SINFollowViewController.h"
 #import "SINFoodieViewController.h"
 #import "SINChophandViewController.h"
 #import "SINLifeViewController.h"
 #import "SINOtherViewController.h"
+#import "UIColor+Category.h"
 
 // 导航条高度
 #define GuideNaviViewHeight 30
 
-@interface SINGuideViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface SINGuideViewController ()
 /** 网络管理者 */
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
 
@@ -44,24 +40,34 @@
 /** 当前需要显示的指示条 */
 @property (nonatomic,strong) UIView *selLine;
 
-/** 推荐模块tableView */
-@property (nonatomic,strong) UITableView *recommendView;
-
 /** 吃货控制器 */
 @property (nonatomic,strong) SINFoodieViewController *foodieVC;
 
+/** 推荐控制器 */
+@property (nonatomic,strong) SINRecommendViewController *recommendVC;
+
+/** 关注控制器 */
+@property (nonatomic,strong) SINFollowViewController *followVC;
+
+/** 剁手控制器 */
+@property (nonatomic,strong) SINChophandViewController *chophandVC;
+
+/** 生活控制器 */
+@property (nonatomic,strong) SINLifeViewController *lifeVC;
+
+/** 其他控制器 */
+@property (nonatomic,strong) SINOtherViewController *otherVC;
+
+/** 底层scrollView */
+@property (nonatomic,strong) UIScrollView *groundScrollView;
+
 #pragma mark - 数据
-/** 存放顶部内容段子数据 */
-@property (nonatomic,strong) NSArray *topTopics;
-
-/** 存放内容段子数据 */
-@property (nonatomic,strong) NSMutableArray *topics;
-
 /** 导航栏标题数组 */
 @property (nonatomic,strong) NSArray *naviTitles;
 
-/** 推荐 */
-@property (nonatomic,strong) NSArray *recommendes;
+/** 存放所有控制器的数组 */
+@property (nonatomic,strong) NSMutableArray *AllChildVC;
+
 
 @end
 
@@ -84,32 +90,6 @@
     [self setupChildView];
     
     [self setupChildVC];
-    
-    [self loadData];
-    
-    [self loadOutData];
-}
-
-- (void)setupChildVC
-{
-    SINFollowViewController *followVC = [[SINFollowViewController alloc] init];
-    [self addChildViewController:followVC];
-    
-    SINFoodieViewController *foodieVC =[[SINFoodieViewController alloc] init];
-    [self addChildViewController:foodieVC];
-    self.foodieVC = foodieVC;
-}
-
-- (void)loadOutData
-{
-    NSDictionary *dict = @{@"lat":@"2557435.496479",@"lng":@"12617386.912297",@"category_id":@"0",@"city_id":@"187",@"history_member":@"96"};
-    [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面 - 后面数据加载失败 = %@",error);
-    }];
 }
 
 - (void)loadTopData
@@ -126,124 +106,70 @@
         }
         self.naviTitles = naviLabStrArrM;
         
-        // 关注模块-推荐
-        NSMutableArray *recommendArrM = [NSMutableArray array];
-        for (NSDictionary *dict in responseObject[@"result"][@"commend_list"]) {
-            SINRecommend *recommend = [SINRecommend recommendWithDict:dict];
-            [recommendArrM addObject:recommend];
-        }
-        self.recommendes = recommendArrM;
-        
-        // 顶部段子数据
-        NSMutableArray *topTopicArrM = [NSMutableArray array];
-        for (NSDictionary *dict in responseObject[@"result"][@"top_content_list"]) {
-            SINTopic *topTopic = [SINTopic topicWithDict:dict];
-            [topTopicArrM addObject:topTopic];
-        }
-        self.topTopics = topTopicArrM;
-        
-        [self.recommendView reloadData];
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面-顶部模块数据加载失败 = %@",error);
+        NSLog(@"指南界面-导航栏标题数据加载失败 = %@",error);
     }];
 }
 
 /**
- * 获取网络数据
+ * 初始化子控制器
  */
-- (void)loadData
+- (void)setupChildVC
 {
-    NSDictionary *dict = @{@"city_id":@"187"};
-    [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendlist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
-        
-        for (NSDictionary *dict in responseObject[@"result"][@"content_list"]) {
-            SINTopic *topic = [SINTopic topicWithDict:dict];
-            [self.topics addObject:topic];
-        }
-        
-        [self.recommendView reloadData];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面数据加载失败 - %@",error);
-    }];
+    SINRecommendViewController *recommendVC = [[SINRecommendViewController alloc] init];
+    [self addChildViewController:recommendVC];
+    self.recommendVC = recommendVC;
+    [self.AllChildVC addObject:recommendVC];
+    
+    SINFollowViewController *followVC = [[SINFollowViewController alloc] init];
+    [self addChildViewController:followVC];
+    self.followVC = followVC;
+    [self.AllChildVC addObject:followVC];
+    
+    SINFoodieViewController *foodieVC =[[SINFoodieViewController alloc] init];
+    [self addChildViewController:foodieVC];
+    self.foodieVC = foodieVC;
+    [self.AllChildVC addObject:foodieVC];
+    
+    SINChophandViewController *chophandVC =[[SINChophandViewController alloc] init];
+    [self addChildViewController:chophandVC];
+    self.foodieVC = foodieVC;
+    [self.AllChildVC addObject:chophandVC];
+    
+    
+    SINLifeViewController *lifeVC = [[SINLifeViewController alloc] init];
+    [self addChildViewController:lifeVC];
+    self.lifeVC = lifeVC;
+    [self.AllChildVC addObject:lifeVC];
+    
+    SINOtherViewController *otherVC = [[SINOtherViewController alloc] init];
+    [self addChildViewController:otherVC];
+    self.otherVC = otherVC;
+    [self.AllChildVC addObject:otherVC];
 }
 
+
+/**
+ * 加载相应控制器的view
+ */
 - (void)loadContentViewWithCurrentLab:(UILabel *)lab
 {
-    switch (lab.tag) {
-        case 0:
-            break;
-        case 1:
-            
-            break;
-        case 2:
-        {
-            self.foodieVC.view.backgroundColor = [UIColor orangeColor];
-            [self.view addSubview:self.foodieVC.view];
-            [self.foodieVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.naviView);
-                make.top.equalTo(self.naviView.mas_bottom);
-                make.height.equalTo(@(SINScreenH - CGRectGetMaxY(self.naviView.frame) - 44));
-                make.width.equalTo(@(SINScreenW));
-            }];
-        }
-            break;
-        case 3:
-            
-            break;
-        case 4:
-            
-            break;
-        case 5:
-            
-            break;
-        default:
-            break;
+    NSInteger index = lab.tag;
+
+    UIViewController *vc = self.AllChildVC[index];
+    if (!vc.viewLoaded) {
+        vc.view.backgroundColor = [UIColor randomColor];
+        [self.groundScrollView addSubview:vc.view];
+        [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.groundScrollView).offset(SINScreenW * index);
+            make.top.equalTo(self.groundScrollView);
+            make.height.equalTo(@(SINScreenH - CGRectGetMaxY(self.naviView.frame) - 44));
+            make.width.equalTo(@(SINScreenW));
+        }];
     }
-}
-
-
-#pragma mark - UITableViewDelegate,UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.topics.count + self.topTopics.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    tableView.separatorStyle = NO;
-//    UITableViewCell *cell = nil;
-    if (indexPath.row < self.topTopics.count) {
-        SINTopTopicCell  *cell = (SINTopTopicCell *)[tableView dequeueReusableCellWithIdentifier:@"topTopicCell"];
-        cell.topTopic = self.topTopics[indexPath.row];
-        return cell;
-    }else
-    {
-        SINTopicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"topicCell"];
-        cell.topic = self.topics[indexPath.row - self.topTopics.count];
-        return cell;
-    }
-//    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 165;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row < self.topTopics.count) {
-        SINTopTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//        NSLog(@"%f",cell.cellHeight);
-        return cell.cellHeight?cell.cellHeight:160;
-    }else
-    {
-        SINTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        return cell.cellHeight?cell.cellHeight:100;
-    }
+    
+    [self.groundScrollView setContentOffset:CGPointMake(SINScreenW * index, 0)];
+    
 }
 
 /**
@@ -360,7 +286,7 @@
         make.height.equalTo(@(GuideNaviViewHeight));
     }];
     
-    [self.recommendView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.groundScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.top.equalTo(self.naviView.mas_bottom);
         make.width.equalTo(@(SINScreenW));
@@ -423,25 +349,23 @@
     return _networkMgr;
 }
 
-- (NSMutableArray *)topics
+- (UIScrollView *)groundScrollView
 {
-    if (_topics == nil) {
-        _topics = [NSMutableArray array];
+    if (_groundScrollView == nil) {
+        _groundScrollView = [[UIScrollView alloc] init];
+        _groundScrollView.scrollEnabled = NO;
+        _groundScrollView.backgroundColor = [UIColor orangeColor];
+        [self.view addSubview:_groundScrollView];
     }
-    return _topics;
+    return _groundScrollView;
 }
 
-- (UITableView *)recommendView
+- (NSMutableArray *)AllChildVC
 {
-    if (_recommendView == nil) {
-        _recommendView = [[UITableView alloc] init];
-        _recommendView.delegate = self;
-        _recommendView.dataSource = self;
-        [_recommendView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topicCell"];
-        [_recommendView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topTopicCell"];
-        [self.view addSubview:_recommendView];
+    if (_AllChildVC == nil) {
+        _AllChildVC = [NSMutableArray array];
     }
-    return _recommendView;
+    return _AllChildVC;
 }
 
 #pragma mark - 未知

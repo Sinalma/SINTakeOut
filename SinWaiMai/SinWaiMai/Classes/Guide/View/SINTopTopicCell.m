@@ -45,7 +45,6 @@
     
     self.height = CGRectGetMaxY(self.praiseLabel.frame) + 10;
     self.cellHeight = CGRectGetMaxY(self.praiseLabel.frame) + 10;
-    NSLog(@"%f",self.cellHeight);
 }
 
 - (void)awakeFromNib {

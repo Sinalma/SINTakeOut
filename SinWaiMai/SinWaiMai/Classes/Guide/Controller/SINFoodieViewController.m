@@ -7,9 +7,25 @@
 //
 
 #import "SINFoodieViewController.h"
+#import "AFNetworking.h"
+#import "SINTopicCell.h"
+#import "SINTopTopicCell.h"
+#import "SINTopic.h"
+#import "SINWebViewController.h"
 
 @interface SINFoodieViewController ()
 
+/** 网络管理者 */
+@property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
+/** 存放顶部内容段子数据 */
+@property (nonatomic,strong) NSArray *topTopics;
+
+/** 存放内容段子数据 */
+@property (nonatomic,strong) NSMutableArray *topics;
+/** 推荐 */
+@property (nonatomic,strong) NSArray *recommendes;
+/** 导航栏标题数组 */
+@property (nonatomic,strong) NSArray *naviTitles;
 @end
 
 @implementation SINFoodieViewController
@@ -17,82 +33,128 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self setup];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self loadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setup
+{
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topicCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topTopicCell"];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (void)loadOutData
+{
+    NSDictionary *dict = @{@"lat":@"2557435.496479",@"lng":@"12617386.912297",@"category_id":@"0",@"city_id":@"187",@"history_member":@"96"};
+    [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"指南界面 - 后面数据加载失败 = %@",error);
+    }];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+/**
+ * 获取网络数据
+ */
+- (void)loadData
+{
+    NSDictionary *dict = @{@"lat":@"2557434.78176",@"lng":@"12617394.561978",@"category_id":@"1484558763740833116",@"city_id":@"187"};
+    [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getcategorylist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
+        
+        for (NSDictionary *dict in responseObject[@"result"][@"content_list"]) {
+            SINTopic *topic = [SINTopic topicWithDict:dict];
+            [self.topics addObject:topic];
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"指南界面数据加载失败 - %@",error);
+    }];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+#pragma mark - UITableViewDelegate,UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.topics.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    tableView.separatorStyle = NO;
     
-    // Configure the cell...
+    SINTopic * topic = self.topics[indexPath.row];
+    NSLog(@"%ld -> %@",indexPath.row,topic.show_big_image);
     
-    return cell;
-}
-*/
+    
+    if ([topic.show_big_image isEqualToString:@"0"]) {
+        
+        SINTopicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"topicCell"];
+        cell.topic = topic;
+        return cell;
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+        
+    }else if ([topic.show_big_image isEqualToString:@"1"])
+    {
+        SINTopTopicCell  *cell = (SINTopTopicCell *)[tableView dequeueReusableCellWithIdentifier:@"topTopicCell"];
+        cell.topTopic = topic;
+        return cell;
+    }
+    return nil;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 165;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SINTopic *topic = self.topics[indexPath.row];
+    if ([topic.show_big_image isEqualToString:@"1"]) {
+        SINTopTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        return cell.cellHeight?cell.cellHeight:175;
+    }else if ([topic.show_big_image isEqualToString:@"0"])
+    {
+        SINTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        return cell.cellHeight?cell.cellHeight:100;
+    }
+    return 100;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SINTopic *topic = self.topics[indexPath.row];
+    SINWebViewController *webVC = [[SINWebViewController alloc] init];
+    webVC.urlStr = topic.detail;
+    webVC.naviTitle = topic.title;
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:webVC];
+    [self presentViewController:naviVC animated:YES completion:nil];
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSMutableArray *)topics
+{
+    if (_topics == nil) {
+        _topics = [NSMutableArray array];
+    }
+    return _topics;
 }
-*/
+
+- (AFHTTPSessionManager *)networkMgr
+{
+    if (_networkMgr == nil) {
+        _networkMgr = [[AFHTTPSessionManager alloc] init];
+    }
+    return _networkMgr;
+}
 
 @end

@@ -10,4 +10,5 @@
 
 @interface SINFollowViewController : UITableViewController
 
+
 @end

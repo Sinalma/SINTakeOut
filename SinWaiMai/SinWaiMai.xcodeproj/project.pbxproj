@@ -65,6 +65,7 @@
 		18D237391E6EB57000387FB8 /* SINLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237381E6EB57000387FB8 /* SINLifeViewController.m */; };
 		18D2373C1E6EB57D00387FB8 /* SINOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2373B1E6EB57D00387FB8 /* SINOtherViewController.m */; };
 		18D2373F1E6ECA5300387FB8 /* SINRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2373E1E6ECA5300387FB8 /* SINRecommendViewController.m */; };
+		18D237431E6FA5D500387FB8 /* SINWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237411E6FA5D500387FB8 /* SINWebViewController.m */; };
 		18D6820B1E34EEDC006158E0 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6820A1E34EEDC006158E0 /* Text.m */; };
 		18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02B51E690CDF0018940E /* SINWalletView.m */; };
 		18DC02B91E6999880018940E /* SINWalletTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02B81E6999880018940E /* SINWalletTitle.m */; };
@@ -215,6 +216,8 @@
 		18D2373B1E6EB57D00387FB8 /* SINOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINOtherViewController.m; sourceTree = "<group>"; };
 		18D2373D1E6ECA5300387FB8 /* SINRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINRecommendViewController.h; sourceTree = "<group>"; };
 		18D2373E1E6ECA5300387FB8 /* SINRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINRecommendViewController.m; sourceTree = "<group>"; };
+		18D237401E6FA5D500387FB8 /* SINWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWebViewController.h; sourceTree = "<group>"; };
+		18D237411E6FA5D500387FB8 /* SINWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWebViewController.m; sourceTree = "<group>"; };
 		18D682091E34EEDC006158E0 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
 		18D6820A1E34EEDC006158E0 /* Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Text.m; sourceTree = "<group>"; };
 		18DC02B41E690CDF0018940E /* SINWalletView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWalletView.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 				18D237381E6EB57000387FB8 /* SINLifeViewController.m */,
 				18D2373A1E6EB57D00387FB8 /* SINOtherViewController.h */,
 				18D2373B1E6EB57D00387FB8 /* SINOtherViewController.m */,
+				18D237401E6FA5D500387FB8 /* SINWebViewController.h */,
+				18D237411E6FA5D500387FB8 /* SINWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -959,6 +964,7 @@
 				18EAC8F41E322917007FE5E0 /* NSString+SINFilePath.m in Sources */,
 				18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */,
 				18C9C37E1E40CDE500609BC1 /* SINFoodViewController.m in Sources */,
+				18D237431E6FA5D500387FB8 /* SINWebViewController.m in Sources */,
 				1811061A1E331B4400E3FD84 /* SINUserInfoView.m in Sources */,
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
 				18D237361E6EB56000387FB8 /* SINChophandViewController.m in Sources */,
