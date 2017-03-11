@@ -8,7 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SINOrderLoginViewDelegate <NSObject>
+
+@optional
+/** 回调控制器弹出登录/注册控制器 */
+- (void)loginRegisterBtnClick;
+
+@end
+
 @interface SINOrderLoginView : UIView
+
+@property (nonatomic,weak) id<SINOrderLoginViewDelegate> delegate;
 
 + (instancetype)orderLoginView;
 

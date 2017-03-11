@@ -7,10 +7,13 @@
 //
 
 #import "SINWebViewController.h"
+#import "SINHUD.h"
 
-@interface SINWebViewController ()
+@interface SINWebViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
+
+@property (nonatomic,strong) SINHUD *loadHUD;
 
 @end
 
@@ -31,15 +34,22 @@
 
 - (void)setup
 {
+    self.webView.delegate = self;
     self.webView.frame = self.view.bounds;
     [self.view addSubview:self.webView];
     
+    SINHUD *hud = [SINHUD showHudAddTo:self.view];
+    self.loadHUD = hud;
+    hud.mode = MBProgressHUDModeIndeterminate;
+    
     if (self.urlStr) {
-        
         [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
     }else
     {
-        NSLog(@"网页加载失败");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hide];
+            [self clickBack];
+        });
     }
     
 }
@@ -54,6 +64,13 @@
     [super viewWillDisappear:animated];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.loadHUD hide];
 }
 
 - (void)setupNavi

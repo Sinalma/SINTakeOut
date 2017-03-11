@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "SINTabBarController.h"
+#import "SINLoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +30,9 @@
     /**
       unexpected nil window in _UIApplicationHandleEventFromQueueEvent, _windowServerHitTestWindow: <UIWindow: 0x17663920; frame = (0 0; 0 0); gestureRecognizers = <NSArray: 0x176641c0>; layer = <UIWindowLayer: 0x17663b30>>
      */
+//    SINLoginViewController *LOGINVC = [[SINLoginViewController alloc] init];
+//    UINavigationController *NAVIVC = [[UINavigationController alloc] initWithRootViewController:LOGINVC];
+//    self.window.rootViewController = NAVIVC;
     
     self.window.rootViewController = [[SINTabBarController alloc] init];
     

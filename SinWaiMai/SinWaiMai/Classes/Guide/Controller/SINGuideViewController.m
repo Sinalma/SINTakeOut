@@ -17,6 +17,8 @@
 #import "SINLifeViewController.h"
 #import "SINOtherViewController.h"
 #import "UIColor+Category.h"
+#import "SINHUD.h"
+#import "SINLoginViewController.h"
 
 // 导航条高度
 #define GuideNaviViewHeight 30
@@ -85,15 +87,19 @@
     
     [self setupNavi];
     
-    [self loadTopData];
+    [self setupChildVC];
     
     [self setupChildView];
     
-    [self setupChildVC];
+    [self loadTopData];
 }
 
 - (void)loadTopData
 {
+    
+    SINHUD *hud = [SINHUD showHudAddTo:self.view];
+
+    
     NSDictionary *dict = @{@"city_id":@"187"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
@@ -105,6 +111,8 @@
             [naviLabStrArrM addObject:str];
         }
         self.naviTitles = naviLabStrArrM;
+  
+        [hud hide];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"指南界面-导航栏标题数据加载失败 = %@",error);
@@ -158,7 +166,7 @@
 
     UIViewController *vc = self.AllChildVC[index];
     if (!vc.viewLoaded) {
-        vc.view.backgroundColor = [UIColor randomColor];
+        vc.view.backgroundColor = [UIColor whiteColor];
         [self.groundScrollView addSubview:vc.view];
         [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.groundScrollView).offset(SINScreenW * index);
@@ -170,14 +178,25 @@
     
     [self.groundScrollView setContentOffset:CGPointMake(SINScreenW * index, 0)];
     
+    
 }
 
 /**
  * 点击了导航栏lab
  */
+static BOOL loginStatu = NO;
 - (void)naviLabClick:(UITapGestureRecognizer *)tap
 {
     UILabel *lab = (UILabel *)tap.view;
+
+    // 关注模块,需要登录后才能显示
+    if (lab.tag == 1 && loginStatu == NO) {
+
+        SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
+        UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:naviVC animated:YES completion:nil];
+        return;
+    }
     
     self.selLine.hidden = YES;
     UIView *curLine = self.naviLines[lab.tag];
@@ -299,7 +318,7 @@
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
     
     UILabel *lab = [[UILabel alloc] init];
-    lab.text = @"订单";
+    lab.text = @"指南";
     lab.font = [UIFont systemFontOfSize:19];
     lab.frame = CGRectMake(0, 0, 20, 50);
     lab.textColor = [UIColor whiteColor];
@@ -354,7 +373,6 @@
     if (_groundScrollView == nil) {
         _groundScrollView = [[UIScrollView alloc] init];
         _groundScrollView.scrollEnabled = NO;
-        _groundScrollView.backgroundColor = [UIColor orangeColor];
         [self.view addSubview:_groundScrollView];
     }
     return _groundScrollView;

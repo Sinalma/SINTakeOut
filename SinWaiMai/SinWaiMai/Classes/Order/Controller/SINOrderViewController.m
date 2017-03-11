@@ -9,8 +9,9 @@
 #import "SINOrderViewController.h"
 #import "SINOrderLoginView.h"
 #import "Masonry.h"
+#import "SINLoginViewController.h"
 
-@interface SINOrderViewController ()
+@interface SINOrderViewController ()<SINOrderLoginViewDelegate>
 
 @property (nonatomic,strong) SINOrderLoginView *orderLoginView;
 
@@ -37,6 +38,14 @@
     
 }
 
+#pragma mark - SINOrderLoginViewDelegata
+- (void)loginRegisterBtnClick
+{
+    SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [self presentViewController:naviVC animated:YES completion:nil];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.orderLoginView startImgVAnimation];
@@ -60,6 +69,7 @@
 {
     if (_orderLoginView == nil) {
         _orderLoginView = [[SINOrderLoginView alloc] init];
+        _orderLoginView.delegate = self;
     }
     return _orderLoginView;
 }

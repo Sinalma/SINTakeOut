@@ -66,6 +66,9 @@
 		18D2373C1E6EB57D00387FB8 /* SINOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2373B1E6EB57D00387FB8 /* SINOtherViewController.m */; };
 		18D2373F1E6ECA5300387FB8 /* SINRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2373E1E6ECA5300387FB8 /* SINRecommendViewController.m */; };
 		18D237431E6FA5D500387FB8 /* SINWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237411E6FA5D500387FB8 /* SINWebViewController.m */; };
+		18D237481E7048DE00387FB8 /* SINHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237471E7048DE00387FB8 /* SINHUD.m */; };
+		18D2374B1E704CA600387FB8 /* SINProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2374A1E704CA600387FB8 /* SINProgressHUD.m */; };
+		18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */; };
 		18D6820B1E34EEDC006158E0 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6820A1E34EEDC006158E0 /* Text.m */; };
 		18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02B51E690CDF0018940E /* SINWalletView.m */; };
 		18DC02B91E6999880018940E /* SINWalletTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02B81E6999880018940E /* SINWalletTitle.m */; };
@@ -218,6 +221,12 @@
 		18D2373E1E6ECA5300387FB8 /* SINRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINRecommendViewController.m; sourceTree = "<group>"; };
 		18D237401E6FA5D500387FB8 /* SINWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWebViewController.h; sourceTree = "<group>"; };
 		18D237411E6FA5D500387FB8 /* SINWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWebViewController.m; sourceTree = "<group>"; };
+		18D237461E7048DE00387FB8 /* SINHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINHUD.h; sourceTree = "<group>"; };
+		18D237471E7048DE00387FB8 /* SINHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINHUD.m; sourceTree = "<group>"; };
+		18D237491E704CA600387FB8 /* SINProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINProgressHUD.h; sourceTree = "<group>"; };
+		18D2374A1E704CA600387FB8 /* SINProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINProgressHUD.m; sourceTree = "<group>"; };
+		18D2374D1E72CA6C00387FB8 /* SINLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINLoginViewController.h; sourceTree = "<group>"; };
+		18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINLoginViewController.m; sourceTree = "<group>"; };
 		18D682091E34EEDC006158E0 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
 		18D6820A1E34EEDC006158E0 /* Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Text.m; sourceTree = "<group>"; };
 		18DC02B41E690CDF0018940E /* SINWalletView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWalletView.h; sourceTree = "<group>"; };
@@ -388,6 +397,27 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		18D237451E7048BA00387FB8 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				18D237461E7048DE00387FB8 /* SINHUD.h */,
+				18D237471E7048DE00387FB8 /* SINHUD.m */,
+				18D237491E704CA600387FB8 /* SINProgressHUD.h */,
+				18D2374A1E704CA600387FB8 /* SINProgressHUD.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
+		18D2374C1E72C9DB00387FB8 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				18D2374D1E72CA6C00387FB8 /* SINLoginViewController.h */,
+				18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */,
+			);
+			name = LoginRegister;
+			path = Mine/LoginRegister;
+			sourceTree = "<group>";
+		};
 		18EA61681E25DA9D009D826E = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +483,7 @@
 		18EA61A91E262590009D826E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18D2374C1E72C9DB00387FB8 /* LoginRegister */,
 				1829332E1E3DC0C900E0C110 /* Shoppe */,
 				18EA61AE1E262590009D826E /* Homepage */,
 				18EA61AA1E262590009D826E /* Guide */,
@@ -671,6 +702,7 @@
 		18EA61BA1E262590009D826E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				18D237451E7048BA00387FB8 /* HUD */,
 				180001FA1E310E1900B7599B /* Common */,
 				18EA61BB1E262590009D826E /* Category */,
 				18EA61BC1E262590009D826E /* Controller */,
@@ -982,6 +1014,7 @@
 				18BE349B1E51DBAD005EABB5 /* SINComment.m in Sources */,
 				18D237301E6EB4D300387FB8 /* SINFoodieViewController.m in Sources */,
 				18D237391E6EB57000387FB8 /* SINLifeViewController.m in Sources */,
+				18D237481E7048DE00387FB8 /* SINHUD.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
 				18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
@@ -995,8 +1028,10 @@
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
 				18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */,
+				18D2374B1E704CA600387FB8 /* SINProgressHUD.m in Sources */,
 				18BFF1351E50071200C5DDB5 /* SINHeaderView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
+				18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */,
 				18BE34A11E51E752005EABB5 /* SINShopComment.m in Sources */,
 				18C5E0831E616BDE00CC9071 /* SINDiscoveryView.m in Sources */,
 				18D237201E6D324700387FB8 /* SINTopic.m in Sources */,

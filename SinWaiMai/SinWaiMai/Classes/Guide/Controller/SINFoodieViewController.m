@@ -12,6 +12,7 @@
 #import "SINTopTopicCell.h"
 #import "SINTopic.h"
 #import "SINWebViewController.h"
+#import "SINHUD.h"
 
 @interface SINFoodieViewController ()
 
@@ -63,6 +64,8 @@
  */
 - (void)loadData
 {
+    SINHUD *hud = [SINHUD showHudAddTo:self.view];
+    
     NSDictionary *dict = @{@"lat":@"2557434.78176",@"lng":@"12617394.561978",@"category_id":@"1484558763740833116",@"city_id":@"187"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getcategorylist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
@@ -72,6 +75,7 @@
             [self.topics addObject:topic];
         }
         
+        [hud hide];
         [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -90,8 +94,6 @@
     tableView.separatorStyle = NO;
     
     SINTopic * topic = self.topics[indexPath.row];
-    NSLog(@"%ld -> %@",indexPath.row,topic.show_big_image);
-    
     
     if ([topic.show_big_image isEqualToString:@"0"]) {
         

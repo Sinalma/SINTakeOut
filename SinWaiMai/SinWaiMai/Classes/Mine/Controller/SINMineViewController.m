@@ -18,6 +18,7 @@
 #import "SINUserCenterItem.h"
 #import "SINUserCenterView.h"
 #import "SINWaveView.h"
+#import "SINLoginViewController.h"
 
 #define MineLoginBtnW 120
 #define MineLoginBtnH 40
@@ -133,6 +134,13 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"我的控制器-数据加载失败 %@",error);
     }];
+}
+
+- (void)loginBtnClick
+{
+    SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [self presentViewController:naviVC animated:YES completion:nil];
 }
 
 /**
@@ -275,12 +283,15 @@
     return _loginView;
 }
 
+
+
 - (UIButton *)loginBtn
 {
     if (_loginBtn == nil) {
         _loginBtn = [[UIButton alloc] init];
         _loginBtn.backgroundColor = [UIColor clearColor];
         _loginBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_loginBtn setTitle:@"登录/注册" forState:UIControlStateNormal];
         _loginBtn.layer.borderWidth = 1;
         _loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;

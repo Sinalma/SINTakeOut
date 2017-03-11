@@ -82,6 +82,7 @@
     loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     loginBtn.layer.borderWidth = 1;
     loginBtn.layer.cornerRadius = 20;
+    [loginBtn addTarget:self action:@selector(loginRegisterBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:loginBtn];
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(remLab.mas_bottom).offset(30);
@@ -90,5 +91,16 @@
     }];
     
 }
+
+- (void)loginRegisterBtnClick
+{
+    NSLog(@"点击了登录/注册按钮");
+    
+    if ([self.delegate respondsToSelector:@selector(loginRegisterBtnClick)]) {
+        [self.delegate loginRegisterBtnClick];
+    }
+}
+
+
 
 @end
