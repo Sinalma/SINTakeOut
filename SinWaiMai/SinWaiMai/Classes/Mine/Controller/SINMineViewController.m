@@ -46,7 +46,6 @@
 /** 登录按钮 */
 @property (nonatomic,strong) UIButton *loginBtn;
 
-
 #pragma mark - 数据
 /** 保存用户信息模型的数组 */
 @property (nonatomic,strong) NSArray *userInfoes;
@@ -83,11 +82,11 @@
 //    [self waveViewAnim];
 }
 
-- (void)waveViewAnim
-{
-    SINWaveView *waveV = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 150)];
-    [self.view addSubview:waveV];
-}
+//- (void)waveViewAnim
+//{
+//    SINWaveView *waveV = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 150)];
+//    [self.view addSubview:waveV];
+//}
 
 #pragma mark - 自定义方法
 /**
@@ -282,8 +281,6 @@
     }
     return _loginView;
 }
-
-
 
 - (UIButton *)loginBtn
 {

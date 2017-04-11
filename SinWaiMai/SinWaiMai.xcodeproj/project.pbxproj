@@ -35,6 +35,7 @@
 		188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */; };
 		188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316511E28DA2700CE1455 /* SINSecondModuleView.xib */; };
 		188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61C51E26294D009D826E /* SINGuideViewController.m */; };
+		18A60AC11E778CA90063F81F /* SINAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A60AC01E778CA90063F81F /* SINAccount.m */; };
 		18BE34971E517ABE005EABB5 /* SINCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE34951E517ABE005EABB5 /* SINCommentCell.m */; };
 		18BE34981E517ABE005EABB5 /* SINCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BE34961E517ABE005EABB5 /* SINCommentCell.xib */; };
 		18BE349B1E51DBAD005EABB5 /* SINComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE349A1E51DBAD005EABB5 /* SINComment.m */; };
@@ -67,7 +68,6 @@
 		18D2373F1E6ECA5300387FB8 /* SINRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2373E1E6ECA5300387FB8 /* SINRecommendViewController.m */; };
 		18D237431E6FA5D500387FB8 /* SINWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237411E6FA5D500387FB8 /* SINWebViewController.m */; };
 		18D237481E7048DE00387FB8 /* SINHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D237471E7048DE00387FB8 /* SINHUD.m */; };
-		18D2374B1E704CA600387FB8 /* SINProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2374A1E704CA600387FB8 /* SINProgressHUD.m */; };
 		18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */; };
 		18D6820B1E34EEDC006158E0 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6820A1E34EEDC006158E0 /* Text.m */; };
 		18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02B51E690CDF0018940E /* SINWalletView.m */; };
@@ -167,6 +167,8 @@
 		1883164E1E28DA1C00CE1455 /* SINSecondModuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINSecondModuleView.h; sourceTree = "<group>"; };
 		1883164F1E28DA1C00CE1455 /* SINSecondModuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINSecondModuleView.m; sourceTree = "<group>"; };
 		188316511E28DA2700CE1455 /* SINSecondModuleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINSecondModuleView.xib; sourceTree = "<group>"; };
+		18A60ABF1E778CA90063F81F /* SINAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAccount.h; sourceTree = "<group>"; };
+		18A60AC01E778CA90063F81F /* SINAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAccount.m; sourceTree = "<group>"; };
 		18BE34941E517ABE005EABB5 /* SINCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCommentCell.h; sourceTree = "<group>"; };
 		18BE34951E517ABE005EABB5 /* SINCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCommentCell.m; sourceTree = "<group>"; };
 		18BE34961E517ABE005EABB5 /* SINCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINCommentCell.xib; sourceTree = "<group>"; };
@@ -223,8 +225,6 @@
 		18D237411E6FA5D500387FB8 /* SINWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWebViewController.m; sourceTree = "<group>"; };
 		18D237461E7048DE00387FB8 /* SINHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINHUD.h; sourceTree = "<group>"; };
 		18D237471E7048DE00387FB8 /* SINHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINHUD.m; sourceTree = "<group>"; };
-		18D237491E704CA600387FB8 /* SINProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINProgressHUD.h; sourceTree = "<group>"; };
-		18D2374A1E704CA600387FB8 /* SINProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINProgressHUD.m; sourceTree = "<group>"; };
 		18D2374D1E72CA6C00387FB8 /* SINLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINLoginViewController.h; sourceTree = "<group>"; };
 		18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINLoginViewController.m; sourceTree = "<group>"; };
 		18D682091E34EEDC006158E0 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
@@ -402,8 +402,6 @@
 			children = (
 				18D237461E7048DE00387FB8 /* SINHUD.h */,
 				18D237471E7048DE00387FB8 /* SINHUD.m */,
-				18D237491E704CA600387FB8 /* SINProgressHUD.h */,
-				18D2374A1E704CA600387FB8 /* SINProgressHUD.m */,
 			);
 			path = HUD;
 			sourceTree = "<group>";
@@ -413,6 +411,8 @@
 			children = (
 				18D2374D1E72CA6C00387FB8 /* SINLoginViewController.h */,
 				18D2374E1E72CA6C00387FB8 /* SINLoginViewController.m */,
+				18A60ABF1E778CA90063F81F /* SINAccount.h */,
+				18A60AC01E778CA90063F81F /* SINAccount.m */,
 			);
 			name = LoginRegister;
 			path = Mine/LoginRegister;
@@ -1022,13 +1022,13 @@
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				18DC02BF1E6A53F60018940E /* SINUserCenterView.m in Sources */,
 				18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */,
+				18A60AC11E778CA90063F81F /* SINAccount.m in Sources */,
 				18DC02BC1E699C350018940E /* SINWallet.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
 				18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */,
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
 				18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */,
-				18D2374B1E704CA600387FB8 /* SINProgressHUD.m in Sources */,
 				18BFF1351E50071200C5DDB5 /* SINHeaderView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */,

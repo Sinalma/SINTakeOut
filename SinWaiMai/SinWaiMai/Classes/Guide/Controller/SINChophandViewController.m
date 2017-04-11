@@ -17,8 +17,8 @@
 
 /** 区别加载新数据和更多数据 */
 typedef enum : NSUInteger {
-    LoadDataTypeUp,
-    LoadDataTypeDown
+    LoadDataTypeUp,// 上拉
+    LoadDataTypeDown // 下拉
 } LoadDataType;
 
 @interface SINChophandViewController ()
@@ -163,6 +163,7 @@ typedef enum : NSUInteger {
 
 - (void)setup
 {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topicCell"];

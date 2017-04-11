@@ -8,15 +8,25 @@
 
 #import "SINLoginViewController.h"
 #import "Masonry.h"
+#import "SINAccount.h"
+#import "SINHUD.h"
+
+typedef enum : NSUInteger {
+    KAccountStatueLoignNow = 0,
+    KAccountStatueRegsiterNow = 1,
+} AccountStatue;
 
 #define LoginNaviBarHeight 44
 
-@interface SINLoginViewController ()
+@interface SINLoginViewController () <UITextFieldDelegate>
 
+/** 导航条 */
 @property (nonatomic,strong) UIView *naviBar;
 
+/** 百度logo */
 @property (nonatomic,strong) UIImageView *logoView;
 
+/** 内容scrollView */
 @property (nonatomic,strong) UIScrollView *contentView;
 
 /** 短信登录按钮 */
@@ -46,18 +56,320 @@
 /** 底部立即注册按钮 */
 @property (nonatomic,strong) UIButton *registerBtn;
 
+/** 账号类 */
+@property (nonatomic,strong) SINAccount *account;
+
+/** 登录或者注册的状态 */
+@property (nonatomic,assign) AccountStatue accountStatue;
+
+@property (nonatomic,strong) SINHUD *hud;
+
+/** 保存临时输入的密码，但为点击登录 */
+@property (nonatomic,strong) NSString *tempPwd;
+
 @end
 
 @implementation SINLoginViewController
 
+- (SINAccount *)account
+{
+    if (_account == nil) {
+        _account = [[SINAccount alloc] init];
+    }
+    return _account;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self setupNavi];
     
     [self setupChildView];
     [self layoutChildView];
+    [self contentViewTap];
+    
+    // 暂未开放短信登录，先转至普通登录
+    [self normalLoginBtnClick];
+    
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    if (textField == self.pwdTextField) {
+        [self.accTextField endEditing:YES];
+        
+        // 提醒用户是否使用密码功能
+        UIAlertController *alert = [[UIAlertController alloc] init];
+        alert.title = @"是否使用密码功能";
+        UIAlertAction *yesAct = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            // 进入密码填充界面
+            [self jumpToPasswordApp];
+            
+            // 监听密码通知
+            [self addPasswordNoti];
+        }];
+        [alert addAction:yesAct];
+        UIAlertAction *noAct = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:noAct];
+        
+        
+        [self presentViewController:alert animated:YES completion:^{
+            [self.view endEditing:YES];
+        }];
+    }
+}
+
+#pragma mark - 密码相关
+
+/**
+ * 监听appDelegate密码的通知
+ */
+- (void)addPasswordNoti
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passwordNoti:) name:PasswordNotiName object:nil];
+}
+
+- (void)passwordNoti:(NSNotification *)noti
+{
+    self.pwdTextField.text = noti.object;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+/**
+ * 跳转到密码填充app
+ */
+- (void)jumpToPasswordApp
+{
+    NSURL *url = [NSURL URLWithString:@"Password://?SinWaiMai"];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        
+        [[UIApplication sharedApplication] openURL:url];
+        
+    }else
+    {
+        NSLog(@"未安装密码填充app");
+    }
+}
+
+/**
+ * contentView添加手势
+ */
+- (void)contentViewTap
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesContentView)];
+    [self.contentView addGestureRecognizer:tap];
+}
+
+- (void)touchesContentView
+{
+    [self.view endEditing:YES];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.accTextField endEditing:YES];
+    [self.pwdTextField endEditing:YES];
+}
+
+
+- (void)normalLoginBtnClick
+{
+    // 防止输入了密码没登入，但跳至短信登录界面时密码不见
+    self.pwdTextField.text = self.tempPwd ? self.tempPwd : @"";
+    
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:1.5 animations:^{
+    self.normalLineView.hidden = NO;
+    self.messageLineView.hidden = YES;
+    
+    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@40);
+    }];
+    self.accTextField.placeholder = @"手机号/用户名/邮箱";
+    self.pwdTextField.placeholder = @"密码";
+    [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [self.questionBtn setTitle:@"登录遇到问题" forState:UIControlStateNormal];
+    
+    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@85);
+    }];
+        
+    }];
+}
+
+- (void)messageLoginBtnClick
+{
+    // 清空另一个textField的文字
+    self.tempPwd = self.pwdTextField.text;
+    self.pwdTextField.text = nil;
+    
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:1.5 animations:^{
+        
+    self.normalLineView.hidden = YES;
+    self.messageLineView.hidden = NO;
+    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@0);
+    }];
+    self.accTextField.placeholder = @"请输入手机号码";
+    self.pwdTextField.placeholder = nil;
+    [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
+    [self.questionBtn setTitle:@"我已阅读并同意百度用户协议" forState:UIControlStateNormal];
+    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@176);
+    }];
+    }];
+}
+
+- (void)login
+{
+    SINHUD *hud = [[SINHUD alloc] init];
+    self.hud = hud;
+    [self.view addSubview:hud];
+    hud.backgroundColor = [UIColor clearColor];
+    hud.centerY = self.view.centerY - 70;
+    hud.centerX = self.view.centerX;
+    [hud showAnimated:YES];
+    
+    if (self.normalLineView.hidden == YES) {
+        hud.label.text = @"暂未开放短信登录功能";
+        NSLog(@"暂未开放短信登录功能");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.65 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
+        });
+        return;
+    }
+    
+    if (!self.accTextField.text.length || !self.pwdTextField.text.length) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"账号和密码不能为空";
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
+        });
+        
+        return;
+    }
+    
+    
+    BOOL bol = NO;
+    
+    if (self.accountStatue == KAccountStatueRegsiterNow) bol = [self.account registerWithAccount:self.accTextField.text password:self.pwdTextField.text];
+    
+    if (self.accountStatue == KAccountStatueLoignNow) bol = [self.account verifyWithAccount:self.accTextField.text pwd:self.pwdTextField.text];
+    
+    hud.label.text = nil;
+    if (bol == NO) {
+        hud.label.text = self.accountStatue == KAccountStatueRegsiterNow ? @"注册失败" : @"账号或密码输入错误，请重新输入";
+    }else
+    {
+        hud.label.text = self.accountStatue == KAccountStatueRegsiterNow ? @"注册成功,即将跳转登录界面" : @"登录成功，即将进入主界面";
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.65 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [hud hideAnimated:YES];
+       
+        if (bol == YES) {
+            
+            if (self.accountStatue == KAccountStatueRegsiterNow) {
+                [self registerClick];
+            }else
+            {
+                [self back];
+            }
+        }
+    });
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.pwdTextField.text = nil;
+    self.accTextField.text = nil;
+}
+
+- (void)loginOrRegister:(AccountStatue)accountStatue
+{
+    if (accountStatue == 0) {
+        [UIView animateWithDuration:1.5 animations:^{
+            
+        [self normalLoginBtnClick];
+        self.title = @"注册";
+        [self.navigationItem.rightBarButtonItem setTitle:@"登录"];
+        [self.registerBtn setTitle:@"立即登录" forState:UIControlStateNormal];
+        [self.loginBtn setTitle:@"注册" forState:UIControlStateNormal];
+        self.view.transform = CGAffineTransformMakeScale(-0.5, -0.5);
+        self.naviBar.transform = CGAffineTransformMakeTranslation(SINScreenW, 0);
+            self.questionBtn.hidden = YES;
+        }];
+        self.view.transform = CGAffineTransformIdentity;
+    }else
+    {
+        [UIView animateWithDuration:1.5 animations:^{
+            self.questionBtn.hidden = NO;
+        self.title = @"登录";
+        [self.navigationItem.rightBarButtonItem setTitle:@"注册"];
+        [self.registerBtn setTitle:@"立即注册" forState:UIControlStateNormal];
+        [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        self.view.transform = CGAffineTransformMakeScale(-0.5, -0.5);
+            self.naviBar.transform = CGAffineTransformIdentity;
+        }];
+        self.view.transform = CGAffineTransformIdentity;
+    }
+}
+
+- (void)redisterBtnClick
+{
+    [self loginOrRegister:self.accountStatue];
+    self.accountStatue = self.accountStatue==KAccountStatueLoignNow ? KAccountStatueRegsiterNow : KAccountStatueLoignNow;
+}
+/**
+ * 导航栏右侧按钮
+ */
+- (void)registerClick
+{
+    [self.view endEditing:YES];
+    [self redisterBtnClick];
+}
+
+- (void)back
+{
+    NSLog(@"返回");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)questionBtnClick
+{
+    NSLog(@"点击了遇到问题按钮");
+}
+
+#pragma mark - 初始化
+- (void)setupNavi
+{
+    self.title = @"登录";
+    
+    self.accountStatue = KAccountStatueLoignNow;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(registerClick)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor redColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor]}];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
 }
 
 - (void)layoutChildView
@@ -95,12 +407,12 @@
         make.left.equalTo(@(SINScreenW * 0.5 * 0.5 - normalLineW * 0.5 + SINScreenW * 0.5));
     }];
     
-    
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.naviBar.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
     
+    self.logoView.backgroundColor = [UIColor orangeColor];
     [self.logoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(SINScreenW * 0.5 - 130 * 0.5));
         make.top.equalTo(self.naviBar.mas_bottom).offset(50);
@@ -137,7 +449,7 @@
     }];
     
     [self.registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.questionBtn).offset(210);
+        make.top.equalTo(self.questionBtn).offset(125);
         make.width.equalTo(@100);
         make.height.equalTo(@50);
         make.left.equalTo(@(SINScreenW * 0.5 - 100 * 0.5));
@@ -200,12 +512,16 @@
     accTextField.font = [UIFont systemFontOfSize:15];
     accTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
     accTextField.layer.borderWidth = 0.5;
+    accTextField.delegate = self;
+    //    accTextField.alignmentRectInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     [self.contentView addSubview:accTextField];
     self.accTextField = accTextField;
     
     // 密码输入框
     UITextField *pwdTextField = [[UITextField alloc] init];
     pwdTextField.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    pwdTextField.secureTextEntry = YES;
+    pwdTextField.delegate = self;
     pwdTextField.layer.borderWidth = 0.5;
     pwdTextField.backgroundColor = [UIColor whiteColor];
     pwdTextField.font = [UIFont systemFontOfSize:15];
@@ -236,96 +552,12 @@
     UIButton *registerBtn = [[UIButton alloc] init];
     [registerBtn setTitleColor:[UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0] forState:UIControlStateNormal];
     [registerBtn setTitle:@"立即注册" forState:UIControlStateNormal];
+    [registerBtn addTarget:self action:@selector(redisterBtnClick) forControlEvents:UIControlEventTouchUpInside];
     registerBtn.backgroundColor = [UIColor whiteColor];
     registerBtn.layer.borderWidth = 0.5;
     registerBtn.layer.borderColor = [UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0].CGColor;
     [self.contentView addSubview:registerBtn];
     self.registerBtn = registerBtn;
 }
-
-
-
-- (void)normalLoginBtnClick
-{
-    [UIView animateWithDuration:1.5 animations:^{
-    self.normalLineView.hidden = NO;
-    self.messageLineView.hidden = YES;
-    
-    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@40);
-    }];
-    self.accTextField.placeholder = @"手机号/用户名/邮箱";
-    self.pwdTextField.placeholder = @"密码";
-    [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [self.questionBtn setTitle:@"登录遇到问题" forState:UIControlStateNormal];
-    
-    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@85);
-    }];
-        
-    }];
-}
-
-- (void)messageLoginBtnClick
-{
-    [UIView animateWithDuration:1.5 animations:^{
-        
-    self.normalLineView.hidden = YES;
-    self.messageLineView.hidden = NO;
-    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@0);
-    }];
-    self.accTextField.placeholder = @"请输入手机号码";
-    self.pwdTextField.placeholder = nil;
-    [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
-    [self.questionBtn setTitle:@"我已阅读并同意百度用户协议" forState:UIControlStateNormal];
-    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@176);
-    }];
-    }];
-}
-
-- (void)login
-{
-    NSLog(@"点击了登录按钮");
-}
-
-- (void)redisterBtnClick
-{
-    NSLog(@"点击了底部立即注册按钮");
-}
-
-- (void)questionBtnClick
-{
-    NSLog(@"点击了遇到问题按钮");
-}
-
-- (void)setupNavi
-{
-    self.title = @"登录";
-    
-    self.view.backgroundColor = [UIColor grayColor];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"注册" style:UIBarButtonItemStylePlain target:self action:@selector(registerClick)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor redColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor]}];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-    
-    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-}
-
-- (void)registerClick
-{
-    NSLog(@"点击了注册");
-}
-
-- (void)back
-{
-    NSLog(@"返回");
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 @end

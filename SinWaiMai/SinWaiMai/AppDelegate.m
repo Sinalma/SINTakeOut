@@ -11,6 +11,15 @@
 #import "SINTabBarController.h"
 #import "SINLoginViewController.h"
 
+/** 
+ 1.短信登录功能
+ 2.存储账号密码、店铺信息至数据库
+ 3.地图功能
+ 4.手势操作
+ 5.物理感应
+ */
+
+
 @interface AppDelegate ()
 
 @end
@@ -43,6 +52,19 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    
+    NSString *str = [[url.absoluteString componentsSeparatedByString:@"?"] lastObject];
+    self.pwdStr = str;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PasswordNotiName object:str];
+    if ([self.pwdDelegate performSelector:@selector(fullPassword:)]) {
+        [self.pwdDelegate fullPassword:str];
+    }
+    
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

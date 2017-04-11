@@ -17,6 +17,7 @@
     _adImgArr = adImgArr;
     
     [self setup];
+    [self scrollImgVAnim];
 }
 
 - (instancetype)init
@@ -31,6 +32,22 @@
 {
     [super layoutSubviews];
 }
+
+// 图片轮播
+static int imgIndex = 0;
+- (void)scrollImgVAnim
+{
+//    [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (imgIndex == self.adImgArr.count) {
+            imgIndex = 0;
+        }
+        [UIView animateWithDuration:2.0 animations:^{
+            [self setContentOffset:CGPointMake(imgIndex*SINScreenW, 0)];
+        }];
+        imgIndex ++;
+//    }];
+}
+
 - (void)setup
 {
     NSInteger adImgCount = self.adImgArr.count;

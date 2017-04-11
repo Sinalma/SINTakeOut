@@ -7,15 +7,26 @@
 //
 
 #import "SINWMTypeScrollView.h"
-
 #import "SINNormalButton.h"
-
 #import "SINWMType.h"
-
 #import "UIButton+SINWebCache.h"
 
+@interface SINWMTypeScrollView ()
+
+@property (nonatomic,strong) NSMutableArray *wMTypeBtns;
+
+@end
 
 @implementation SINWMTypeScrollView
+
+- (NSMutableArray *)wMTypeBtns
+{
+    if (_wMTypeBtns == nil) {
+        _wMTypeBtns = [NSMutableArray array];
+    }
+    return _wMTypeBtns;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -27,8 +38,22 @@
 - (void)setWMTypes:(NSArray *)wMTypes
 {
     _wMTypes = wMTypes;
+    
     // 初始化子控件
     [self setup];
+    
+    [self setupGravityBehaviour];
+}
+
+- (void)setupGravityBehaviour
+{
+    UIDynamicAnimator *animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+    UIGravityBehavior *gravity = [[UIGravityBehavior alloc] init];
+    for (UIButton *btn in self.wMTypeBtns) {
+        [gravity addItem:btn];
+    }
+    gravity.gravityDirection = CGVectorMake(0, 1);
+    [animator addBehavior:gravity];
 }
 
 /**
@@ -38,7 +63,6 @@
     
     NSInteger wMTypeCount = self.wMTypes.count;
     
-    // 间距
     CGFloat margin = 10;
     
     // 行数
@@ -60,7 +84,6 @@
     CGFloat w = (self.width - (columnCount + 1) * margin) / columnCount;
     CGFloat h = (150 - (rowCount + 1) * margin) / rowCount;
     
-    
     CGFloat contentSizeW = margin + colInt * (w + margin);
     CGFloat contentSizeH = margin + rowCount * (h + margin);
     
@@ -75,7 +98,6 @@
         [btn sin_setImageWithURL:[NSURL URLWithString:wMtype.pic] forState:UIControlStateNormal];
         [btn setTitle:wMtype.name forState:UIControlStateNormal];
         
-        
         int row = i / colInt;
         int col = i % colInt;
         
@@ -88,6 +110,8 @@
         [btn addTarget:self action:@selector(wMTypeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:btn];
+        
+        [self.wMTypeBtns addObject:btn];
     }
 }
 

@@ -98,7 +98,6 @@
 {
     
     SINHUD *hud = [SINHUD showHudAddTo:self.view];
-
     
     NSDictionary *dict = @{@"city_id":@"187"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -156,7 +155,6 @@
     [self.AllChildVC addObject:otherVC];
 }
 
-
 /**
  * 加载相应控制器的view
  */
@@ -177,8 +175,6 @@
     }
     
     [self.groundScrollView setContentOffset:CGPointMake(SINScreenW * index, 0)];
-    
-    
 }
 
 /**

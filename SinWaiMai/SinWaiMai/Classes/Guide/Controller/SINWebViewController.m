@@ -51,7 +51,6 @@
             [self clickBack];
         });
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,8 +64,6 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
-
-
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {

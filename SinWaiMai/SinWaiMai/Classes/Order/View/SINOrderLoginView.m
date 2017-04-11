@@ -33,25 +33,33 @@
     return self;
 }
 
+static int imgVAnimCount = 0;
 - (void)startImgVAnimation
 {
-    __block int imgVAnimCount = 0;
-    __block int index = 0;
-
-        self.timer = [NSTimer timerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
-            if (index == 4) {
-                index = 0;
-                imgVAnimCount ++;
-            }
-            if (imgVAnimCount >= 2) {
-                return ;
-            }
-            NSString *imgN = [NSString stringWithFormat:@"no_login_0%d",index];
-            self.imgV.image = [UIImage imageNamed:imgN];
-            index++;
-        }];
-    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    
+        dispatch_async(
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            imgVAnimCount = 0;
+            self.timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(imgAnim) userInfo:nil repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+            
+        });
+}
+/**
+ * Timer Transfer Method
+ */
+static int imgIndex = 0;
+- (void)imgAnim
+{
+    if (imgIndex == 4) {
+        imgIndex = 0;
+        imgVAnimCount ++;
+    }
+    if (imgVAnimCount >= 2) {
+        return ;
+    }
+    NSString *imgN = [NSString stringWithFormat:@"no_login_0%d",imgIndex];
+    self.imgV.image = [UIImage imageNamed:imgN];
+    imgIndex++;
 }
 
 - (void)setup
@@ -77,7 +85,7 @@
     }];
     
     UIButton *loginBtn = [[UIButton alloc] init];
-    [loginBtn setTitle:@"登录／注册" forState:UIControlStateNormal];
+    [loginBtn setTitle:@"登录/注册" forState:UIControlStateNormal];
     loginBtn.backgroundColor = SINGobalColor;
     loginBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     loginBtn.layer.borderWidth = 1;
@@ -94,11 +102,13 @@
 
 - (void)loginRegisterBtnClick
 {
-    NSLog(@"点击了登录/注册按钮");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if ([self.delegate respondsToSelector:@selector(loginRegisterBtnClick)]) {
+            [self.delegate loginRegisterBtnClick];
+        }
+    });
     
-    if ([self.delegate respondsToSelector:@selector(loginRegisterBtnClick)]) {
-        [self.delegate loginRegisterBtnClick];
-    }
 }
 
 

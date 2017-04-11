@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PasswordDelegate <NSObject>
+
+@optional
+- (void)fullPassword:(NSString *)password;
+
+@end
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong,nonatomic) NSString *pwdStr;
+
+@property (nonatomic,weak) id<PasswordDelegate> pwdDelegate;
 
 @end
 

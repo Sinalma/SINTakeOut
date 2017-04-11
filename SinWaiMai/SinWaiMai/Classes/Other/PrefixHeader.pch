@@ -17,4 +17,7 @@
 
 #import "NSString+Category.h"
 
+
+#define PasswordNotiName @"PasswordNotiName"
+
 #endif /* PrefixHeader_pch */

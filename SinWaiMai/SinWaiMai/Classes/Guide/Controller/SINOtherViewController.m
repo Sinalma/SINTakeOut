@@ -14,11 +14,13 @@
 #import "SINWebViewController.h"
 #import "SINHUD.h"
 #import "MJRefresh.h"
+
 /** 区别加载新数据和更多数据 */
 typedef enum : NSUInteger {
     LoadDataTypeUp,
     LoadDataTypeDown
 } LoadDataType;
+
 @interface SINOtherViewController ()
 /** 网络管理者 */
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
@@ -46,7 +48,6 @@ typedef enum : NSUInteger {
 
 /** 存放已显示的指南内容id数组 */
 @property (nonatomic,strong) NSMutableArray *content_ids;
-
 
 @end
 
@@ -109,7 +110,7 @@ typedef enum : NSUInteger {
  * 获取网络数据
  */
 - (void)loadData:(LoadDataType)loadDataType
-{NSLog(@"---------%d",self.history_member);
+{
     if (self.history_member != 0) {
         
         if (loadDataType == LoadDataTypeUp) {
@@ -159,8 +160,6 @@ typedef enum : NSUInteger {
     }];
 }
 
-
-
 - (void)setupRefreshView
 {
     MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
@@ -177,6 +176,7 @@ typedef enum : NSUInteger {
 
 - (void)setup
 {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([SINTopicCell class]) bundle:nil] forCellReuseIdentifier:@"topicCell"];
@@ -270,6 +270,4 @@ typedef enum : NSUInteger {
     return _networkMgr;
 }
 
-
 @end
-
