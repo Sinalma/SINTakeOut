@@ -47,6 +47,14 @@
 		18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C019BB1E3ED53100B8A910 /* SINFood.m */; };
 		18C5E0831E616BDE00CC9071 /* SINDiscoveryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C5E0821E616BDE00CC9071 /* SINDiscoveryView.m */; };
 		18C5E0851E616C5A00CC9071 /* SINDiscoveryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */; };
+		18C71BBB1E9D1E2100E1710B /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BB81E9D1E2100E1710B /* MOBFoundation.framework */; };
+		18C71BBC1E9D1E2100E1710B /* MOBFoundationEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BB91E9D1E2100E1710B /* MOBFoundationEx.framework */; };
+		18C71BBD1E9D1E2100E1710B /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BBA1E9D1E2100E1710B /* SMS_SDK.framework */; };
+		18C71BBF1E9D1E5000E1710B /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BBE1E9D1E5000E1710B /* libicucore.tbd */; };
+		18C71BC11E9D1E6700E1710B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BC01E9D1E6700E1710B /* libz.tbd */; };
+		18C71BC31E9D1E7900E1710B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BC21E9D1E7900E1710B /* MessageUI.framework */; };
+		18C71BC51E9D1E8700E1710B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BC41E9D1E8700E1710B /* JavaScriptCore.framework */; };
+		18C71BC71E9D1E9900E1710B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C71BC61E9D1E9900E1710B /* libstdc++.tbd */; };
 		18C7A3C81E52F6220035725C /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 18C7A3C71E52F6220035725C /* test.html */; };
 		18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C3731E405D0800609BC1 /* SINShopCarView.m */; };
 		18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C3751E405D2400609BC1 /* SINShopCarView.xib */; };
@@ -188,6 +196,14 @@
 		18C5E0811E616BDE00CC9071 /* SINDiscoveryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINDiscoveryView.h; sourceTree = "<group>"; };
 		18C5E0821E616BDE00CC9071 /* SINDiscoveryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINDiscoveryView.m; sourceTree = "<group>"; };
 		18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINDiscoveryView.xib; sourceTree = "<group>"; };
+		18C71BB81E9D1E2100E1710B /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		18C71BB91E9D1E2100E1710B /* MOBFoundationEx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundationEx.framework; sourceTree = "<group>"; };
+		18C71BBA1E9D1E2100E1710B /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		18C71BBE1E9D1E5000E1710B /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		18C71BC01E9D1E6700E1710B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		18C71BC21E9D1E7900E1710B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		18C71BC41E9D1E8700E1710B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		18C71BC61E9D1E9900E1710B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		18C7A3C71E52F6220035725C /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../Shoppe/View/test.html; sourceTree = "<group>"; };
 		18C9C3721E405D0800609BC1 /* SINShopCarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShopCarView.h; sourceTree = "<group>"; };
 		18C9C3731E405D0800609BC1 /* SINShopCarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShopCarView.m; sourceTree = "<group>"; };
@@ -292,7 +308,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C71BC71E9D1E9900E1710B /* libstdc++.tbd in Frameworks */,
+				18C71BC51E9D1E8700E1710B /* JavaScriptCore.framework in Frameworks */,
+				18C71BC31E9D1E7900E1710B /* MessageUI.framework in Frameworks */,
+				18C71BC11E9D1E6700E1710B /* libz.tbd in Frameworks */,
+				18C71BBF1E9D1E5000E1710B /* libicucore.tbd in Frameworks */,
+				18C71BBB1E9D1E2100E1710B /* MOBFoundation.framework in Frameworks */,
+				18C71BBD1E9D1E2100E1710B /* SMS_SDK.framework in Frameworks */,
 				F28C3E9B11C8840B5AD4E502 /* Pods_SinWaiMai.framework in Frameworks */,
+				18C71BBC1E9D1E2100E1710B /* MOBFoundationEx.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +419,24 @@
 				18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		18C71BAF1E9CF51F00E1710B /* MessageVerify */ = {
+			isa = PBXGroup;
+			children = (
+				18C71BB71E9D1E2100E1710B /* SMS_SDK */,
+			);
+			path = MessageVerify;
+			sourceTree = "<group>";
+		};
+		18C71BB71E9D1E2100E1710B /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				18C71BB81E9D1E2100E1710B /* MOBFoundation.framework */,
+				18C71BB91E9D1E2100E1710B /* MOBFoundationEx.framework */,
+				18C71BBA1E9D1E2100E1710B /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
 			sourceTree = "<group>";
 		};
 		18D237451E7048BA00387FB8 /* HUD */ = {
@@ -702,6 +744,7 @@
 		18EA61BA1E262590009D826E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				18C71BAF1E9CF51F00E1710B /* MessageVerify */,
 				18D237451E7048BA00387FB8 /* HUD */,
 				180001FA1E310E1900B7599B /* Common */,
 				18EA61BB1E262590009D826E /* Category */,
@@ -779,6 +822,11 @@
 		DDAE73BA44D153C162841A2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18C71BC61E9D1E9900E1710B /* libstdc++.tbd */,
+				18C71BC41E9D1E8700E1710B /* JavaScriptCore.framework */,
+				18C71BC21E9D1E7900E1710B /* MessageUI.framework */,
+				18C71BC01E9D1E6700E1710B /* libz.tbd */,
+				18C71BBE1E9D1E5000E1710B /* libicucore.tbd */,
 				55BA68DB4EA3B04114751368 /* Pods_SinWaiMai.framework */,
 			);
 			name = Frameworks;
@@ -1205,6 +1253,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = A8LLH3F654;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinWaiMai/Classes/Other/MessageVerify/SMS_SDK",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinWaiMai/Classes/Other/PrefixHeader.pch";
 				INFOPLIST_FILE = SinWaiMai/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -1222,6 +1274,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = A8LLH3F654;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinWaiMai/Classes/Other/MessageVerify/SMS_SDK",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinWaiMai/Classes/Other/PrefixHeader.pch";
 				INFOPLIST_FILE = SinWaiMai/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;

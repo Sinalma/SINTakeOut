@@ -18,6 +18,7 @@
 @property(nonatomic,strong) NSString *account;
 
 - (BOOL)registerWithAccount:(NSString *)acc password:(NSString *)pwd;
+
 - (BOOL)verifyWithAccount:(NSString *)account pwd:(NSString *)pwd;
 
 @end

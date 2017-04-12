@@ -11,7 +11,9 @@
 #import "SINTabBarController.h"
 #import "SINLoginViewController.h"
 
-/** 
+#import <SMS_SDK/SMSSDK.h>
+
+/**
  1.短信登录功能
  2.存储账号密码、店铺信息至数据库
  3.地图功能
@@ -19,6 +21,11 @@
  5.物理感应
  */
 
+// APP KEY : 1ce79d24fa768
+// App Secret : 02eb72bcdf47137ee49bbea374f657ad
+
+#define AppKey @"1ce79d24fa768"
+#define AppSecret @"02eb72bcdf47137ee49bbea374f657ad"
 
 @interface AppDelegate ()
 
@@ -28,8 +35,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-//    
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     
     self.window = [[UIWindow alloc] init];
@@ -48,6 +53,9 @@
     [self.window makeKeyAndVisible];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    // 短信验证功能
+    [SMSSDK registerApp:AppKey withSecret:AppSecret];
     
     return YES;
 }

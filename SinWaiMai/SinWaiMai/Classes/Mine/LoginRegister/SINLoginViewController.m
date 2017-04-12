@@ -10,6 +10,17 @@
 #import "Masonry.h"
 #import "SINAccount.h"
 #import "SINHUD.h"
+#import <SMS_SDK/SMSSDK.h>
+/**
+ *  @from                    v1.1.1
+ *  @brief                   获取验证码(Get verification code)
+ *
+ *  @param method            获取验证码的方法(The method of getting verificationCode)
+ *  @param phoneNumber       电话号码(The phone number)
+ *  @param zone              区域号，不要加"+"号(Area code)
+ *  @param customIdentifier  自定义短信模板标识 该标识需从官网http://www.mob.com上申请，审核通过后获得。(Custom model of SMS.  The identifier can get it  from http://www.mob.com  when the application had approved)
+ *  @param result            请求结果回调(Results of the request)
+ */
 
 typedef enum : NSUInteger {
     KAccountStatueLoignNow = 0,
@@ -67,6 +78,9 @@ typedef enum : NSUInteger {
 /** 保存临时输入的密码，但为点击登录 */
 @property (nonatomic,strong) NSString *tempPwd;
 
+/** 保存当前获取验证码的手机号码 */
+@property (nonatomic,strong) NSString *curPhone;
+
 @end
 
 @implementation SINLoginViewController
@@ -87,15 +101,11 @@ typedef enum : NSUInteger {
     [self setupChildView];
     [self layoutChildView];
     [self contentViewTap];
-    
-    // 暂未开放短信登录，先转至普通登录
-    [self normalLoginBtnClick];
-    
 }
 
+#pragma mark - 短信验证功能
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
     if (textField == self.pwdTextField) {
         [self.accTextField endEditing:YES];
         
@@ -116,7 +126,6 @@ typedef enum : NSUInteger {
         }];
         [alert addAction:noAct];
         
-        
         [self presentViewController:alert animated:YES completion:^{
             [self.view endEditing:YES];
         }];
@@ -124,7 +133,6 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - 密码相关
-
 /**
  * 监听appDelegate密码的通知
  */
@@ -152,7 +160,6 @@ typedef enum : NSUInteger {
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         
         [[UIApplication sharedApplication] openURL:url];
-        
     }else
     {
         NSLog(@"未安装密码填充app");
@@ -179,11 +186,12 @@ typedef enum : NSUInteger {
     [self.pwdTextField endEditing:YES];
 }
 
-
 - (void)normalLoginBtnClick
 {
     // 防止输入了密码没登入，但跳至短信登录界面时密码不见
     self.pwdTextField.text = self.tempPwd ? self.tempPwd : @"";
+
+//    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     [self.view endEditing:YES];
     [UIView animateWithDuration:1.5 animations:^{
@@ -240,11 +248,71 @@ typedef enum : NSUInteger {
     [hud showAnimated:YES];
     
     if (self.normalLineView.hidden == YES) {
-        hud.label.text = @"暂未开放短信登录功能";
-        NSLog(@"暂未开放短信登录功能");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.65 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [hud hideAnimated:YES];
-        });
+        
+        if ([self.loginBtn.titleLabel.text isEqualToString:@"提交"]) {
+            
+            // 已获取验证码，点击提交后验证验证码的真伪
+            [SMSSDK commitVerificationCode:self.accTextField.text phoneNumber:self.curPhone zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+                if (!error)
+                {
+                    self.account.isLogin = YES;
+                    hud.label.text = @"验证成功，登录中...";
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                        [self back];
+                    });
+                    NSLog(@"验证成功");
+                }
+                else
+                {
+                    self.account.isLogin = NO;
+                    hud.label.text = @"验证失败，请重试";
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:YES];
+                    
+                });
+                    NSLog(@"错误信息:%@",error);
+                }
+            }];
+            
+            
+        }else if ([self.loginBtn.titleLabel.text isEqualToString:@"获取手机验证码"])
+        {
+            self.curPhone = self.accTextField.text;
+            self.accTextField.placeholder = @"请输入验证码";
+            [self.loginBtn setTitle:@"提交" forState:UIControlStateNormal];
+            
+            [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accTextField.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+                if (error) {
+                    NSLog(@"获取短信验证码失败");
+                    [hud showAnimated:YES];
+                    hud.label.text = @"获取验证码失败，请重新获取";
+                    self.accTextField.placeholder = @"请输入手机号";
+                    [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if ([self.loginBtn.titleLabel.text isEqualToString:@"提交"]) {
+                            self.accTextField.placeholder = @"请输入手机号";
+                            [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
+                        }
+                    });
+                    
+                }else
+                {
+                    NSLog(@"获取短信验证码成功");
+                }
+            }];
+            
+            self.accTextField.text = nil;
+        }
+        
+        
+        [hud hideAnimated:YES];
+        
         return;
     }
     
