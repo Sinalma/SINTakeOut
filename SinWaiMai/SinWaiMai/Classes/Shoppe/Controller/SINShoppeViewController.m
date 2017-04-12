@@ -39,6 +39,7 @@
 #import "SINFoodViewController.h"
 #import "SINCommentViewController.h"
 #import "SINDiscoveryView.h"
+#import "SINShareView.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -96,6 +97,9 @@
 
 /** 评论控制器的view */
 @property (nonatomic,strong) SINCommentViewController *commentVC;
+
+/** 分享view */
+@property (nonatomic,strong) SINShareView *shareView;
 
 @end
 
@@ -488,6 +492,17 @@ static int welfareOpenState = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/**
+ * 点击了分享
+ */
+- (void)shareBtnClick
+{
+    self.shareView.logo_url = self.shoppeInfoes.logo_url;
+    self.shareView.hidden = NO;
+    [self.shareView share];
+    
+}
+
 #pragma mark - 自定义方法
 /**
  * 初始顶部模块
@@ -807,7 +822,10 @@ static int welfareOpenState = 0;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStyleDone target:self action:@selector(shareBtnClick)];
+    
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
 #pragma mark - 懒加载
@@ -879,6 +897,17 @@ static int welfareOpenState = 0;
         _naviBtns = [NSMutableArray array];
     }
     return _naviBtns;
+}
+
+- (SINShareView *)shareView
+{
+    if (_shareView == nil) {
+        _shareView = [[SINShareView alloc] init];
+        _shareView.frame = CGRectMake(0, 0, SINScreenW, SINScreenH);
+        [[UIApplication sharedApplication].keyWindow addSubview:_shareView];
+        _shareView.hidden = YES;
+    }
+    return _shareView;
 }
 
 @end

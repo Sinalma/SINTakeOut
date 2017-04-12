@@ -141,6 +141,11 @@
 }
 
 #pragma mark - 自定义方法
+- (void)selectAddress:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"选择地址");
+}
+
 /**
  * 获取数据:外卖类型模块数据，活动清单数据
  */
@@ -339,25 +344,31 @@ static int networkPage = 1;
     
 //    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     
-    return;
+//    return;
     
     // navigationBar添加子控件
     UIView *cusView = [[UIView alloc] init];
     cusView.frame = CGRectMake(0, 0, 110, 20);
     
+    // 小车图标
     UIImageView *bicycleImg = [[UIImageView alloc] init];
     bicycleImg.frame = CGRectMake(0, 0, 15, 15);
     bicycleImg.image = [UIImage imageNamed:@"bicycle"];
     [cusView addSubview:bicycleImg];
     
+    // 地址label，需要能点击
     UILabel *label = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
     label.text = @"龙瑞文化广场";
     // 要在设置尺寸之前调用，否则设置尺寸不准确
     [label sizeToFit];
     label.x = CGRectGetMaxX(bicycleImg.frame) + 5;
     label.centerY = bicycleImg.y + bicycleImg.height / 2;
+    label.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectAddress:)];
+    [label addGestureRecognizer:tap];
     [cusView addSubview:label];
     
+    // 向下的箭头
     UIImageView *arrowDown = [[UIImageView alloc] init];
     arrowDown.image = [UIImage imageNamed:@"arrowDown"];
     arrowDown.size = CGSizeMake(7, 7);
