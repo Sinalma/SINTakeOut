@@ -840,11 +840,10 @@ static int welfareOpenState = 0;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor orangeColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"orangeBG"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"orangeBG"]];
-    
-    self.navigationController.navigationBar.layer.masksToBounds = YES;
+//    self.navigationController.navigationBar.backgroundColor = [UIColor orangeColor];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"orangeBG"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"orangeBG"]];
+//   self.navigationController.navigationBar.layer.masksToBounds = YES;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
     

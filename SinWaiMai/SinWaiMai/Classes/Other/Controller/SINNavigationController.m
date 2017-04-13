@@ -7,8 +7,8 @@
 //
 
 #import "SINNavigationController.h"
-
 #import "SINHomepageViewController.h"
+#import "SINShoppeViewController.h"
 
 @interface SINNavigationController ()
 
@@ -27,10 +27,21 @@
         return self;
     }
     */
-    
+    //
     if (![rootViewController isKindOfClass:[SINHomepageViewController class]]) {
+        
+        if ([rootViewController isKindOfClass:[SINShoppeViewController class]]) {
+            [self.navigationBar setBarTintColor:[UIColor orangeColor]];
+            [self.navigationBar setBackgroundColor:[UIColor colorWithRed:253/255.0 green:126/255.0 blue:21/255.0 alpha:1.0]];
+            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:253/255.0 green:126/255.0 blue:21/255.0 alpha:1.0]}];
+            self.navigationBar.translucent = NO;
+            [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [self.navigationBar setShadowImage:[[UIImage alloc] init]];
+            return self;
+        }
         [self.navigationBar setBackgroundColor:SINGobalColor];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:SINGobalColor}];
+        
         return self;
     }
     

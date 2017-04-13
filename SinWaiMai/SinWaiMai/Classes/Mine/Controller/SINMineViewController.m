@@ -206,11 +206,6 @@
  */
 - (void)setupNavi
 {
-//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0];
-    
-    
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
     
 //    UILabel *lab = [[UILabel alloc] init];

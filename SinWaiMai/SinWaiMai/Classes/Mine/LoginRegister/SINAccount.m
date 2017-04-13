@@ -13,6 +13,8 @@
 
 #import "SINAccount.h"
 #import "NSString+SINFilePath.h"
+#import "SINLoginViewController.h"
+
 #define AccPwdDictNameKey @"accPwdDict.plist"
 
 #define AccountKey @"account"
@@ -51,6 +53,12 @@ static SINAccount *_account;
     NSLog(@"登录%d",isLogin);
 }
 
+- (void)jumpLoginVc
+{
+    SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviVC animated:YES completion:nil];
+}
 
 - (instancetype)init
 {

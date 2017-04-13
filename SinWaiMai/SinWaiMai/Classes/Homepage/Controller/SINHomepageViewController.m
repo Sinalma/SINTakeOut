@@ -27,6 +27,7 @@
 #import "SINShoppeViewController.h"
 #import "SINAddressController.h"
 #import "SINAddress.h"
+#import "SINNavigationController.h"
 
 /** 普通间距 */
 #define margin 10
@@ -514,7 +515,7 @@ static int networkPage = 1;
     SINShoppe *shoppe = self.shoppes[indexPath.row];
     // 传递id
     shoppeVC.shop_id = shoppe.shop_id;
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:shoppeVC];
+    SINNavigationController *navi = [[SINNavigationController alloc] initWithRootViewController:shoppeVC];
     [self presentViewController:navi animated:YES completion:nil];
 }
 

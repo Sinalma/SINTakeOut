@@ -7,17 +7,12 @@
 //
 
 #import "SINShoppeTableViewCell.h"
-
 #import "UIImageView+SINWebCache.h"
-
 #import "UILabel+Category.h"
-
 #import "NSString+SINFilePath.h"
-
 #import "UIImageView+SINWebCache.h"
 
 @interface SINShoppeTableViewCell ()
-
 #pragma mark - 控件
 /** 新店图标 */
 @property (weak, nonatomic) IBOutlet UIImageView *shop_mark_picView;
@@ -113,7 +108,6 @@
     }
     
     // 添加优惠信息
-    
     CGFloat margin = 10;
 
     // 优惠图片
@@ -122,21 +116,20 @@
     CGFloat imgX = 0;
     CGFloat imgY = 0;
     
-    // 优惠信息label
-    CGFloat labW = 210;//260
-    CGFloat labH = imgH;
-    CGFloat labX = 0;
-    CGFloat labY = 0;
-    
     // 箭头宽高
-    CGFloat arrowWH = 15;//20
+    CGFloat arrowWH = 15;
     CGFloat arrowX = 0;
     CGFloat arrowY = 0;
     
     // 活动数label
-//    CGFloat labCW = self.welfareContainer.width - imgW - margin - labW - arrowWH;
-    CGFloat labCW = SINScreenW-20-imgW-margin-labW-arrowWH;
+    CGFloat labCW = 45;
     CGFloat labCX = 0;
+    
+    // 优惠信息label
+    CGFloat labW = SINScreenW - 2 * margin - imgW - margin - arrowWH - labCW;
+    CGFloat labH = imgH;
+    CGFloat labX = 0;
+    CGFloat labY = 0;
     
     for (UIView *view in self.welfareContainer.subviews) {
         [view removeFromSuperview];
@@ -176,7 +169,14 @@
         label.text = shoppe.welfare_act_info[i][@"msg"];
         labX = CGRectGetMaxX(imgV.frame) + 10;
         labY = imgY;
-        label.frame = CGRectMake(labX, labY, labW, labH);
+        if (shoppe.welfare_act_info.count <= 2) {
+            // 两个及以下活动时，优惠信息标题占剩余的全部可用宽度
+            label.frame = CGRectMake(labX, labY, SINScreenW-2*margin-imgW-margin, labH);
+        }else
+        {
+            
+            label.frame = CGRectMake(labX, labY, labW, labH);
+        }
         [self.welfareContainer addSubview:label];
         
         // 添加活动数label和箭头图片
@@ -213,7 +213,6 @@ static bool welfareContainerStatus = NO;
 
 - (void)welfareContainerClick
 {
-    
     NSInteger welCount = self.shoppe.welfare_act_info.count;
     
     if (welCount > 2 && welfareContainerStatus == NO) {
