@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BaiduMapAPI_Base/BMKMapManager.h>
 
 @protocol PasswordDelegate <NSObject>
 
@@ -17,6 +18,10 @@
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UINavigationController *navigationController;
+    BMKMapManager* _mapManager;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -24,5 +29,5 @@
 
 @property (nonatomic,weak) id<PasswordDelegate> pwdDelegate;
 
-@end
 
+@end

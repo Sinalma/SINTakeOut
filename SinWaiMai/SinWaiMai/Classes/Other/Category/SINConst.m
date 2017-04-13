@@ -15,7 +15,7 @@ CGFloat const HomepageWmTypeHeight = 150;
 /** 首页 - 新人专享模块的高度 */
 CGFloat const HomepageNewUserHeight = 220;
 /** 首页 - 第二模块的高度 */
-CGFloat const HomepageTwoModuleHeight = 200;
+CGFloat const HomepageTwoModuleHeight = 180;// 200 -> 180
 /** 首页 - 第三模块的高度 */
 CGFloat const HomepageThirdModuleHeight = 180;
 

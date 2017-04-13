@@ -101,7 +101,7 @@
     
     NSDictionary *dict = @{@"city_id":@"187"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
+//        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
         
         // 导航栏标题
         NSMutableArray *naviLabStrArrM = [NSMutableArray array];
@@ -422,7 +422,7 @@ static BOOL loginStatu = NO;
     [mgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/startup" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         //        NSLog(@"%@",responseObject);
-        [responseObject writeToFile:@"/Users/apple/desktop/startup2.plist" atomically:YES];
+//        [responseObject writeToFile:@"/Users/apple/desktop/startup2.plist" atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

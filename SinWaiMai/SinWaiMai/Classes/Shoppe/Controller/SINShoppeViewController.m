@@ -40,6 +40,7 @@
 #import "SINCommentViewController.h"
 #import "SINDiscoveryView.h"
 #import "SINShareView.h"
+#import "SINAddress.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -101,6 +102,9 @@
 /** 分享view */
 @property (nonatomic,strong) SINShareView *shareView;
 
+/** 当前地址模型 */
+@property (nonatomic,strong) SINAddress *curAddress;
+
 @end
 
 @implementation SINShoppeViewController
@@ -142,6 +146,8 @@
     self.contentScrollV.scrollEnabled = NO;
     self.typeTableView.scrollEnabled = NO;
     self.foodTableView.scrollEnabled = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
 }
 
 /**
@@ -200,8 +206,16 @@
 - (void)loadData
 {
     AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
+    /** 
+     * 这里的loc_lng、loc_lat、address暂时是写死的。
+     * 貌似这些参数对单个商户没有影响，然后控制器之间传来传去也比较恶心，所以先不修改。
+     * 已经写好的监听通知得到的参数先这样，需要时再办。
+     */
+    NSString *loc_lng = self.curAddress.lng.length?self.curAddress.lng : @"12617390.304289";//12617390.304289
+    NSString *loc_lat = self.curAddress.lat.length ? self.curAddress.lat : @"2557445.993882";//2557445.993882
+    NSString *address = self.curAddress.address.length ? self.curAddress.address : @"龙瑞文化广场";//龙瑞文化广场
     
-    NSDictionary *parameters = @{@"resid":@"1001",@"channel":@"appstore",@"utm_medium":@"shoplist",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557445.993882",@"hot_fix":@"1",@"msgcuid":@"",@"model":@"iPhone5,2",@"utm_campaign":@"default",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"utm_content":@"default",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"vmgdb":@"",@"isp":@"46001",@"da_ext":@"",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617395.404390",@"utm_source":@"waimai",@"from":@"na-iphone",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"cid":@"988272",@"city_id":@"187",@"order_id":@"",@"os":@"8.2",@"lat":@"2557445.060520",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617390.304289",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"utm_term":@"default",@"shop_id":self.shop_id};
+    NSDictionary *parameters = @{@"resid":@"1001",@"channel":@"appstore",@"utm_medium":@"shoplist",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"msgcuid":@"",@"model":@"iPhone5,2",@"utm_campaign":@"default",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"utm_content":@"default",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"vmgdb":@"",@"isp":@"46001",@"da_ext":@"",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617395.404390",@"utm_source":@"waimai",@"from":@"na-iphone",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"cid":@"988272",@"city_id":@"187",@"order_id":@"",@"os":@"8.2",@"lat":@"2557445.060520",@"request_time":@"2147483647",@"address":address,@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"utm_term":@"default",@"shop_id":self.shop_id};
     
     [mgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/shopmenu" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
@@ -420,6 +434,18 @@ static CGFloat preOffsetY = 0;
 }
 
 #pragma mark - 自定义监听方法
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)addressSelect:(NSNotification *)noti
+{
+    self.curAddress = noti.object;
+    
+    [self loadData];
+}
+
 /**
  * 处理导航栏按钮的选中
  * curBtn : 传进来当前需要选中的按钮

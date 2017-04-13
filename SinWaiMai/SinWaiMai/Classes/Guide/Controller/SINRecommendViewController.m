@@ -56,7 +56,7 @@
     NSDictionary *dict = @{@"lat":@"2557435.496479",@"lng":@"12617386.912297",@"category_id":@"0",@"city_id":@"187",@"history_member":@"96"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
+//        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"指南界面 - 后面数据加载失败 = %@",error);
@@ -67,7 +67,7 @@
 {
     NSDictionary *dict = @{@"city_id":@"187"};
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
+//        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
         
         // 关注模块-推荐
         NSMutableArray *recommendArrM = [NSMutableArray array];

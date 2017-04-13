@@ -25,6 +25,8 @@
 #import "MJRefresh.h"
 #import "UILabel+Category.h"
 #import "SINShoppeViewController.h"
+#import "SINAddressController.h"
+#import "SINAddress.h"
 
 /** 普通间距 */
 #define margin 10
@@ -53,6 +55,10 @@
 /** 商品tableView */
 @property (nonatomic,strong) UITableView *shoppeView;
 
+/** 地址label */
+@property (nonatomic,strong) UILabel *addressLabel;
+
+
 #pragma mark - 数据
 /** 保存所有商户的数组 */
 @property (nonatomic,strong) NSMutableArray *shoppes;
@@ -78,6 +84,9 @@
 /** 网络管理类 */
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
 
+/** 当前选择的地址模型及单个属性 */
+@property (nonatomic,strong) SINAddress *curAddress;
+
 @end
 
 @implementation SINHomepageViewController
@@ -85,7 +94,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 初始化导航栏
+    // 初始化
+    [self setup];
     [self setupNavi];
     
     // 添加和布局整体scrollView子控件
@@ -98,6 +108,7 @@
 - (void)dealloc
 {
     self.networkMgr = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /**
@@ -141,9 +152,28 @@
 }
 
 #pragma mark - 自定义方法
+/**
+ * 点击了选择地址
+ */
 - (void)selectAddress:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"选择地址");
+    SINAddressController *addressVC = [[SINAddressController alloc] init];
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:addressVC];
+    [self presentViewController:naviVC animated:YES completion:nil];
+}
+
+/**
+ * 修改地址通知
+ */
+- (void)addressSelectNoti:(NSNotification *)noti
+{
+    self.curAddress = noti.object;
+    
+    self.addressLabel.text = self.curAddress.address.length ? self.curAddress.address : @"龙瑞文化广场";
+    CGFloat labW = [self.addressLabel.text boundingRectWithSize:CGSizeMake(200, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.width;
+    self.addressLabel.width = labW;
+    
+    [self setupRefreshing];
 }
 
 /**
@@ -151,8 +181,10 @@
  */
 - (void)sendOtherRequest
 {
-//    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
-    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557449.874939",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"os":@"8.2",@"request_time":@"2147483647",@"loc_lng":@"12617391.151377",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch",@"lat":@"",@"lng":@"",@"city_id":@"",@"address":@""};
+    NSString *loc_lng = self.curAddress.lng.length ? self.curAddress.lng : @"12617391.151377";
+    NSString *loc_lat = self.curAddress.lat.length ? self.curAddress.lat : @"2557449.874939";
+    
+    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"os":@"8.2",@"request_time":@"2147483647",@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch",@"lat":@"",@"lng":@"",@"city_id":@"",@"address":@""};
     
     [self.networkMgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -224,8 +256,11 @@ static int networkPage = 1;
         return;
     }
     
-//    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
-    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":@"2557429.095533",@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":@"龙瑞文化广场",@"loc_lng":@"12617387.766884",@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paging"};
+    NSString *loc_lng = self.curAddress.lng.length ? self.curAddress.lng : @"12617387.766884";
+    NSString *loc_lat = self.curAddress.lat.length ? self.curAddress.lat : @"2557429.095533";
+    NSString *address = self.curAddress.address.length ? self.curAddress.address : @"龙瑞文化广场";
+    
+    NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":address,@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paging"};
     
     [self.networkMgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
@@ -269,22 +304,14 @@ static int networkPage = 1;
  */
 - (void)layoutGobalScrollViewChildView
 {
-    // 添加子控件
     [self.view addSubview:self.gobalScrollView];
-    
     [self.gobalScrollView addSubview:self.adView];
-    
     [self.gobalScrollView addSubview:self.wMTypesView];
-    
     [self.gobalScrollView addSubview:self.newuserEnjorView];
-    
     [self.gobalScrollView addSubview:self.secondModuleView];
-    
     [self.gobalScrollView addSubview:self.thirdModuleView];
-    
     [self.gobalScrollView addSubview:self.shoppeView];
     
-    // 布局子控件
     // 广告scrollView
     [self.adView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.gobalScrollView);
@@ -316,10 +343,21 @@ static int networkPage = 1;
         make.height.equalTo(@(HomepageTwoModuleHeight));
     }];
     
+    // 使模块二、三两根竖直线不对称不那么显眼浅灰色的水平分割条
+    UIView *lineV = [[UIView alloc] init];
+    lineV.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1.0];
+    [self.gobalScrollView addSubview:lineV];
+    [lineV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.secondModuleView);
+        make.top.equalTo(self.secondModuleView.mas_bottom);
+        make.width.equalTo(@(SINScreenW));
+        make.height.equalTo(@10);
+    }];
+    
     // 模块三
     [self.thirdModuleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.secondModuleView.mas_bottom).offset(10);
-        make.left.equalTo(self.secondModuleView);
+        make.top.equalTo(lineV.mas_bottom).offset(10);
+        make.left.equalTo(lineV);
         make.width.equalTo(@(SINScreenW));
         make.height.equalTo(@(HomepageThirdModuleHeight));
     }];
@@ -342,10 +380,6 @@ static int networkPage = 1;
     // -[UIViewController preferredStatusBarStyle]
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
-//    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    
-//    return;
-    
     // navigationBar添加子控件
     UIView *cusView = [[UIView alloc] init];
     cusView.frame = CGRectMake(0, 0, 110, 20);
@@ -360,32 +394,40 @@ static int networkPage = 1;
     UILabel *label = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
     label.text = @"龙瑞文化广场";
     // 要在设置尺寸之前调用，否则设置尺寸不准确
-    [label sizeToFit];
+//    [label sizeToFit];
+    CGFloat labW = [label.text boundingRectWithSize:CGSizeMake(200, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.width;
+    label.width = labW;
+    label.height = 21;
     label.x = CGRectGetMaxX(bicycleImg.frame) + 5;
     label.centerY = bicycleImg.y + bicycleImg.height / 2;
     label.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectAddress:)];
     [label addGestureRecognizer:tap];
+    self.addressLabel = label;
     [cusView addSubview:label];
     
     // 向下的箭头
-    UIImageView *arrowDown = [[UIImageView alloc] init];
-    arrowDown.image = [UIImage imageNamed:@"arrowDown"];
-    arrowDown.size = CGSizeMake(7, 7);
-    arrowDown.x = CGRectGetMaxX(label.frame) + 5;
-    arrowDown.centerY = label.y  + label.height / 2;
-    [cusView addSubview:arrowDown];
+//    UIImageView *arrowDown = [[UIImageView alloc] init];
+//    arrowDown.image = [UIImage imageNamed:@"arrowDown"];
+//    arrowDown.size = CGSizeMake(7, 7);
+//    arrowDown.x = CGRectGetMaxX(label.frame) + 5;
+//    arrowDown.centerY = label.y  + label.height / 2;
+//    [cusView addSubview:arrowDown];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:cusView];
     
     self.navigationItem.leftBarButtonItem = item;
 }
 
+- (void)setup
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressSelectNoti:) name:AddressSelectNotiName object:nil];
+}
+
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    NSLog(@"%f",scrollView.contentOffset.y);
-    
     if ([scrollView isEqual:self.gobalScrollView]) {
         
         if (scrollView.contentOffset.y < 966) {
@@ -393,14 +435,12 @@ static int networkPage = 1;
             self.shoppeView.scrollEnabled = NO;
         }else if (scrollView.contentOffset.y >= 990)
         {
-//            NSLog(@"%f",self.gobalScrollView.contentOffset.y);
             self.gobalScrollView.scrollEnabled = NO;
             self.shoppeView.scrollEnabled = YES;
         }
     }
     
     if ([scrollView isEqual:self.shoppeView]) {
-//        NSLog(@"%f",self.shoppeView.contentOffset.y);
         if (self.shoppeView.contentOffset.y <= 0.0) {
             self.gobalScrollView.scrollEnabled = YES;
             self.shoppeView.scrollEnabled = NO;
@@ -481,16 +521,17 @@ static int networkPage = 1;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *titleLab = [[UILabel alloc] init];
+    titleLab.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1.0];
     titleLab.textColor = [UIColor redColor];
-    titleLab.font = [UIFont systemFontOfSize:13];
-    titleLab.frame = CGRectMake(30, 10, 50, 20);
+    titleLab.font = [UIFont systemFontOfSize:14];
+//    titleLab.frame = CGRectMake(30, 10, 50, 20);
     
     if (section == 0) {
         
-        titleLab.text = @"附近商户";
+        titleLab.text = @"   附近商户";
     }else if (section == 1)
     {
-        titleLab.text = @"附近美食";
+        titleLab.text = @"   附近美食";
     }
     return titleLab;
 }
@@ -498,10 +539,10 @@ static int networkPage = 1;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return @"附近商户";
+        return @"   附近商户";
     }else if (section == 1)
     {
-        return @"附近美食";
+        return @"   附近美食";
     }else
     {
         return @"";

@@ -123,18 +123,19 @@
     CGFloat imgY = 0;
     
     // 优惠信息label
-    CGFloat labW = 260;
+    CGFloat labW = 210;//260
     CGFloat labH = imgH;
     CGFloat labX = 0;
     CGFloat labY = 0;
     
     // 箭头宽高
-    CGFloat arrowWH = 20;
+    CGFloat arrowWH = 15;//20
     CGFloat arrowX = 0;
     CGFloat arrowY = 0;
     
     // 活动数label
-    CGFloat labCW = self.welfareContainer.width - imgW - margin - labW- arrowWH;
+//    CGFloat labCW = self.welfareContainer.width - imgW - margin - labW - arrowWH;
+    CGFloat labCW = SINScreenW-20-imgW-margin-labW-arrowWH;
     CGFloat labCX = 0;
     
     for (UIView *view in self.welfareContainer.subviews) {
@@ -182,7 +183,7 @@
         if (shoppe.welfare_act_info.count > 2 && i == 0) {
             
             UILabel *lab = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
-            lab.text = [NSString stringWithFormat:@"%ld个活动",welCount];
+            lab.text = [NSString stringWithFormat:@"%ld个活动",(long)welCount];
             labCX = CGRectGetMaxX(label.frame);
             lab.frame = CGRectMake(labCX, labY, labCW, labH);
             [self.welfareContainer addSubview:lab];

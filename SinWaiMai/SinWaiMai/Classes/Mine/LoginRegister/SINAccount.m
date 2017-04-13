@@ -51,6 +51,7 @@ static SINAccount *_account;
     NSLog(@"登录%d",isLogin);
 }
 
+
 - (instancetype)init
 {
     if (self = [super init]) {

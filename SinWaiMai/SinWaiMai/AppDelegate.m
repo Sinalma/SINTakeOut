@@ -29,6 +29,7 @@
  4.手势操作
  5.物理感应
  6.分享功能
+ 7.支付功能
  */
 
 // SMS (Mob Message )
@@ -42,6 +43,10 @@
 // Sina
 #define SinaAppKey @"3566302707"
 #define SinaAppSecret @"3217c2bf6f35b65943495bf2977dec64"
+
+// Baidu Map
+#define BaiduMapAppKey @"fxKMYO8psq28cGeOc6C4tIoqAoisqUxS"
+#define BaiduMapAppSecret @"dO2aIcWNvjKhRaM1fQKjypp3lNOLvkHe"
 
 @interface AppDelegate ()
 @end
@@ -73,7 +78,25 @@
     // 分享功能
     [self share];
     
+    // 百度地图
+    [self baiduMap];
+    
+    
     return YES;
+}
+
+- (void)baiduMap
+{
+    // 要使用百度地图，请先启动BaiduMapManager
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:BaiduMapAppKey  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    // Add the navigation controller's view to the window and display.
+    [self.window addSubview:navigationController.view];
+    [self.window makeKeyAndVisible];
 }
 
 - (void)share
