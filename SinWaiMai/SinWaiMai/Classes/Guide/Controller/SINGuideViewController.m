@@ -189,9 +189,10 @@ static BOOL loginStatu = NO;
     // 关注模块,需要登录后才能显示
     if (lab.tag == 1 && loginStatu == NO) {
 
-        SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
-        UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:naviVC animated:YES completion:nil];
+        if (![SINAccount sharedAccount].isLogin) {
+            [[SINAccount sharedAccount] jumpLoginVc];
+        }
+        
         return;
     }
     

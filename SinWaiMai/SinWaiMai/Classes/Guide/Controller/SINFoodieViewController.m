@@ -123,7 +123,7 @@
     if ([topic.show_big_image isEqualToString:@"1"]) {
         SINTopTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        return cell.cellHeight?cell.cellHeight:175;
+        return cell.cellHeight?cell.cellHeight:210;
     }else if ([topic.show_big_image isEqualToString:@"0"])
     {
         SINTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];

@@ -155,7 +155,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 165;
+    return 190;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +163,7 @@
     if (indexPath.row < self.topTopics.count) {
         SINTopTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        return cell.cellHeight?cell.cellHeight:160;
+        return cell.cellHeight?cell.cellHeight:210;//160
     }else
     {
         SINTopicCell *cell = [tableView cellForRowAtIndexPath:indexPath];

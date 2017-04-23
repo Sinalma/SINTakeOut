@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "SINTabBarController.h"
 #import "SINLoginViewController.h"
-
 // Mob 短信验证SDK
 #import <SMS_SDK/SMSSDK.h>
 // Mob 分享SDK
@@ -44,7 +43,7 @@
 #define SinaAppKey @"3566302707"
 #define SinaAppSecret @"3217c2bf6f35b65943495bf2977dec64"
 
-// Baidu Map
+// Map (Baidu)
 #define BaiduMapAppKey @"fxKMYO8psq28cGeOc6C4tIoqAoisqUxS"
 #define BaiduMapAppSecret @"dO2aIcWNvjKhRaM1fQKjypp3lNOLvkHe"
 
@@ -176,6 +175,21 @@
                  break;
          }
      }];
+}
+
+- (BOOL)isNewUpdate
+{
+    // 当前版本
+    NSString *curVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+    // 本地储存版本
+    NSString *sanboxVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"CFBundleShortVersionString"];
+    
+    if ([curVersion compare:sanboxVersion] == NSOrderedDescending) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:curVersion forKey:@"CFBundleShortVersionString"];
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options

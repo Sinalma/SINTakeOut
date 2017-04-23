@@ -1176,7 +1176,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SIN;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = sinalma;
 				TargetAttributes = {
 					18EA61701E25DA9D009D826E = {

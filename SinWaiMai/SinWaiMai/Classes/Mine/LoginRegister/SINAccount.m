@@ -50,7 +50,7 @@ static SINAccount *_account;
 {
     _isLogin = isLogin;
     
-    NSLog(@"登录%d",isLogin);
+    NSLog(@"登录%d",_isLogin);
 }
 
 - (void)jumpLoginVc
@@ -60,12 +60,18 @@ static SINAccount *_account;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviVC animated:YES completion:nil];
 }
 
-- (instancetype)init
++ (instancetype)allocWithZone:(struct _NSZone *)zone
 {
-    if (self = [super init]) {
-        
-    }
-    return self;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _account = [super allocWithZone:zone];
+    });
+    return _account;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _account;
 }
 
 + (instancetype)sharedAccount
