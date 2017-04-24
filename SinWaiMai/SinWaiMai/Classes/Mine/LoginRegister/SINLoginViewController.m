@@ -75,13 +75,6 @@ typedef enum : NSUInteger {
 
 @implementation SINLoginViewController
 
-- (SINAccount *)account
-{
-    if (_account == nil) {
-        _account = [[SINAccount alloc] init];
-    }
-    return _account;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,8 +86,24 @@ typedef enum : NSUInteger {
     [self contentViewTap];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.pwdTextField.text = nil;
+    self.accTextField.text = nil;
+    
+    canJumpToPasswordApp = YES;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - 密码相关
 static BOOL canJumpToPasswordApp = YES;
-#pragma mark - 短信验证功能
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == self.pwdTextField && canJumpToPasswordApp == YES) {
@@ -126,7 +135,6 @@ static BOOL canJumpToPasswordApp = YES;
     }
 }
 
-#pragma mark - 密码相关
 /**
  * 监听appDelegate密码的通知
  */
@@ -140,10 +148,6 @@ static BOOL canJumpToPasswordApp = YES;
     self.pwdTextField.text = noti.object;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 /**
  * 跳转到密码填充app
@@ -160,77 +164,7 @@ static BOOL canJumpToPasswordApp = YES;
     }
 }
 
-/**
- * contentView添加手势
- */
-- (void)contentViewTap
-{
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesContentView)];
-    [self.contentView addGestureRecognizer:tap];
-}
-
-- (void)touchesContentView
-{
-    [self.view endEditing:YES];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.accTextField endEditing:YES];
-    [self.pwdTextField endEditing:YES];
-}
-
-- (void)normalLoginBtnClick
-{
-    // 防止输入了密码没登入，但跳至短信登录界面时密码不见
-    self.pwdTextField.text = self.tempPwd ? self.tempPwd : @"";
-
-//    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-    [self.view endEditing:YES];
-    [UIView animateWithDuration:1.5 animations:^{
-    self.normalLineView.hidden = NO;
-    self.messageLineView.hidden = YES;
-    
-    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@40);
-    }];
-    self.accTextField.placeholder = @"手机号/用户名/邮箱";
-    self.pwdTextField.placeholder = @"密码";
-    [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [self.questionBtn setTitle:@"登录遇到问题" forState:UIControlStateNormal];
-    
-    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@85);
-    }];
-        
-    }];
-}
-
-- (void)messageLoginBtnClick
-{
-    // 清空另一个textField的文字
-    self.tempPwd = self.pwdTextField.text;
-    self.pwdTextField.text = nil;
-    
-    [self.view endEditing:YES];
-    [UIView animateWithDuration:1.5 animations:^{
-        
-    self.normalLineView.hidden = YES;
-    self.messageLineView.hidden = NO;
-    [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@0);
-    }];
-    self.accTextField.placeholder = @"请输入手机号码";
-    self.pwdTextField.placeholder = nil;
-    [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
-    [self.questionBtn setTitle:@"我已阅读并同意百度用户协议" forState:UIControlStateNormal];
-    [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@176);
-    }];
-    }];
-}
-
+#pragma mark - 自定义方法
 - (void)login
 {
     SINHUD *hud = [[SINHUD alloc] init];
@@ -352,16 +286,6 @@ static BOOL canJumpToPasswordApp = YES;
     });
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    self.pwdTextField.text = nil;
-    self.accTextField.text = nil;
-    
-    canJumpToPasswordApp = YES;
-}
-
 - (void)loginOrRegister:(AccountStatue)accountStatue
 {
     if (accountStatue == 0) {
@@ -392,6 +316,78 @@ static BOOL canJumpToPasswordApp = YES;
     }
 }
 
+#pragma mark - 点击事件
+/**
+ * contentView添加手势
+ */
+- (void)contentViewTap
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesContentView)];
+    [self.contentView addGestureRecognizer:tap];
+}
+
+- (void)touchesContentView
+{
+    [self.view endEditing:YES];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.accTextField endEditing:YES];
+    [self.pwdTextField endEditing:YES];
+}
+
+- (void)normalLoginBtnClick
+{
+    // 防止输入了密码没登入，但跳至短信登录界面时密码不见
+    self.pwdTextField.text = self.tempPwd ? self.tempPwd : @"";
+    
+    //    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:1.5 animations:^{
+        self.normalLineView.hidden = NO;
+        self.messageLineView.hidden = YES;
+        
+        [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@40);
+        }];
+        self.accTextField.placeholder = @"手机号/用户名/邮箱";
+        self.pwdTextField.placeholder = @"密码";
+        [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [self.questionBtn setTitle:@"登录遇到问题" forState:UIControlStateNormal];
+        
+        [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@85);
+        }];
+        
+    }];
+}
+
+- (void)messageLoginBtnClick
+{
+    // 清空另一个textField的文字
+    self.tempPwd = self.pwdTextField.text;
+    self.pwdTextField.text = nil;
+    
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:1.5 animations:^{
+        
+        self.normalLineView.hidden = YES;
+        self.messageLineView.hidden = NO;
+        [self.pwdTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        self.accTextField.placeholder = @"请输入手机号码";
+        self.pwdTextField.placeholder = nil;
+        [self.loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
+        [self.questionBtn setTitle:@"我已阅读并同意百度用户协议" forState:UIControlStateNormal];
+        [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@176);
+        }];
+    }];
+}
+
 - (void)redisterBtnClick
 {
     [self loginOrRegister:self.accountStatue];
@@ -408,7 +404,6 @@ static BOOL canJumpToPasswordApp = YES;
 
 - (void)back
 {
-    NSLog(@"返回");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -622,6 +617,15 @@ static BOOL canJumpToPasswordApp = YES;
     registerBtn.layer.borderColor = [UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0].CGColor;
     [self.contentView addSubview:registerBtn];
     self.registerBtn = registerBtn;
+}
+
+#pragma mark - 懒加载
+- (SINAccount *)account
+{
+    if (_account == nil) {
+        _account = [[SINAccount alloc] init];
+    }
+    return _account;
 }
 
 @end

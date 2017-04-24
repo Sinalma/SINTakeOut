@@ -19,6 +19,7 @@
 #import "SINUserCenterView.h"
 #import "SINWaveView.h"
 #import "SINLoginViewController.h"
+#import "SINSettingController.h"
 
 #define MineLoginBtnW 120
 #define MineLoginBtnH 40
@@ -142,6 +143,32 @@
     [self presentViewController:naviVC animated:YES completion:nil];
 }
 
+- (void)setting
+{
+    SINSettingController *settingVC = [[SINSettingController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
+}
+
+#pragma mark - 初始化
+/**
+ * 初始化导航栏
+ */
+- (void)setupNavi
+{
+    [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
+    
+    //    UILabel *lab = [[UILabel alloc] init];
+    //    lab.text = @"我的";
+    //    lab.font = [UIFont systemFontOfSize:19];
+    //    lab.frame = CGRectMake(0, 0, 20, 50);
+    //    lab.textColor = [UIColor whiteColor];
+    //    self.navigationItem.titleView = lab;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+
 /**
  * 初始化子控件
  */
@@ -200,22 +227,6 @@
     }];
     
 }
-
-/**
- * 初始化导航栏
- */
-- (void)setupNavi
-{
-    [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
-    
-//    UILabel *lab = [[UILabel alloc] init];
-//    lab.text = @"我的";
-//    lab.font = [UIFont systemFontOfSize:19];
-//    lab.frame = CGRectMake(0, 0, 20, 50);
-//    lab.textColor = [UIColor whiteColor];
-//    self.navigationItem.titleView = lab;
-}
-
 
 #pragma mark - 懒加载
 - (AFHTTPSessionManager *)netWorkMgr

@@ -71,6 +71,7 @@
 		189AE9D81EACE6B6007A080B /* UIImage+SINHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9C51EACE6B6007A080B /* UIImage+SINHelper.m */; };
 		189AE9DA1EACE81B007A080B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9D91EACE81B007A080B /* logo.png */; };
 		189AE9DC1EACE830007A080B /* QRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9DB1EACE830007A080B /* QRCode.png */; };
+		189AE9E61EADD8FC007A080B /* SINSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9E51EADD8FC007A080B /* SINSettingController.m */; };
 		18A60AC11E778CA90063F81F /* SINAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A60AC01E778CA90063F81F /* SINAccount.m */; };
 		18BE34971E517ABE005EABB5 /* SINCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE34951E517ABE005EABB5 /* SINCommentCell.m */; };
 		18BE34981E517ABE005EABB5 /* SINCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BE34961E517ABE005EABB5 /* SINCommentCell.xib */; };
@@ -275,6 +276,8 @@
 		189AE9C51EACE6B6007A080B /* UIImage+SINHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SINHelper.m"; sourceTree = "<group>"; };
 		189AE9D91EACE81B007A080B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		189AE9DB1EACE830007A080B /* QRCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRCode.png; sourceTree = "<group>"; };
+		189AE9E41EADD8FC007A080B /* SINSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINSettingController.h; sourceTree = "<group>"; };
+		189AE9E51EADD8FC007A080B /* SINSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINSettingController.m; sourceTree = "<group>"; };
 		18A60ABF1E778CA90063F81F /* SINAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAccount.h; sourceTree = "<group>"; };
 		18A60AC01E778CA90063F81F /* SINAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAccount.m; sourceTree = "<group>"; };
 		18BE34941E517ABE005EABB5 /* SINCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCommentCell.h; sourceTree = "<group>"; };
@@ -615,10 +618,10 @@
 			isa = PBXGroup;
 			children = (
 				189AE9AB1EACE6B6007A080B /* Resource */,
-				189AE9BA1EACE6B6007A080B /* SINGenerateQRCodeController.h */,
-				189AE9BB1EACE6B6007A080B /* SINGenerateQRCodeController.m */,
 				189AE9BC1EACE6B6007A080B /* SINQRCodeController.h */,
 				189AE9BD1EACE6B6007A080B /* SINQRCodeController.m */,
+				189AE9BA1EACE6B6007A080B /* SINGenerateQRCodeController.h */,
+				189AE9BB1EACE6B6007A080B /* SINGenerateQRCodeController.m */,
 				189AE9BE1EACE6B6007A080B /* SINQRCodeShowController.h */,
 				189AE9BF1EACE6B6007A080B /* SINQRCodeShowController.m */,
 				189AE9B71EACE6B6007A080B /* SINQRCodeConst.h */,
@@ -1022,6 +1025,8 @@
 			children = (
 				18EA61CA1E262971009D826E /* SINMineViewController.h */,
 				18EA61CB1E262971009D826E /* SINMineViewController.m */,
+				189AE9E41EADD8FC007A080B /* SINSettingController.h */,
+				189AE9E51EADD8FC007A080B /* SINSettingController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1439,6 +1444,7 @@
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
 				18D237361E6EB56000387FB8 /* SINChophandViewController.m in Sources */,
 				18EAC8F11E320CD7007FE5E0 /* SINNewuserentry.m in Sources */,
+				189AE9E61EADD8FC007A080B /* SINSettingController.m in Sources */,
 				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,

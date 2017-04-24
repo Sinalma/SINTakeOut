@@ -193,7 +193,6 @@ static BOOL loginStatu = NO;
         if (![SINAccount sharedAccount].isLogin) {
             [[SINAccount sharedAccount] jumpLoginVc];
         }
-        
         return;
     }
     

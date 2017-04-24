@@ -12,4 +12,5 @@
 
 + (instancetype)accurateCalculationWithDecimal:(double)decimal;
 
+- (NSInteger)fileSize;
 @end

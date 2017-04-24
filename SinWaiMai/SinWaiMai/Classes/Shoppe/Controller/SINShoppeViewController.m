@@ -397,7 +397,6 @@ static CGFloat preOffsetY = 0;
 //        self.tabScrollView.scrollEnabled = YES;
 //    }
     
-    
     if ([scrollView isEqual:self.contentScrollV]) {
         
         if (scrollView.contentOffset.y > 0) {
@@ -418,8 +417,6 @@ static CGFloat preOffsetY = 0;
     if (scrollView == self.tabScrollView) {
         self.shopCarView.transform = CGAffineTransformMakeTranslation(-scrollView.contentOffset.x, 0);
     }
-    
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -526,7 +523,6 @@ static int welfareOpenState = 0;
     self.shareView.logo_url = self.shoppeInfoes.logo_url;
     self.shareView.hidden = NO;
     [self.shareView share];
-    
 }
 
 #pragma mark - 自定义方法
@@ -606,7 +602,6 @@ static int welfareOpenState = 0;
 //        make.height.equalTo(@(normalCount * (labW + margin)));
         make.bottom.equalTo(topModuleView);
     }];
-    
     
     // 添加优惠信息
     for (int i = 0; i < welCount; i++) {

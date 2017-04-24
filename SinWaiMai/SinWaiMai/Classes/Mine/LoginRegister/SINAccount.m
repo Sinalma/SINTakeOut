@@ -16,10 +16,10 @@
 #import "SINLoginViewController.h"
 
 #define AccPwdDictNameKey @"accPwdDict.plist"
-
 #define AccountKey @"account"
 #define PasswordKey @"password"
 
+// 登录验证状态
 typedef enum : NSUInteger {
     KAccountNotRegister,
     KAccountPwdWrong,

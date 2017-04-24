@@ -71,15 +71,14 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    // 短信验证功能
+    // 短信验证
     [SMSSDK registerApp:MobSMSAppKey withSecret:MobSMSAppSecret];
     
-    // 分享功能
+    // 分享
     [self share];
     
     // 百度地图
     [self baiduMap];
-    
     
     return YES;
 }

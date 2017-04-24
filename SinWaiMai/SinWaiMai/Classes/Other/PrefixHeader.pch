@@ -10,12 +10,19 @@
 #define PrefixHeader_pch
 
 #import "UIColor+Category.h"
-
 #import "SINConst.h"
-
 #import "UIView+Category.h"
-
 #import "NSString+Category.h"
+#import "NSString+SINFilePath.h"
+#import "SINHUD.h"
+
+
+// 日志输出
+#ifdef DEBUG // 开发阶段-DEBUG阶段:使用Log
+#define SINLog(...) NSLog(__VA_ARGS__)
+#else // 发布阶段-上线阶段:移除Log
+#define SINLog(...)
+#endif
 
 // 密码app回跳通知
 #define PasswordNotiName @"PasswordNotiName"
