@@ -93,10 +93,11 @@ typedef enum : NSUInteger {
     [self contentViewTap];
 }
 
+static BOOL canJumpToPasswordApp = YES;
 #pragma mark - 短信验证功能
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == self.pwdTextField) {
+    if (textField == self.pwdTextField && canJumpToPasswordApp == YES) {
         [self.accTextField endEditing:YES];
         
         // 提醒用户是否使用密码功能
@@ -113,6 +114,9 @@ typedef enum : NSUInteger {
         [alert addAction:yesAct];
         UIAlertAction *noAct = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
+            // 本次拒绝后不再询问是否跳转密码填充界面
+            canJumpToPasswordApp = NO;
+            [self.pwdTextField becomeFirstResponder];
         }];
         [alert addAction:noAct];
         
@@ -354,6 +358,8 @@ typedef enum : NSUInteger {
     
     self.pwdTextField.text = nil;
     self.accTextField.text = nil;
+    
+    canJumpToPasswordApp = YES;
 }
 
 - (void)loginOrRegister:(AccountStatue)accountStatue

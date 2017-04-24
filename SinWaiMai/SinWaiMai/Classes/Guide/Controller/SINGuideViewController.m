@@ -20,6 +20,7 @@
 #import "SINHUD.h"
 #import "SINLoginViewController.h"
 #import "SINAccount.h"
+#import "SINQRCodeController.h"
 
 // 导航条高度
 #define GuideNaviViewHeight 30
@@ -324,6 +325,15 @@ static BOOL loginStatu = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"收藏夹" style:UIBarButtonItemStylePlain target:self action:@selector(collectPageClick)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"扫一扫" style:UIBarButtonItemStylePlain target:self action:@selector(scanQRCode)];
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+- (void)scanQRCode
+{
+    SINQRCodeController *QRCodeVC = [[SINQRCodeController alloc] init];
+    UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:QRCodeVC];
+    [self presentViewController:naviVC animated:YES completion:nil];
 }
 
 - (void)collectPageClick
@@ -336,7 +346,7 @@ static BOOL loginStatu = NO;
 #pragma mark - 懒加载
 - (UIScrollView *)naviView
 {
-    if (_naviView ==nil) {
+    if (_naviView == nil) {
         _naviView = [[UIScrollView alloc] init];
         _naviView.showsHorizontalScrollIndicator = NO;
         [self.view addSubview:_naviView];

@@ -51,6 +51,26 @@
 		1889B3641E9E2AF50022EC70 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1889B3621E9E2AF50022EC70 /* libcrypto.a */; };
 		1889B3651E9E2AF50022EC70 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1889B3631E9E2AF50022EC70 /* libssl.a */; };
 		1889B3671E9E2D440022EC70 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1889B3661E9E2D430022EC70 /* BaiduMapAPI_Map.framework */; };
+		189AE9C61EACE6B6007A080B /* QRCodeLeftBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9AC1EACE6B6007A080B /* QRCodeLeftBottom@2x.png */; };
+		189AE9C71EACE6B6007A080B /* QRCodeLeftBottom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9AD1EACE6B6007A080B /* QRCodeLeftBottom@3x.png */; };
+		189AE9C81EACE6B6007A080B /* QRCodeLeftTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9AE1EACE6B6007A080B /* QRCodeLeftTop@2x.png */; };
+		189AE9C91EACE6B6007A080B /* QRCodeLeftTop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9AF1EACE6B6007A080B /* QRCodeLeftTop@3x.png */; };
+		189AE9CA1EACE6B6007A080B /* QRCodeRightBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B01EACE6B6007A080B /* QRCodeRightBottom@2x.png */; };
+		189AE9CB1EACE6B6007A080B /* QRCodeRightBottom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B11EACE6B6007A080B /* QRCodeRightBottom@3x.png */; };
+		189AE9CC1EACE6B6007A080B /* QRCodeRightTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B21EACE6B6007A080B /* QRCodeRightTop@2x.png */; };
+		189AE9CD1EACE6B6007A080B /* QRCodeRightTop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B31EACE6B6007A080B /* QRCodeRightTop@3x.png */; };
+		189AE9CE1EACE6B6007A080B /* QRCodeScanningLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B41EACE6B6007A080B /* QRCodeScanningLine@2x.png */; };
+		189AE9CF1EACE6B6007A080B /* QRCodeScanningLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B51EACE6B6007A080B /* QRCodeScanningLine@3x.png */; };
+		189AE9D11EACE6B6007A080B /* SINQRCodeConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9B81EACE6B6007A080B /* SINQRCodeConst.m */; };
+		189AE9D21EACE6B6007A080B /* sound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9B91EACE6B6007A080B /* sound.caf */; };
+		189AE9D31EACE6B6007A080B /* SINGenerateQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9BB1EACE6B6007A080B /* SINGenerateQRCodeController.m */; };
+		189AE9D41EACE6B6007A080B /* SINQRCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9BD1EACE6B6007A080B /* SINQRCodeController.m */; };
+		189AE9D51EACE6B6007A080B /* SINQRCodeShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9BF1EACE6B6007A080B /* SINQRCodeShowController.m */; };
+		189AE9D61EACE6B6007A080B /* SINQRCodeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9C11EACE6B6007A080B /* SINQRCodeTool.m */; };
+		189AE9D71EACE6B6007A080B /* SINQRCodeWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9C31EACE6B6007A080B /* SINQRCodeWebView.m */; };
+		189AE9D81EACE6B6007A080B /* UIImage+SINHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AE9C51EACE6B6007A080B /* UIImage+SINHelper.m */; };
+		189AE9DA1EACE81B007A080B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9D91EACE81B007A080B /* logo.png */; };
+		189AE9DC1EACE830007A080B /* QRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 189AE9DB1EACE830007A080B /* QRCode.png */; };
 		18A60AC11E778CA90063F81F /* SINAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A60AC01E778CA90063F81F /* SINAccount.m */; };
 		18BE34971E517ABE005EABB5 /* SINCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE34951E517ABE005EABB5 /* SINCommentCell.m */; };
 		18BE34981E517ABE005EABB5 /* SINCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BE34961E517ABE005EABB5 /* SINCommentCell.xib */; };
@@ -228,6 +248,33 @@
 		1889B3621E9E2AF50022EC70 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		1889B3631E9E2AF50022EC70 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		1889B3661E9E2D430022EC70 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
+		189AE9AC1EACE6B6007A080B /* QRCodeLeftBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLeftBottom@2x.png"; sourceTree = "<group>"; };
+		189AE9AD1EACE6B6007A080B /* QRCodeLeftBottom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLeftBottom@3x.png"; sourceTree = "<group>"; };
+		189AE9AE1EACE6B6007A080B /* QRCodeLeftTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLeftTop@2x.png"; sourceTree = "<group>"; };
+		189AE9AF1EACE6B6007A080B /* QRCodeLeftTop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeLeftTop@3x.png"; sourceTree = "<group>"; };
+		189AE9B01EACE6B6007A080B /* QRCodeRightBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeRightBottom@2x.png"; sourceTree = "<group>"; };
+		189AE9B11EACE6B6007A080B /* QRCodeRightBottom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeRightBottom@3x.png"; sourceTree = "<group>"; };
+		189AE9B21EACE6B6007A080B /* QRCodeRightTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeRightTop@2x.png"; sourceTree = "<group>"; };
+		189AE9B31EACE6B6007A080B /* QRCodeRightTop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeRightTop@3x.png"; sourceTree = "<group>"; };
+		189AE9B41EACE6B6007A080B /* QRCodeScanningLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeScanningLine@2x.png"; sourceTree = "<group>"; };
+		189AE9B51EACE6B6007A080B /* QRCodeScanningLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeScanningLine@3x.png"; sourceTree = "<group>"; };
+		189AE9B71EACE6B6007A080B /* SINQRCodeConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINQRCodeConst.h; path = Resource/SINQRCodeConst.h; sourceTree = "<group>"; };
+		189AE9B81EACE6B6007A080B /* SINQRCodeConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINQRCodeConst.m; path = Resource/SINQRCodeConst.m; sourceTree = "<group>"; };
+		189AE9B91EACE6B6007A080B /* sound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.caf; sourceTree = "<group>"; };
+		189AE9BA1EACE6B6007A080B /* SINGenerateQRCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINGenerateQRCodeController.h; sourceTree = "<group>"; };
+		189AE9BB1EACE6B6007A080B /* SINGenerateQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINGenerateQRCodeController.m; sourceTree = "<group>"; };
+		189AE9BC1EACE6B6007A080B /* SINQRCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINQRCodeController.h; sourceTree = "<group>"; };
+		189AE9BD1EACE6B6007A080B /* SINQRCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINQRCodeController.m; sourceTree = "<group>"; };
+		189AE9BE1EACE6B6007A080B /* SINQRCodeShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINQRCodeShowController.h; sourceTree = "<group>"; };
+		189AE9BF1EACE6B6007A080B /* SINQRCodeShowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINQRCodeShowController.m; sourceTree = "<group>"; };
+		189AE9C01EACE6B6007A080B /* SINQRCodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINQRCodeTool.h; sourceTree = "<group>"; };
+		189AE9C11EACE6B6007A080B /* SINQRCodeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINQRCodeTool.m; sourceTree = "<group>"; };
+		189AE9C21EACE6B6007A080B /* SINQRCodeWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINQRCodeWebView.h; sourceTree = "<group>"; };
+		189AE9C31EACE6B6007A080B /* SINQRCodeWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINQRCodeWebView.m; sourceTree = "<group>"; };
+		189AE9C41EACE6B6007A080B /* UIImage+SINHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SINHelper.h"; sourceTree = "<group>"; };
+		189AE9C51EACE6B6007A080B /* UIImage+SINHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SINHelper.m"; sourceTree = "<group>"; };
+		189AE9D91EACE81B007A080B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		189AE9DB1EACE830007A080B /* QRCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QRCode.png; sourceTree = "<group>"; };
 		18A60ABF1E778CA90063F81F /* SINAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAccount.h; sourceTree = "<group>"; };
 		18A60AC01E778CA90063F81F /* SINAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAccount.m; sourceTree = "<group>"; };
 		18BE34941E517ABE005EABB5 /* SINCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCommentCell.h; sourceTree = "<group>"; };
@@ -564,6 +611,48 @@
 			path = thirdlibs;
 			sourceTree = "<group>";
 		};
+		189AE9AA1EACE6B6007A080B /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				189AE9AB1EACE6B6007A080B /* Resource */,
+				189AE9BA1EACE6B6007A080B /* SINGenerateQRCodeController.h */,
+				189AE9BB1EACE6B6007A080B /* SINGenerateQRCodeController.m */,
+				189AE9BC1EACE6B6007A080B /* SINQRCodeController.h */,
+				189AE9BD1EACE6B6007A080B /* SINQRCodeController.m */,
+				189AE9BE1EACE6B6007A080B /* SINQRCodeShowController.h */,
+				189AE9BF1EACE6B6007A080B /* SINQRCodeShowController.m */,
+				189AE9B71EACE6B6007A080B /* SINQRCodeConst.h */,
+				189AE9B81EACE6B6007A080B /* SINQRCodeConst.m */,
+				189AE9C01EACE6B6007A080B /* SINQRCodeTool.h */,
+				189AE9C11EACE6B6007A080B /* SINQRCodeTool.m */,
+				189AE9C21EACE6B6007A080B /* SINQRCodeWebView.h */,
+				189AE9C31EACE6B6007A080B /* SINQRCodeWebView.m */,
+				189AE9C41EACE6B6007A080B /* UIImage+SINHelper.h */,
+				189AE9C51EACE6B6007A080B /* UIImage+SINHelper.m */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
+		189AE9AB1EACE6B6007A080B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				189AE9AC1EACE6B6007A080B /* QRCodeLeftBottom@2x.png */,
+				189AE9AD1EACE6B6007A080B /* QRCodeLeftBottom@3x.png */,
+				189AE9AE1EACE6B6007A080B /* QRCodeLeftTop@2x.png */,
+				189AE9AF1EACE6B6007A080B /* QRCodeLeftTop@3x.png */,
+				189AE9B01EACE6B6007A080B /* QRCodeRightBottom@2x.png */,
+				189AE9B11EACE6B6007A080B /* QRCodeRightBottom@3x.png */,
+				189AE9B21EACE6B6007A080B /* QRCodeRightTop@2x.png */,
+				189AE9B31EACE6B6007A080B /* QRCodeRightTop@3x.png */,
+				189AE9B41EACE6B6007A080B /* QRCodeScanningLine@2x.png */,
+				189AE9B51EACE6B6007A080B /* QRCodeScanningLine@3x.png */,
+				189AE9DB1EACE830007A080B /* QRCode.png */,
+				189AE9D91EACE81B007A080B /* logo.png */,
+				189AE9B91EACE6B6007A080B /* sound.caf */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		18C71BAF1E9CF51F00E1710B /* MessageVerify */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,6 +875,7 @@
 		18EA61A91E262590009D826E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				189AE9AA1EACE6B6007A080B /* QRCode */,
 				18C71BFE1E9E172300E1710B /* Map */,
 				18C71BFA1E9DD51F00E1710B /* ShareView */,
 				18D2374C1E72C9DB00387FB8 /* LoginRegister */,
@@ -1221,28 +1311,41 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				189AE9C91EACE6B6007A080B /* QRCodeLeftTop@3x.png in Resources */,
 				18C5E0851E616C5A00CC9071 /* SINDiscoveryView.xib in Resources */,
+				189AE9CD1EACE6B6007A080B /* QRCodeRightTop@3x.png in Resources */,
 				1889B3601E9E276F0022EC70 /* mapapi.bundle in Resources */,
 				1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */,
+				189AE9C71EACE6B6007A080B /* QRCodeLeftBottom@3x.png in Resources */,
 				18DC02C41E6B064D0018940E /* SINOrderLoginView.xib in Resources */,
+				189AE9DC1EACE830007A080B /* QRCode.png in Resources */,
 				1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */,
 				18D2371A1E6BB58600387FB8 /* Assets.xcassets in Resources */,
+				189AE9C81EACE6B6007A080B /* QRCodeLeftTop@2x.png in Resources */,
 				18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */,
+				189AE9DA1EACE81B007A080B /* logo.png in Resources */,
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
 				18C71BF21E9DCF8500E1710B /* WeiboSDK.bundle in Resources */,
 				18BE34981E517ABE005EABB5 /* SINCommentCell.xib in Resources */,
+				189AE9CF1EACE6B6007A080B /* QRCodeScanningLine@3x.png in Resources */,
 				18D2372D1E6E4F8200387FB8 /* SINTopTopicCell.xib in Resources */,
 				18C71BF41E9DCF8500E1710B /* ShareSDK.bundle in Resources */,
+				189AE9CE1EACE6B6007A080B /* QRCodeScanningLine@2x.png in Resources */,
 				188316521E28DA2700CE1455 /* SINSecondModuleView.xib in Resources */,
 				18C71BF01E9DCF8500E1710B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				189AE9C61EACE6B6007A080B /* QRCodeLeftBottom@2x.png in Resources */,
 				18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */,
 				18D237281E6E4B6100387FB8 /* SINTopicCell.xib in Resources */,
 				180001E21E2C84FB00B7599B /* SINThirdModuleView.xib in Resources */,
 				180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */,
 				18EAC8E81E31E8D1007FE5E0 /* parameters.plist in Resources */,
+				189AE9CA1EACE6B6007A080B /* QRCodeRightBottom@2x.png in Resources */,
+				189AE9D21EACE6B6007A080B /* sound.caf in Resources */,
+				189AE9CC1EACE6B6007A080B /* QRCodeRightTop@2x.png in Resources */,
 				18C7A3C81E52F6220035725C /* test.html in Resources */,
 				18C71BEB1E9DCF8500E1710B /* ShareSDKUI.bundle in Resources */,
 				18BFF1371E50072900C5DDB5 /* SINHeaderView.xib in Resources */,
+				189AE9CB1EACE6B6007A080B /* QRCodeRightBottom@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1321,8 +1424,10 @@
 				18D6820B1E34EEDC006158E0 /* Text.m in Sources */,
 				18D2372C1E6E4F8200387FB8 /* SINTopTopicCell.m in Sources */,
 				18C71C011E9E183600E1710B /* SINAddressController.mm in Sources */,
+				189AE9D41EACE6B6007A080B /* SINQRCodeController.m in Sources */,
 				18DC02B91E6999880018940E /* SINWalletTitle.m in Sources */,
 				18D2373C1E6EB57D00387FB8 /* SINOtherViewController.m in Sources */,
+				189AE9D11EACE6B6007A080B /* SINQRCodeConst.m in Sources */,
 				18EB48BF1E9E4C30007D8187 /* SINMapViewController.m in Sources */,
 				18D237231E6D8F4300387FB8 /* SINRecommend.m in Sources */,
 				18EAC8E51E31C562007FE5E0 /* SINNetWorkingManager.m in Sources */,
@@ -1370,10 +1475,12 @@
 				18C5E0831E616BDE00CC9071 /* SINDiscoveryView.m in Sources */,
 				18EB48C21E9E6013007D8187 /* SINAddress.m in Sources */,
 				18D237201E6D324700387FB8 /* SINTopic.m in Sources */,
+				189AE9D61EACE6B6007A080B /* SINQRCodeTool.m in Sources */,
 				1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */,
 				180001F91E30D72600B7599B /* SINActivity.m in Sources */,
 				181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */,
 				180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */,
+				189AE9D51EACE6B6007A080B /* SINQRCodeShowController.m in Sources */,
 				180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */,
 				18D2373F1E6ECA5300387FB8 /* SINRecommendViewController.m in Sources */,
 				18EA61C31E26286F009D826E /* SINTabBarController.m in Sources */,
@@ -1381,13 +1488,16 @@
 				1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */,
 				18EA61DC1E26483D009D826E /* UIView+Category.m in Sources */,
 				181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */,
+				189AE9D31EACE6B6007A080B /* SINGenerateQRCodeController.m in Sources */,
 				18D237271E6E4B6100387FB8 /* SINTopicCell.m in Sources */,
 				1829333C1E3DC0C900E0C110 /* SINTypeTableView.m in Sources */,
+				189AE9D81EACE6B6007A080B /* UIImage+SINHelper.m in Sources */,
 				18D237331E6EB52B00387FB8 /* SINFollowViewController.m in Sources */,
 				18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */,
 				18DC02C21E6B062A0018940E /* SINOrderLoginView.m in Sources */,
 				18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */,
 				18BE34971E517ABE005EABB5 /* SINCommentCell.m in Sources */,
+				189AE9D71EACE6B6007A080B /* SINQRCodeWebView.m in Sources */,
 				18C019B91E3ED37300B8A910 /* SINTakeoutMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
