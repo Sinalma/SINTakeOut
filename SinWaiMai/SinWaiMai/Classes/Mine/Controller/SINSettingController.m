@@ -22,6 +22,14 @@
     [super viewDidLoad];
     
     [self setup];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:pan];
+}
+
+- (void)pan:(UIPanGestureRecognizer *)pan
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSArray *)data

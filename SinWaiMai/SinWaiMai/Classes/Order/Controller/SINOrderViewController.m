@@ -41,6 +41,8 @@
 #pragma mark - SINOrderLoginViewDelegata
 - (void)loginRegisterBtnClick
 {
+    [self.orderLoginView stopImgAnimation];
+    
     SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
     UINavigationController *naviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
     [self presentViewController:naviVC animated:YES completion:nil];
@@ -49,6 +51,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.orderLoginView startImgVAnimation];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.orderLoginView stopImgAnimation];
 }
 
 - (void)setupNaiv

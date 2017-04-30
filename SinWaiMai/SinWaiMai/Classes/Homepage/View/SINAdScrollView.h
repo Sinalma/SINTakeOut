@@ -12,4 +12,7 @@
 
 @property (nonatomic,strong) NSArray *adImgArr;
 
+- (void)addTimerFromAD;
+
+- (void)removeTimerFromAD;
 @end

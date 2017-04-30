@@ -36,13 +36,15 @@
 static int imgVAnimCount = 0;
 - (void)startImgVAnimation
 {
-        dispatch_async(
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            imgVAnimCount = 0;
-            self.timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(imgAnim) userInfo:nil repeats:YES];
-            [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-            
-        });
+    imgVAnimCount = 0;
+    self.timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(imgAnim) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopImgAnimation
+{
+    [self.timer invalidate];
+    self.timer = nil;
 }
 /**
  * Timer Transfer Method
@@ -97,7 +99,6 @@ static int imgIndex = 0;
         make.left.right.equalTo(self);
         make.height.equalTo(@40);
     }];
-    
 }
 
 - (void)loginRegisterBtnClick
@@ -108,7 +109,6 @@ static int imgIndex = 0;
             [self.delegate loginRegisterBtnClick];
         }
     });
-    
 }
 
 

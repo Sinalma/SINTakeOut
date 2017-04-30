@@ -21,7 +21,7 @@
 @property (nonatomic,weak) id<SINOrderLoginViewDelegate> delegate;
 
 + (instancetype)orderLoginView;
-
+- (void)stopImgAnimation;
 - (void)startImgVAnimation;
 
 @end

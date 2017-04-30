@@ -208,7 +208,7 @@
     AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
     /** 
      * 这里的loc_lng、loc_lat、address暂时是写死的。
-     * 貌似这些参数对单个商户没有影响，然后控制器之间传来传去也比较恶心，所以先不修改。
+     * 貌似这些参数对单个商户没有影响，然后控制器之间传来传去也比较恶心，所以先不做修改。
      * 已经写好的监听通知得到的参数先这样，需要时再办。
      */
     NSString *loc_lng = self.curAddress.lng.length?self.curAddress.lng : @"12617390.304289";//12617390.304289

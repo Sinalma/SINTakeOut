@@ -7,8 +7,13 @@
 //
 
 #import "SINAdScrollView.h"
-
 #import "UIImageView+SINWebCache.h"
+
+@interface SINAdScrollView ()
+
+@property (nonatomic,strong) NSTimer *adTimer;
+
+@end
 
 @implementation SINAdScrollView
 
@@ -17,7 +22,6 @@
     _adImgArr = adImgArr;
     
     [self setup];
-    [self scrollImgVAnim];
 }
 
 - (instancetype)init
@@ -33,19 +37,34 @@
     [super layoutSubviews];
 }
 
+- (void)addTimerFromAD
+{
+    [self scrollImgVAnim];
+}
+
+- (void)removeTimerFromAD
+{
+    [self.adTimer invalidate];
+    self.adTimer = nil;
+}
+
 // 图片轮播
-static int imgIndex = 0;
 - (void)scrollImgVAnim
 {
-//    [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        if (imgIndex == self.adImgArr.count) {
-            imgIndex = 0;
-        }
-        [UIView animateWithDuration:2.0 animations:^{
-            [self setContentOffset:CGPointMake(imgIndex*SINScreenW, 0)];
-        }];
-        imgIndex ++;
-//    }];
+    self.adTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(changeImg) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.adTimer forMode:NSRunLoopCommonModes];
+}
+
+static int imgIndex = 0;
+- (void)changeImg
+{
+    if (imgIndex == self.adImgArr.count) {
+        imgIndex = 0;
+    }
+    [UIView animateWithDuration:2.0 animations:^{
+        [self setContentOffset:CGPointMake(imgIndex*SINScreenW, 0)];
+    }];
+    imgIndex ++;
 }
 
 - (void)setup

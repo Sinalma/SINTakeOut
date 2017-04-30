@@ -21,7 +21,6 @@
 #import "SINActivity.h"
 #import "SINWMType.h"
 #import "SINNewuserentry.h"
-#import "NSString+SINFilePath.h"
 #import "MJRefresh.h"
 #import "UILabel+Category.h"
 #import "SINShoppeViewController.h"
@@ -58,7 +57,6 @@
 
 /** 地址label */
 @property (nonatomic,strong) UILabel *addressLabel;
-
 
 #pragma mark - 数据
 /** 保存所有商户的数组 */
@@ -106,10 +104,25 @@
     [self setupRefreshing];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.adView addTimerFromAD];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.adView removeTimerFromAD];
+}
+
 - (void)dealloc
 {
     self.networkMgr = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    NSLog(@"内存吃紧，请处理");
 }
 
 /**
@@ -425,7 +438,6 @@ static int networkPage = 1;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressSelectNoti:) name:AddressSelectNotiName object:nil];
 }
 
-
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -605,6 +617,7 @@ static NSString *const cellID = @"shoppeCell";
         _adView = [[SINAdScrollView alloc] init];
         _adView.pagingEnabled = YES;
         _adView.size = CGSizeMake(SINScreenW, HomepageAdHeight);
+//        [_adView addTimerFromAD];
     }
     return _adView;
 }
