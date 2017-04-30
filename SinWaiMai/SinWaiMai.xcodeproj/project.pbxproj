@@ -28,6 +28,9 @@
 		1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182933361E3DC0C900E0C110 /* SINFoodCell.xib */; };
 		1829333C1E3DC0C900E0C110 /* SINTypeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933381E3DC0C900E0C110 /* SINTypeTableView.m */; };
 		1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */; };
+		185D3DB51EB5DB0A00AAD618 /* SINCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */; };
+		185D3DB61EB5DB0A00AAD618 /* SINImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB21EB5DB0A00AAD618 /* SINImageView.m */; };
+		185D3DB71EB5DB0A00AAD618 /* SINWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
 		1883164A1E28BD9700CE1455 /* SINNewUserEnjorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188316491E28BD9700CE1455 /* SINNewUserEnjorView.xib */; };
@@ -221,6 +224,12 @@
 		182933381E3DC0C900E0C110 /* SINTypeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINTypeTableView.m; sourceTree = "<group>"; };
 		1829333D1E3DCEDB00E0C110 /* SINShoppeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeInfo.h; sourceTree = "<group>"; };
 		1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeInfo.m; sourceTree = "<group>"; };
+		185D3DAF1EB5DB0A00AAD618 /* SINCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCycleView.h; sourceTree = "<group>"; };
+		185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCycleView.m; sourceTree = "<group>"; };
+		185D3DB11EB5DB0A00AAD618 /* SINImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINImageView.h; sourceTree = "<group>"; };
+		185D3DB21EB5DB0A00AAD618 /* SINImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINImageView.m; sourceTree = "<group>"; };
+		185D3DB31EB5DB0A00AAD618 /* SINWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWebImageDownloader.h; sourceTree = "<group>"; };
+		185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWebImageDownloader.m; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
 		188316441E2888FA00CE1455 /* SINNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINNormalButton.m; sourceTree = "<group>"; };
 		188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNewUserEnjorView.h; sourceTree = "<group>"; };
@@ -582,6 +591,19 @@
 				18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		185D3DAE1EB5DB0A00AAD618 /* CycleView */ = {
+			isa = PBXGroup;
+			children = (
+				185D3DAF1EB5DB0A00AAD618 /* SINCycleView.h */,
+				185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */,
+				185D3DB11EB5DB0A00AAD618 /* SINImageView.h */,
+				185D3DB21EB5DB0A00AAD618 /* SINImageView.m */,
+				185D3DB31EB5DB0A00AAD618 /* SINWebImageDownloader.h */,
+				185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */,
+			);
+			path = CycleView;
 			sourceTree = "<group>";
 		};
 		1889B33F1E9E23080022EC70 /* SDK */ = {
@@ -952,6 +974,7 @@
 		18EA61AE1E262590009D826E /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				185D3DAE1EB5DB0A00AAD618 /* CycleView */,
 				18EA61AF1E262590009D826E /* Controller */,
 				18EA61B01E262590009D826E /* Model */,
 				18EA61B11E262590009D826E /* View */,
@@ -1450,6 +1473,7 @@
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,
 				180001DA1E2C6A9600B7599B /* SINAdScrollView.m in Sources */,
 				18D2371D1E6BF62100387FB8 /* SINWaveView.m in Sources */,
+				185D3DB71EB5DB0A00AAD618 /* SINWebImageDownloader.m in Sources */,
 				180001EA1E2F452900B7599B /* SINShoppe.m in Sources */,
 				18EAC8EE1E31F9F8007FE5E0 /* UIButton+SINWebCache.m in Sources */,
 				18BFF13A1E505EA300C5DDB5 /* SINCommentViewController.m in Sources */,
@@ -1466,6 +1490,7 @@
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				18DC02BF1E6A53F60018940E /* SINUserCenterView.m in Sources */,
 				18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */,
+				185D3DB51EB5DB0A00AAD618 /* SINCycleView.m in Sources */,
 				18A60AC11E778CA90063F81F /* SINAccount.m in Sources */,
 				18DC02BC1E699C350018940E /* SINWallet.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
@@ -1475,6 +1500,7 @@
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
 				18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */,
 				18BFF1351E50071200C5DDB5 /* SINHeaderView.m in Sources */,
+				185D3DB61EB5DB0A00AAD618 /* SINImageView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */,
 				18BE34A11E51E752005EABB5 /* SINShopComment.m in Sources */,

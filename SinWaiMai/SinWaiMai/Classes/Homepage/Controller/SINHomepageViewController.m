@@ -10,7 +10,7 @@
 
 #import "SINHomepageViewController.h"
 #import "Masonry.h"
-#import "SINAdScrollView.h"
+#import "SINCycleView.h"
 #import "SINWMTypeScrollView.h"
 #import "SINNewUserEnjorView.h"
 #import "SINSecondModuleView.h"
@@ -31,14 +31,14 @@
 /** 普通间距 */
 #define margin 10
 
-@interface SINHomepageViewController () <UITableViewDataSource,UIScrollViewDelegate,SINShoppeTableViewCellDelegate,UITableViewDelegate>
+@interface SINHomepageViewController () <UITableViewDataSource,UIScrollViewDelegate,SINShoppeTableViewCellDelegate,UITableViewDelegate,SINCycleViewDelegate>
 
 #pragma mark - 控件
 /** 整体的scrollView */
 @property (nonatomic,strong) UIScrollView *gobalScrollView;
 
 /** 顶部广告scrollView */
-@property (nonatomic,strong) SINAdScrollView *adView;
+@property (nonatomic,strong) SINCycleView *cycleView;
 
 /** 选择外卖类型的scrollView */
 @property (nonatomic,strong) SINWMTypeScrollView *wMTypesView;
@@ -106,12 +106,14 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.adView addTimerFromAD];
+    [super viewDidAppear:animated];
+    [self.cycleView startCycleTimer];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [self.adView removeTimerFromAD];
+    [super viewDidDisappear:animated];
+    [self.cycleView stopCycleTimer];
 }
 
 - (void)dealloc
@@ -123,6 +125,13 @@
 - (void)didReceiveMemoryWarning
 {
     NSLog(@"内存吃紧，请处理");
+    self.activties = nil;
+    self.wMTypes = nil;
+    self.adImgUrls = nil;
+    self.newuesrentries = nil;
+    self.welfareSignUrls = nil;
+    self.networkMgr = nil;
+    self.curAddress = nil;
 }
 
 /**
@@ -209,7 +218,7 @@
             [adArrM addObject:dict[@"img"]];
         }
         self.adImgUrls = adArrM;
-        self.adView.adImgArr = adArrM;
+        self.cycleView.imageUrls = adArrM;
         
         // 新人专享模块
 //        NSMutableArray *newuserArrM = [NSMutableArray array];
@@ -319,7 +328,7 @@ static int networkPage = 1;
 - (void)layoutGobalScrollViewChildView
 {
     [self.view addSubview:self.gobalScrollView];
-    [self.gobalScrollView addSubview:self.adView];
+    [self.gobalScrollView addSubview:self.cycleView];
     [self.gobalScrollView addSubview:self.wMTypesView];
     [self.gobalScrollView addSubview:self.newuserEnjorView];
     [self.gobalScrollView addSubview:self.secondModuleView];
@@ -327,7 +336,7 @@ static int networkPage = 1;
     [self.gobalScrollView addSubview:self.shoppeView];
     
     // 广告scrollView
-    [self.adView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.cycleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.gobalScrollView);
         make.width.equalTo(@(SINScreenW));
         make.height.equalTo(@(HomepageAdHeight));
@@ -335,8 +344,8 @@ static int networkPage = 1;
     
     // 外卖类型模块
     [self.wMTypesView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.adView.mas_bottom);
-        make.left.equalTo(self.adView);
+        make.top.equalTo(self.cycleView.mas_bottom);
+        make.left.equalTo(self.cycleView);
         make.width.equalTo(@(SINScreenW));
         make.height.equalTo(@(HomepageWmTypeHeight));
     }];
@@ -463,6 +472,12 @@ static int networkPage = 1;
             self.shoppeView.scrollEnabled = YES;
         }
     }
+}
+
+#pragma mark - SINCycleViewDelegate
+- (void)cycleView:(SINCycleView *)cycleView didClickImageAtIndex:(int)index
+{
+    NSLog(@"点击了广告%d",index);
 }
 
 #pragma mark - UITableViewDataSource,UITableVIewDelegate
@@ -610,16 +625,12 @@ static NSString *const cellID = @"shoppeCell";
     return _gobalScrollView;
 }
 
-// 广告scrollView
-- (SINAdScrollView *)adView
+- (SINCycleView *)cycleView
 {
-    if (_adView == nil) {
-        _adView = [[SINAdScrollView alloc] init];
-        _adView.pagingEnabled = YES;
-        _adView.size = CGSizeMake(SINScreenW, HomepageAdHeight);
-//        [_adView addTimerFromAD];
+    if (!_cycleView) {
+        _cycleView = [[SINCycleView alloc] initWithFrame:CGRectMake(0, 0, SINScreenW,HomepageAdHeight)];
     }
-    return _adView;
+    return _cycleView;
 }
 
 // 选择外卖类型的scrollView
