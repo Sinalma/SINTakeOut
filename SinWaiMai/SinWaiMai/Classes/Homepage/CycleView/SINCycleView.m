@@ -91,7 +91,7 @@ static int downImageIndex = 0;
             [[SINWebImageDownloader sharedDownloader] downloadImageWithURL:url completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
                 
                 if (error) {
-                    NSLog(@"SINCycleView - The image download fail at %d !",downImageIndex);
+                    SINLog(@"SINCycleView - The image download fail at %d !",downImageIndex);
                 }
                 if (image) {
                     [webImages addObject:image];

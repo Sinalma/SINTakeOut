@@ -100,12 +100,12 @@
 #pragma mark - 监听点击事件
 - (void)leftViewClick:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"二-点击了左侧view");
+    SINLog(@"二-点击了左侧view");
 }
 
 - (void)rightTopViewClick:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"二-点击了右侧顶部view");
+    SINLog(@"二-点击了右侧顶部view");
     
     // 跳转html页面
     UIWebView *webView = [[UIWebView alloc] init];
@@ -116,7 +116,7 @@
 
 - (void)rightBottomViewClick:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"二-点击了右侧底部view");
+    SINLog(@"二-点击了右侧底部view");
 }
 
 @end

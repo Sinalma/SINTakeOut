@@ -12,7 +12,6 @@
 #import "SINTopTopicCell.h"
 #import "SINTopic.h"
 #import "SINWebViewController.h"
-#import "SINHUD.h"
 
 @interface SINFoodieViewController ()
 
@@ -51,13 +50,16 @@
 - (void)loadOutData
 {
     NSDictionary *dict = @{@"lat":@"2557435.496479",@"lng":@"12617386.912297",@"category_id":@"0",@"city_id":@"187",@"history_member":@"96"};
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 //        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面 - 后面数据加载失败 = %@",error);
+        SINLog(@"指南界面 - 后面数据加载失败 = %@",error);
     }];
+    });
 }
 
 /**
@@ -68,6 +70,7 @@
     SINHUD *hud = [SINHUD showHudAddTo:self.view];
     
     NSDictionary *dict = @{@"lat":@"2557434.78176",@"lng":@"12617394.561978",@"category_id":@"1484558763740833116",@"city_id":@"187"};
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getcategorylist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
         
@@ -75,13 +78,15 @@
             SINTopic *topic = [SINTopic topicWithDict:dict];
             [self.topics addObject:topic];
         }
-        
-        [hud hide];
-        [self.tableView reloadData];
+        SINDISPATCH_MAIN_THREAD(^{
+            [hud hide];
+            [self.tableView reloadData];
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面数据加载失败 - %@",error);
+        SINLog(@"指南界面数据加载失败 - %@",error);
     }];
+    });
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

@@ -68,7 +68,7 @@
 #pragma mark - SINQRCodeWebViewDelegate
 - (void)webView:(SINQRCodeWebView *)webView didFinishLoadWithURL:(NSURL *)url
 {
-    NSLog(@"二维码页面加载完成");
+    SINLog(@"二维码页面加载完成");
     self.title = webView.navigationItemTitle;
 }
 

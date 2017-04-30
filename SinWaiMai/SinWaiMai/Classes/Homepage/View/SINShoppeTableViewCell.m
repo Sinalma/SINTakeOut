@@ -9,7 +9,6 @@
 #import "SINShoppeTableViewCell.h"
 #import "UIImageView+SINWebCache.h"
 #import "UILabel+Category.h"
-#import "NSString+SINFilePath.h"
 #import "UIImageView+SINWebCache.h"
 
 @interface SINShoppeTableViewCell ()

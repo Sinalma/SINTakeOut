@@ -16,8 +16,6 @@
 #import "SINChophandViewController.h"
 #import "SINLifeViewController.h"
 #import "SINOtherViewController.h"
-#import "UIColor+Category.h"
-#import "SINHUD.h"
 #import "SINLoginViewController.h"
 #import "SINAccount.h"
 #import "SINQRCodeController.h"
@@ -102,6 +100,9 @@
     SINHUD *hud = [SINHUD showHudAddTo:self.view];
     
     NSDictionary *dict = @{@"city_id":@"187"};
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
         
@@ -111,13 +112,16 @@
             NSString *str = dict[@"category_name"];
             [naviLabStrArrM addObject:str];
         }
-        self.naviTitles = naviLabStrArrM;
-  
-        [hud hide];
         
+        SINDISPATCH_MAIN_THREAD(^{
+            self.naviTitles = naviLabStrArrM;
+            [hud hide];
+        });
+  
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面-导航栏标题数据加载失败 = %@",error);
+        SINLog(@"指南界面-导航栏标题数据加载失败 = %@",error);
     }];
+    });// 子线程结束
 }
 
 /**

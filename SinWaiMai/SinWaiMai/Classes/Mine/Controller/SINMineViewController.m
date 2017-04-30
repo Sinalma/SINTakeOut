@@ -97,13 +97,14 @@
 {
     NSDictionary *parames = @{@"net_type":@"wifi",@"jailbreak":@"0",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"loc_lat":@"2557437.139064",@"sv":@"4.4.0",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"loc_lng":@"12617375.862145",@"channel":@"appstore",@"da_ext":@"",@"lng":@"12617375.861812",@"aoi_id":@"14203335102845747",@"os":@"8.2",@"from":@"na-iphone",@"address":@"龙瑞文化广场",@"vmgdb":@"",@"model":@"iPhone5,2",@"hot_fix":@"1",@"isp":@"46001",@"screen":@"320x568",@"resid":@"1001",@"city_id":@"187",@"lat":@"2557437.596041",@"request_time":@"2147483647",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"msgcuid":@"",@"alipay":@"0",@"device_name":@"“Administrator”的 iPhone (4)"};
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.netWorkMgr POST:@"http://client.waimai.baidu.com/mobileui/user/v2/usercenter" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
   
 //        [responseObject writeToFile:@"/Users/apple/desktop/mine.plist" atomically:YES];
         
         // 客服热线
         self.customer_service_Dict = responseObject[@"result"][@"customer_service"];
-        self.userCenterView.customer_service_Dict = self.customer_service_Dict;
+//        self.userCenterView.customer_service_Dict = self.customer_service_Dict;
         
         
         NSMutableArray *userInfoArrM = [NSMutableArray array];
@@ -113,13 +114,13 @@
             [userInfoArrM addObject:info];
         }
         self.userInfoes = userInfoArrM;
-        self.userInfoView.userInfoes = userInfoArrM;
+//        self.userInfoView.userInfoes = userInfoArrM;
         
         // 钱包模块
         NSDictionary *walletDict = responseObject[@"result"][@"baiduWallet"];
         SINWallet *wallet = [SINWallet walletWithDict:walletDict];
         self.wallet = wallet;
-        self.walletView.wallet = wallet;
+//        self.walletView.wallet = wallet;
         
         // 用户中心模块
         NSMutableArray *userCenterItemArrM = [NSMutableArray array];
@@ -128,12 +129,19 @@
             [userCenterItemArrM addObject:item];
         }
         self.userCenterItems = userCenterItemArrM;
-        self.userCenterView.userCenterItems = userCenterItemArrM;
+//        self.userCenterView.userCenterItems = userCenterItemArrM;
         
+        SINDISPATCH_MAIN_THREAD(^{
+            self.userCenterView.customer_service_Dict = self.customer_service_Dict;
+            self.userInfoView.userInfoes = userInfoArrM;
+            self.walletView.wallet = wallet;
+            self.userCenterView.userCenterItems = userCenterItemArrM;
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"我的控制器-数据加载失败 %@",error);
+        SINLog(@"我的控制器-数据加载失败 %@",error);
     }];
+    });
 }
 
 - (void)loginBtnClick
@@ -206,7 +214,7 @@
     
     // 设置整体scrollView的内容尺寸
 //    CGFloat scrollVH = self.userInfoView.height + self.walletView.height + self.userCenterView.height;
-//    NSLog(@"scrollVH%f",scrollVH);
+//    SINLog(@"scrollVH%f",scrollVH);
     self.gobalScrollView.contentSize = CGSizeMake(0,739);
     
     

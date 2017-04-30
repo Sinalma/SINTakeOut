@@ -76,12 +76,12 @@
 
 - (void)leftViewClick:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"leftViewClick");
+    SINLog(@"leftViewClick");
 }
 
 - (void)rightViewClick:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"rightViewClick");
+    SINLog(@"rightViewClick");
 }
 
 + (instancetype)newUserEnjorView

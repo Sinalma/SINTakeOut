@@ -7,7 +7,6 @@
 //
 
 #import "SINDiscoveryView.h"
-#import "UIView+Category.h"
 #import "UILabel+Category.h"
 
 #define DiscoveryIconWH 20

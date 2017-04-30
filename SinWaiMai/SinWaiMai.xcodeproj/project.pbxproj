@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180001DA1E2C6A9600B7599B /* SINAdScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001D91E2C6A9600B7599B /* SINAdScrollView.m */; };
 		180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001DC1E2C6E6300B7599B /* SINWMTypeScrollView.m */; };
 		180001E01E2C84EC00B7599B /* SINThirdModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001DF1E2C84EC00B7599B /* SINThirdModuleView.m */; };
 		180001E21E2C84FB00B7599B /* SINThirdModuleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180001E11E2C84FB00B7599B /* SINThirdModuleView.xib */; };
@@ -185,8 +184,6 @@
 
 /* Begin PBXFileReference section */
 		170B5698B7CE52EBFF5EB519 /* Pods-SinWaiMai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinWaiMai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinWaiMai/Pods-SinWaiMai.debug.xcconfig"; sourceTree = "<group>"; };
-		180001D81E2C6A9600B7599B /* SINAdScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAdScrollView.h; sourceTree = "<group>"; };
-		180001D91E2C6A9600B7599B /* SINAdScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAdScrollView.m; sourceTree = "<group>"; };
 		180001DB1E2C6E6300B7599B /* SINWMTypeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWMTypeScrollView.h; sourceTree = "<group>"; };
 		180001DC1E2C6E6300B7599B /* SINWMTypeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWMTypeScrollView.m; sourceTree = "<group>"; };
 		180001DE1E2C84EC00B7599B /* SINThirdModuleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINThirdModuleView.h; sourceTree = "<group>"; };
@@ -1013,8 +1010,6 @@
 		18EA61B11E262590009D826E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				180001D81E2C6A9600B7599B /* SINAdScrollView.h */,
-				180001D91E2C6A9600B7599B /* SINAdScrollView.m */,
 				180001DB1E2C6E6300B7599B /* SINWMTypeScrollView.h */,
 				180001DC1E2C6E6300B7599B /* SINWMTypeScrollView.m */,
 				188316461E28BD7E00CE1455 /* SINNewUserEnjorView.h */,
@@ -1471,7 +1466,6 @@
 				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,
-				180001DA1E2C6A9600B7599B /* SINAdScrollView.m in Sources */,
 				18D2371D1E6BF62100387FB8 /* SINWaveView.m in Sources */,
 				185D3DB71EB5DB0A00AAD618 /* SINWebImageDownloader.m in Sources */,
 				180001EA1E2F452900B7599B /* SINShoppe.m in Sources */,

@@ -12,7 +12,6 @@
 #import "SINTopTopicCell.h"
 #import "SINTopic.h"
 #import "SINWebViewController.h"
-#import "SINHUD.h"
 #import "MJRefresh.h"
 
 /** 区别加载新数据和更多数据 */
@@ -75,17 +74,22 @@ typedef enum : NSUInteger {
 - (void)requestHistory_member
 {
     NSDictionary *dict = @{@"lat":@"2557438.450511",@"lng":@"12617391.159687",@"category_id":@"1484558763740833117",@"city_id":@"187"};
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getcategorylist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
         self.history_member = [responseObject[@"result"][@"history_member"] intValue];
-        NSLog(@"2 - history_member -> %d",self.history_member);
+//        SINLog(@"2 - history_member -> %d",self.history_member);
         
-        [self loadData:LoadDataTypeUp];
-        [self loadData:LoadDataTypeUp];
+        SINDISPATCH_MAIN_THREAD(^{            
+            [self loadData:LoadDataTypeUp];
+            [self loadData:LoadDataTypeUp];
+        });
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面-首次获取history_member失败 = %@",error);
+        SINLog(@"指南界面-首次获取history_member失败 = %@",error);
     }];
+    });
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -120,9 +124,11 @@ typedef enum : NSUInteger {
     NSString *strNum = self.history_member <= 0 ? @"" : [NSString stringWithFormat:@"%d",self.history_member];
     
     NSDictionary *dict = @{@"lat":@"2557439.354752",@"lng":@"12617393.708741",@"category_id":@"1484558763740833117",@"city_id":@"187",@"history_member":strNum};
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
-//        NSLog(@"%@",responseObject);
+//        SINLog(@"%@",responseObject);
         self.history_member = [responseObject[@"result"][@"history_member"] intValue];
         
         for (NSDictionary *dict in responseObject[@"result"][@"content_list"]) {
@@ -136,13 +142,16 @@ typedef enum : NSUInteger {
             }
         }
         
-        [self.hud hide];
-        [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
+        SINDISPATCH_MAIN_THREAD(^{
+            [self.hud hide];
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面数据加载失败 - %@",error);
+        SINLog(@"指南界面数据加载失败 - %@",error);
     }];
+    });
 }
 
 

@@ -44,19 +44,19 @@
 }
 
 - (void)leftTopViewClick:(UITapGestureRecognizer *)tap {
-    NSLog(@"三-电击了左边顶部");
+    SINLog(@"三-电击了左边顶部");
 }
 
 - (void)rightTopViewClick:(UITapGestureRecognizer *)tap {
-    NSLog(@"三-电击了右边顶部");
+    SINLog(@"三-电击了右边顶部");
 }
 
 - (void)leftBottomViewClick:(UITapGestureRecognizer *)tap {
-    NSLog(@"三-点击了左边底部");
+    SINLog(@"三-点击了左边底部");
 }
 
 - (void)rightBottomViewClick:(UITapGestureRecognizer *)tap {
-    NSLog(@"三-点击了右边底部");
+    SINLog(@"三-点击了右边底部");
 }
 
 @end

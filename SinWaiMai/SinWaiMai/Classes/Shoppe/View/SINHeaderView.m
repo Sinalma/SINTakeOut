@@ -73,7 +73,6 @@
 {
     _shopComment = shopComment;
     
-    
     self.averageScoreLabel.text = shopComment.average_dish_score;
     
     // 星星
@@ -85,9 +84,7 @@
     self.outScoreLabel.text = shopComment.average_service_score;
     
         [self setup];
-   
 }
-
 
 #pragma mark - 自定义方法
 /**
@@ -106,7 +103,6 @@ static BOOL isSelHook = YES;
 
 - (void)setup
 {
-    
     // 设置评论类型的按钮创建和数据
     NSArray *strArr = self.shopComment.labels;
     
@@ -201,7 +197,7 @@ static BOOL isSelHook = YES;
  */
 - (void)commentTypeBtnClick:(UIButton *)btn
 {
-    NSLog(@"点击了评论类型按钮 - %@",btn.titleLabel.text);
+    SINLog(@"点击了评论类型按钮 - %@",btn.titleLabel.text);
     
     self.selCommentBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.selCommentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

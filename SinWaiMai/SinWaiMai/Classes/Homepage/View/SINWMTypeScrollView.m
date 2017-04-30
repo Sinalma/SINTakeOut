@@ -117,7 +117,7 @@
 
 - (void)wMTypeBtnClick:(SINNormalButton *)btn
 {
-    NSLog(@"点击了外卖类型 -> %@",btn.titleLabel.text);
+    SINLog(@"点击了外卖类型 -> %@",btn.titleLabel.text);
 }
 
 @end

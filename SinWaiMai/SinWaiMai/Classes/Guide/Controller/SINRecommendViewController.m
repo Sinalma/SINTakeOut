@@ -59,7 +59,7 @@
 //        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面 - 后面数据加载失败 = %@",error);
+        SINLog(@"指南界面 - 后面数据加载失败 = %@",error);
     }];
 }
 
@@ -88,7 +88,7 @@
         [self.tableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面-顶部模块数据加载失败 = %@",error);
+        SINLog(@"指南界面-顶部模块数据加载失败 = %@",error);
     }];
 }
 
@@ -98,6 +98,9 @@
 - (void)loadData
 {
     NSDictionary *dict = @{@"city_id":@"187"};
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendlist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
         
@@ -105,12 +108,14 @@
             SINTopic *topic = [SINTopic topicWithDict:dict];
             [self.topics addObject:topic];
         }
-        
-        [self.tableView reloadData];
+        SINDISPATCH_MAIN_THREAD(^{
+            [self.tableView reloadData];
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"指南界面数据加载失败 - %@",error);
+        SINLog(@"指南界面数据加载失败 - %@",error);
     }];
+    });
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

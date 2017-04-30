@@ -7,7 +7,6 @@
 //
 
 #import "SINWebViewController.h"
-#import "SINHUD.h"
 
 @interface SINWebViewController () <UIWebViewDelegate>
 

@@ -9,7 +9,6 @@
 #import "SINLoginViewController.h"
 #import "Masonry.h"
 #import "SINAccount.h"
-#import "SINHUD.h"
 #import <SMS_SDK/SMSSDK.h>
 
 typedef enum : NSUInteger {
@@ -99,7 +98,7 @@ typedef enum : NSUInteger {
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [SINNotificationCenter removeObserver:self];
 }
 
 #pragma mark - 密码相关
@@ -140,7 +139,7 @@ static BOOL canJumpToPasswordApp = YES;
  */
 - (void)addPasswordNoti
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passwordNoti:) name:PasswordNotiName object:nil];
+    [SINNotificationCenter addObserver:self selector:@selector(passwordNoti:) name:PasswordNotiName object:nil];
 }
 
 - (void)passwordNoti:(NSNotification *)noti
@@ -160,7 +159,7 @@ static BOOL canJumpToPasswordApp = YES;
         [[UIApplication sharedApplication] openURL:url];
     }else
     {
-        NSLog(@"未安装密码填充app");
+        SINLog(@"未安装密码填充app");
     }
 }
 
@@ -190,7 +189,7 @@ static BOOL canJumpToPasswordApp = YES;
                         [hud hideAnimated:YES];
                         [self back];
                     });
-                    NSLog(@"验证成功");
+                    SINLog(@"验证成功");
                 }
                 else
                 {
@@ -200,7 +199,7 @@ static BOOL canJumpToPasswordApp = YES;
                     [hud hideAnimated:YES];
                     
                 });
-                    NSLog(@"错误信息:%@",error);
+                    SINLog(@"错误信息:%@",error);
                 }
             }];
             
@@ -213,7 +212,7 @@ static BOOL canJumpToPasswordApp = YES;
             
             [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accTextField.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
                 if (error) {
-                    NSLog(@"获取短信验证码失败");
+                    SINLog(@"获取短信验证码失败");
                     [hud showAnimated:YES];
                     hud.label.text = @"获取验证码失败，请重新获取";
                     self.accTextField.placeholder = @"请输入手机号";
@@ -231,7 +230,7 @@ static BOOL canJumpToPasswordApp = YES;
                     
                 }else
                 {
-                    NSLog(@"获取短信验证码成功");
+                    SINLog(@"获取短信验证码成功");
                 }
             }];
             
@@ -409,7 +408,7 @@ static BOOL canJumpToPasswordApp = YES;
 
 - (void)questionBtnClick
 {
-    NSLog(@"点击了遇到问题按钮");
+    SINLog(@"点击了遇到问题按钮");
 }
 
 #pragma mark - 初始化

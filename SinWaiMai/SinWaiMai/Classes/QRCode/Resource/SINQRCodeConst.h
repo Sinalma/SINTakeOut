@@ -7,7 +7,6 @@
 //
 
 #define SINQRCodeNormalColor [UIColor colorWithRed:36/255.0 green:40/255.0 blue:41/255.0 alpha:1.0]
-#define SINNotiCenter [NSNotificationCenter defaultCenter]
 #define SINScreenH [UIScreen mainScreen].bounds.size.height
 #define SINScreenW [UIScreen mainScreen].bounds.size.width
 // 扫描框所占宽比

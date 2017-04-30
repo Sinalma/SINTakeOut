@@ -12,7 +12,6 @@
  */
 
 #import "SINAccount.h"
-#import "NSString+SINFilePath.h"
 #import "SINLoginViewController.h"
 
 #define AccPwdDictNameKey @"accPwdDict.plist"
@@ -50,7 +49,7 @@ static SINAccount *_account;
 {
     _isLogin = isLogin;
     
-    NSLog(@"登录%d",_isLogin);
+    SINLog(@"登录%d",_isLogin);
 }
 
 - (void)jumpLoginVc

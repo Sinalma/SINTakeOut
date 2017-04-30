@@ -98,14 +98,14 @@ typedef enum : NSUInteger {
 //处理方向变更信息
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-//    NSLog(@"heading is %@",userLocation.heading);
+//    SINLog(@"heading is %@",userLocation.heading);
     
 }
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
     self.userLocation = userLocation;
-//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+//    SINLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
 }
 
 /**
@@ -134,7 +134,7 @@ typedef enum : NSUInteger {
         [self.addressView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"NSURLSessionDataTask-%@",error);
+        SINLog(@"NSURLSessionDataTask-%@",error);
     }];
 }
 
@@ -146,7 +146,7 @@ typedef enum : NSUInteger {
         //在此处理正常结果
         NSMutableArray *arrM = [NSMutableArray array];
         for (BMKPoiInfo *info in poiResultList.poiInfoList) {
-            NSLog(@"%@",info.name);
+            SINLog(@"%@",info.name);
             SINAddress *address = [[SINAddress alloc] init];
             address.address = info.name;
             [arrM addObject:address];
@@ -158,9 +158,9 @@ typedef enum : NSUInteger {
     else if (error == BMK_SEARCH_AMBIGUOUS_KEYWORD){
         //当在设置城市未找到结果，但在其他城市找到结果时，回调建议检索城市列表
         // result.cityList;
-        NSLog(@"起始点有歧义");
+        SINLog(@"起始点有歧义");
     } else {
-        NSLog(@"抱歉，未找到结果");
+        SINLog(@"抱歉，未找到结果");
     }
 }
 
@@ -193,11 +193,11 @@ static int curPage = 0;
 //    [option release];
     if(flag)
     {
-        NSLog(@"周边检索发送成功");
+        SINLog(@"周边检索发送成功");
     }
     else
     {
-        NSLog(@"周边检索发送失败");
+        SINLog(@"周边检索发送失败");
     }
     
 }
@@ -279,7 +279,7 @@ static int curPage = 0;
         address = self.nearAddressArr[indexPath.row];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:AddressSelectNotiName object:address];
+    [SINNotificationCenter postNotificationName:AddressSelectNotiName object:address];
     
     [self goBack];
 }

@@ -119,12 +119,12 @@
 - (void)dealloc
 {
     self.networkMgr = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [SINNotificationCenter removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
-    NSLog(@"内存吃紧，请处理");
+    SINLog(@"内存吃紧，请处理");
     self.activties = nil;
     self.wMTypes = nil;
     self.adImgUrls = nil;
@@ -209,6 +209,9 @@
     
     NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"from":@"na-iphone",@"page":@"1",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"os":@"8.2",@"request_time":@"2147483647",@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"launch",@"lat":@"",@"lng":@"",@"city_id":@"",@"address":@""};
     
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+    
     [self.networkMgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 //        [responseObject[@"result"][@"newuserentry"] writeToFile:@"/Users/apple/desktop/newuserentry.plist" atomically:YES];
@@ -217,12 +220,14 @@
         for (NSDictionary *dict in responseObject[@"result"][@"activity_mobile"]) {
             [adArrM addObject:dict[@"img"]];
         }
-        self.adImgUrls = adArrM;
-        self.cycleView.imageUrls = adArrM;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.adImgUrls = adArrM;
+            self.cycleView.imageUrls = adArrM;
+        });
         
         // 新人专享模块
 //        NSMutableArray *newuserArrM = [NSMutableArray array];
-//        NSLog(@"%@",responseObject[@"result"]);
+//        SINLog(@"%@",responseObject[@"result"]);
 //        [responseObject writeToFile:@"/Users/apple/desktop/error.plist" atomically:YES];
         /*
         if (responseObject[@"result"][@"newuserentry"][@"entries"]) {
@@ -234,7 +239,7 @@
             self.newuserEnjorView.newuesrentries = newuserArrM;
         }
         */
-        
+     
         // 外卖类型模块数据
         NSMutableArray *arrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"eight_entry"]) {
@@ -242,8 +247,10 @@
             SINWMType *type = [SINWMType wMTypeWithDict:dict];
             [arrM addObject:type];
         }
-        self.wMTypes = arrM;
-        self.wMTypesView.wMTypes = arrM;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.wMTypes = arrM;
+            self.wMTypesView.wMTypes = arrM;
+        });
         
         // 活动数据
         // 需要重构这个模块，根据服务器返回的活动数动态创建控件
@@ -252,8 +259,10 @@
             SINActivity *act = [SINActivity activityWithDict:dict];
             [actArrM addObject:act];
         }
-        self.activties = actArrM;
-        self.secondModuleView.activities = actArrM;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.activties = actArrM;
+            self.secondModuleView.activities = actArrM;
+        });
         
         // 优惠信息图标
         NSMutableDictionary *welIconDict = [NSMutableDictionary dictionary];
@@ -261,13 +270,17 @@
             url = [url componentsSeparatedByString:@"@"][0];
             welIconDict[key] = url;
         }];
-        self.welfareSignUrls = welIconDict;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.welfareSignUrls = welIconDict;
+        });
         // 将地址字典存到沙盒
         [self.welfareSignUrls writeToFile:ShoppeWelfareIconUrlFilePath.cachePath atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"请求其他数据失败 error : %@",error);
+        SINLog(@"请求其他数据失败 error : %@",error);
     }];
+        
+    });// 子线程end
 }
 
 // 本方法请求数据page参数的值
@@ -284,6 +297,8 @@ static int networkPage = 1;
     NSString *address = self.curAddress.address.length ? self.curAddress.address : @"龙瑞文化广场";
     
     NSDictionary *parames = @{@"resid":@"1001",@"channel":@"appstore",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"model":@"iPhone5,2",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.3.3",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"isp":@"46001",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617387.766717",@"from":@"na-iphone",@"page":@(networkPage),@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"count":@"20",@"city_id":@"187",@"os":@"8.2",@"lat":@"2557429.324021",@"request_time":@"2147483647",@"address":address,@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"return_type":@"paging"};
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
     
     [self.networkMgr POST:@"https://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
@@ -311,15 +326,19 @@ static int networkPage = 1;
             [self sendShoppesRequest];
         });
         
-        // 刷新tableView
-        [self.shoppeView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 刷新tableView
+            [self.shoppeView reloadData];
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"请求商户数据失败 error : %@",error);
+        SINLog(@"请求商户数据失败 error : %@",error);
         networkPage -= 1;
         [self.gobalScrollView.mj_header endRefreshing];
         [self.shoppeView.mj_footer endRefreshing];
     }];
+        
+    });// 子线程end
 }
 
 /**
@@ -444,7 +463,7 @@ static int networkPage = 1;
 
 - (void)setup
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressSelectNoti:) name:AddressSelectNotiName object:nil];
+    [SINNotificationCenter addObserver:self selector:@selector(addressSelectNoti:) name:AddressSelectNotiName object:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -477,7 +496,7 @@ static int networkPage = 1;
 #pragma mark - SINCycleViewDelegate
 - (void)cycleView:(SINCycleView *)cycleView didClickImageAtIndex:(int)index
 {
-    NSLog(@"点击了广告%d",index);
+    SINLog(@"点击了广告%d",index);
 }
 
 #pragma mark - UITableViewDataSource,UITableVIewDelegate

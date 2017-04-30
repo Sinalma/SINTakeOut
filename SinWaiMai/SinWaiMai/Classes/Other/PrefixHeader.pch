@@ -16,13 +16,40 @@
 #import "NSString+SINFilePath.h"
 #import "SINHUD.h"
 
-
 // 日志输出
 #ifdef DEBUG // 开发阶段-DEBUG阶段:使用Log
 #define SINLog(...) NSLog(__VA_ARGS__)
 #else // 发布阶段-上线阶段:移除Log
 #define SINLog(...)
 #endif
+
+// 屏蔽打印时间戳等信息
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n",[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
+//GCD - 一次性执行
+#define SINDISPATCH_ONCE_BLOCK(onceBlock) static dispatch_once_t onceToken; dispatch_once(&onceToken, onceBlock);
+//GCD - 在Main线程上运行
+#define SINDISPATCH_MAIN_THREAD(mainQueueBlock) dispatch_async(dispatch_get_main_queue(), mainQueueBlock);
+//GCD - 开启异步线程
+#define SINDISPATCH_GLOBAL_QUEUE_DEFAULT(globalQueueBlock) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), globalQueueBlocl);
+
+// 判断真机还是模拟器
+#if TARGET_OS_IPHONE
+//iPhone Device
+#endif
+#if TARGET_IPHONE_SIMULATOR
+//iPhone Simulator
+#endif
+
+//获取图片资源
+#define kGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
+
+// 通知中心
+#define SINNotificationCenter [NSNotificationCenter defaultCenter]
 
 // 密码app回跳通知
 #define PasswordNotiName @"PasswordNotiName"

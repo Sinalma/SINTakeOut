@@ -7,17 +7,6 @@
 //
 
 /**
- * Enter Shoppe Interface
- *
- * First ScrollView Can Scroll To Up
-                    Can Not Scroll To Down
- * Second ScrollView Can Scroll To Down
-                     Can Scroll To Up
- * Third ScrollView Can Left And After Can Right
-                    Can Scroll Up
- */
-
-/**
  * 进入商户页面
  *
  * typeTableView、foodTableView不能滚动，tabScrollView可以左右滚动，contentScrollView可以往下滚动，gobalView可以向上滚动
@@ -147,7 +136,7 @@
     self.typeTableView.scrollEnabled = NO;
     self.foodTableView.scrollEnabled = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
+    [SINNotificationCenter addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
 }
 
 /**
@@ -205,8 +194,7 @@
 #pragma mark - 请求数据
 - (void)loadData
 {
-    AFHTTPSessionManager *mgr = [[AFHTTPSessionManager alloc] init];
-    /** 
+    /**
      * 这里的loc_lng、loc_lat、address暂时是写死的。
      * 貌似这些参数对单个商户没有影响，然后控制器之间传来传去也比较恶心，所以先不做修改。
      * 已经写好的监听通知得到的参数先这样，需要时再办。
@@ -217,7 +205,9 @@
     
     NSDictionary *parameters = @{@"resid":@"1001",@"channel":@"appstore",@"utm_medium":@"shoplist",@"screen":@"320x568",@"net_type":@"wifi",@"loc_lat":loc_lat,@"hot_fix":@"1",@"msgcuid":@"",@"model":@"iPhone5,2",@"utm_campaign":@"default",@"uuid":@"1FA51EE8-84D5-4128-8E34-CC04862C07CE",@"sv":@"4.4.0",@"utm_content":@"default",@"cuid":@"41B3367F-BE44-4E5B-94C2-D7ABBAE1F880",@"vmgdb":@"",@"isp":@"46001",@"da_ext":@"",@"jailbreak":@"0",@"aoi_id":@"14203335102845747",@"lng":@"12617395.404390",@"utm_source":@"waimai",@"from":@"na-iphone",@"idfa":@"7C8188F1-1611-43E1-8919-ACDB26F86FEE",@"cid":@"988272",@"city_id":@"187",@"order_id":@"",@"os":@"8.2",@"lat":@"2557445.060520",@"request_time":@"2147483647",@"address":address,@"loc_lng":loc_lng,@"device_name":@"“Administrator”的 iPhone (4)",@"alipay":@"0",@"utm_term":@"default",@"shop_id":self.shop_id};
     
-    [mgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/shopmenu" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    
+    [[AFHTTPSessionManager manager] POST:@"http://client.waimai.baidu.com/shopui/na/v1/shopmenu" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
 //        [responseObject[@"result"] writeToFile:@"/Users/apple/desktop/shoppeDetail.plist" atomically:YES];
         
@@ -235,14 +225,18 @@
         }
         self.takeoutMenues = takeoutMenues;
         
-        // 初始化子控件
-        [self setupOrderFoodMoudle];
-        [self setupCommentModule];
-        [self setupDiscoveryModule];
+        dispatch_async(dispatch_get_main_queue(), ^{            
+            // 初始化子控件
+            [self setupOrderFoodMoudle];
+            [self setupCommentModule];
+            [self setupDiscoveryModule];
+        });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"商户详情数据获取失败 error = %@",error);
+        SINLog(@"商户详情数据获取失败 error = %@",error);
     }];
+        
+    });// 子线程end
 }
 
 #pragma mark - UITableViewDataSource
@@ -351,7 +345,7 @@ static CGFloat preOffsetY = 0;
     // 导航条未至顶部时，gobalView可上滑，contentScrollV可下滑
     CGFloat curOffsetY = scrollView.contentOffset.y;
     if (self.gobalView.contentOffset.y < 145) {
-//        NSLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
+//        SINLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
         
         if (curOffsetY - preOffsetY >= 1) {
             self.gobalView.scrollEnabled = YES;
@@ -391,12 +385,6 @@ static CGFloat preOffsetY = 0;
         }
     }
     
-//    if (self.tabScrollView.contentOffset.x >= SINScreenW * 2) {
-//        self.contentScrollV.scrollEnabled = NO;
-//        self.gobalView.scrollEnabled = NO;
-//        self.tabScrollView.scrollEnabled = YES;
-//    }
-    
     if ([scrollView isEqual:self.contentScrollV]) {
         
         if (scrollView.contentOffset.y > 0) {
@@ -433,7 +421,7 @@ static CGFloat preOffsetY = 0;
 #pragma mark - 自定义监听方法
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [SINNotificationCenter removeObserver:self];
 }
 
 - (void)addressSelect:(NSNotification *)noti
@@ -502,7 +490,6 @@ static int welfareOpenState = 0;
     
     [UIView animateWithDuration:0.5 animations:^{
         self.topModuleV.height =  welfareViewX + count * 30 + 5;
-//        self.contentScrollV.contentOffset = CGPointMake(0, -60);
         self.contentScrollV.transform = transform;
     }];
 }
@@ -598,9 +585,7 @@ static int welfareOpenState = 0;
     [welfareV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(infoLab);
         make.right.equalTo(topModuleView).offset(-margin);
-        make.top.equalTo(infoLab.mas_bottom).offset(margin);
-//        make.height.equalTo(@(normalCount * (labW + margin)));
-        make.bottom.equalTo(topModuleView);
+        make.top.equalTo(infoLab.mas_bottom).offset(margin);        make.bottom.equalTo(topModuleView);
     }];
     
     // 添加优惠信息
@@ -893,11 +878,8 @@ static int welfareOpenState = 0;
         _foodTableView = [[UITableView alloc] init];
         _foodTableView.dataSource = self;
         _foodTableView.delegate = self;
-        
         _foodTableView.estimatedRowHeight = 153;
         _foodTableView.rowHeight = 153;
-        
-        // 注册cell
         [_foodTableView registerNib:[UINib nibWithNibName:@"SINFoodCell" bundle:nil] forCellReuseIdentifier:foodTableViewCellID];
     }
     return _foodTableView;

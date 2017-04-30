@@ -101,7 +101,7 @@ static BOOL flag = YES;
 
                         //
                     });
-                    NSLog(@"用户第一次同意了访问相机权限");
+                    SINLog(@"用户第一次同意了访问相机权限");
                 }
             }];
             return YES;
@@ -125,7 +125,7 @@ static BOOL flag = YES;
             return NO;
             
         }else if (status == AVAuthorizationStatusRestricted){
-            NSLog(@"因系统原因，无法访问相册");
+            SINLog(@"因系统原因，无法访问相册");
             return NO;
         }
         
@@ -269,7 +269,7 @@ static BOOL flag = YES;
 }
 /** 播放完成回调函数 */
 void soundCompleteCallback(SystemSoundID soundID, void *clientData){
-    NSLog(@"播放完成");
+    SINLog(@"播放完成");
 }
 
 /** >>>>>>>>>>>>>>>>>相册>>>>>>>>>>>>>>>>> */
@@ -282,7 +282,7 @@ void soundCompleteCallback(SystemSoundID soundID, void *clientData){
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *img = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    NSLog(@"info = imge = %@",img);
+    SINLog(@"info = imge = %@",img);
     [self dismissViewControllerAnimated:YES completion:^{
         [self scanQRCodeFromPhotosInTheAlbum:img];
     }];
@@ -307,11 +307,11 @@ void soundCompleteCallback(SystemSoundID soundID, void *clientData){
     
     // 取得识别结果
     NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
-    NSLog(@"%@",features);
+//    SINLog(@"%@",features);
     for (int index = 0; index < [features count]; index++) {
         CIQRCodeFeature *feature = [features objectAtIndex:index];
         NSString *scannedResult = feature.messageString;
-        NSLog(@"scannedResult -> %@",scannedResult);
+//        SINLog(@"scannedResult -> %@",scannedResult);
         // 拿到二维码结果，进行界面跳转
         
         [self jumpResultShowVC:scannedResult];

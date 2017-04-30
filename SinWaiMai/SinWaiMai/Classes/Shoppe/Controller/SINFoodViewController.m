@@ -43,7 +43,7 @@
     };
     
     self.foodView.shared = ^{
-        NSLog(@"点击了分享");
+        SINLog(@"点击了分享");
     };
 }
 

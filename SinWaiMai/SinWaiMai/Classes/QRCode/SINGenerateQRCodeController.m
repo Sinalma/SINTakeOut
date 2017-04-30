@@ -113,7 +113,7 @@ static int QRCodeStyleFlag = 0;
 - (void)saveQRCodeToAlbum
 {
     if (!self.QRCodeView.image) {
-        NSLog(@"保存失败，没有二维码");
+        SINLog(@"保存失败，没有二维码");
         return;
     }
      UIImageWriteToSavedPhotosAlbum(self.QRCodeView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
@@ -122,7 +122,7 @@ static int QRCodeStyleFlag = 0;
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     
-//    NSLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
+//    SINLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
 }
 
 #pragma mark - Set Up

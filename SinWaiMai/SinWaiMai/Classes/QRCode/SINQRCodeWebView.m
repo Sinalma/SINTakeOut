@@ -132,7 +132,7 @@ static CGFloat const progressViewHeight = 2;
 
 - (void)dealloc
 {
-    NSLog(@"SINQRCodeWebView - dealloc");
+    SINLog(@"SINQRCodeWebView - dealloc");
     
     [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
 }

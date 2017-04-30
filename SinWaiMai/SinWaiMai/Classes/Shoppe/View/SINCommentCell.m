@@ -163,18 +163,18 @@
         CGFloat maxW = SINScreenW - CGRectGetMaxX(likeImgV.frame) - margin - 30;// 右侧空出30
         
         if (preLabel == nil) {
-//            NSLog(@"nil ->");
+
             labX = CGRectGetMaxX(likeImgV.frame) + margin;
             labY = likeImgV.y;
         }else
         {
             if (maxW - preLabMaxX >= labW) {
-//                NSLog(@"full>= -> ");
+
                 labX = CGRectGetMaxX(preLabel.frame);
                 labY = preLabel.y;
             }else
             {
-//                NSLog(@"full< ->");
+
                 labX = CGRectGetMaxX(likeImgV.frame) + margin;
                 labY = CGRectGetMaxY(preLabel.frame) + margin*0.5;
             }

@@ -90,7 +90,7 @@
     // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
     BOOL ret = [_mapManager start:BaiduMapAppKey  generalDelegate:nil];
     if (!ret) {
-        NSLog(@"manager start failed!");
+        SINLog(@"manager start failed!");
     }
     // Add the navigation controller's view to the window and display.
     [self.window addSubview:navigationController.view];
@@ -196,7 +196,7 @@
     NSString *str = [[url.absoluteString componentsSeparatedByString:@"?"] lastObject];
     self.pwdStr = str;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PasswordNotiName object:str];
+    [SINNotificationCenter postNotificationName:PasswordNotiName object:str];
     if ([self.pwdDelegate performSelector:@selector(fullPassword:)]) {
         [self.pwdDelegate fullPassword:str];
     }
