@@ -28,6 +28,7 @@
 /** 保存遍历创建中的上一个标签label */
 @property (nonatomic,strong) UILabel *previousTagLab;
 
+
 @end
 
 @implementation SINCommentCell
@@ -61,11 +62,18 @@
     contentLabel.text = self.comment.content;
     contentLabel.numberOfLines = 0;
     [self.commentContentView addSubview:contentLabel];
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.width.equalTo(self.commentContentView);
-    }];
-    CGFloat contentLabH = [contentLabel.text boundingRectWithSize:CGSizeMake(self.commentContentView.width, 200) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:labFontSizeW]} context:nil].size.height;
-    
+    CGFloat contentLabH = [self.comment.content boundingRectWithSize:CGSizeMake(self.commentContentView.width, 200) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:labFontSizeW]} context:nil].size.height;
+    // 安全处理
+    if (!contentLabel.text.length) {
+        contentLabH = 0;
+        contentLabel.text = nil;
+    }
+//    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.equalTo(self.commentContentView);
+//        make.width.equalTo(@290);
+//        make.height.equalTo(@(contentLabH));
+//    }];
+    contentLabel.frame = CGRectMake(0, 0, self.commentContentView.width, contentLabH);
     // 点赞评论
     NSInteger recommentDishCount = self.comment.recommend_dishes.count;
     if (recommentDishCount) {
@@ -76,7 +84,7 @@
             [likeLabTexts addObject:self.comment.recommend_dishes[i][@"dish_name"]];
         }
     
-        CGFloat dishStartY = self.comment.content.length?contentLabH + commentTypeMargin:0;
+        CGFloat dishStartY = contentLabel.text.length?contentLabH+commentTypeMargin:0;
         UILabel *lab = [[UILabel alloc] init];
         self.previousLikeLab = lab;
         UILabel *recLab = [self alignmentWithLabStrs:likeLabTexts imgN:@"Commentlike" startY:dishStartY superV:self.commentContentView];
@@ -105,6 +113,9 @@
     
     // 时间
     CGFloat timeStartY = 0;
+    if (contentLabel.text.length) {
+        
+    }
     if (commentLabelsCount) {
         timeStartY = CGRectGetMaxY(self.previousTagLab.frame)+5;
     }else
@@ -118,8 +129,8 @@
     }
     UILabel *timeLab = [self alignmentWithLabStrs:@[self.comment.create_time] imgN:@"commentTime" startY:timeStartY superV:self.commentContentView];
     
-    self.height = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + 10;
     self.cellHeight = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + commentTypeMargin*2;
+//    [self sizeToFit];
 }
 
 /**
@@ -153,28 +164,25 @@
         recLabel.text = labStrs[i];
         
         if (i != count - 1) {
-            
             recLabel.text = [recLabel.text stringByAppendingString:@"、"];
         }
         
         labW = [recLabel.text boundingRectWithSize:CGSizeMake(500, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.width;
         
         CGFloat preLabMaxX = CGRectGetMaxX(preLabel.frame);
-        CGFloat maxW = SINScreenW - CGRectGetMaxX(likeImgV.frame) - margin - 30;// 右侧空出30
+        CGFloat maxW = superV.width - CGRectGetMaxX(likeImgV.frame) - margin;// 右侧空出30
         
         if (preLabel == nil) {
-
+            
             labX = CGRectGetMaxX(likeImgV.frame) + margin;
             labY = likeImgV.y;
         }else
         {
             if (maxW - preLabMaxX >= labW) {
-
                 labX = CGRectGetMaxX(preLabel.frame);
                 labY = preLabel.y;
             }else
             {
-
                 labX = CGRectGetMaxX(likeImgV.frame) + margin;
                 labY = CGRectGetMaxY(preLabel.frame) + margin*0.5;
             }

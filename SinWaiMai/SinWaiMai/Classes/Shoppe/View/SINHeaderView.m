@@ -83,7 +83,12 @@
     
     self.outScoreLabel.text = shopComment.average_service_score;
     
-        [self setup];
+    for (int i = 0; i < self.commentTypeView.subviews.count; i++) {
+        UIView *v = self.commentTypeView.subviews[i];
+        [v removeFromSuperview];
+    }
+    
+    [self setup];
 }
 
 #pragma mark - 自定义方法
@@ -197,8 +202,6 @@ static BOOL isSelHook = YES;
  */
 - (void)commentTypeBtnClick:(UIButton *)btn
 {
-    SINLog(@"点击了评论类型按钮 - %@",btn.titleLabel.text);
-    
     self.selCommentBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.selCommentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     

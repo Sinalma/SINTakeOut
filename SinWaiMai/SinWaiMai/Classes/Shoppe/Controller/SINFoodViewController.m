@@ -8,6 +8,7 @@
 
 #import "SINFoodViewController.h"
 #import "SINFoodView.h"
+#import "SINShareView.h"
 
 @interface SINFoodViewController ()
 
@@ -43,7 +44,11 @@
     };
     
     self.foodView.shared = ^{
-        SINLog(@"点击了分享");
+        
+        SINShareView *shareView = [[SINShareView alloc] init];
+        shareView.logo_url = welSelf.food.url;
+        shareView.hidden = NO;
+        [shareView share];
     };
 }
 

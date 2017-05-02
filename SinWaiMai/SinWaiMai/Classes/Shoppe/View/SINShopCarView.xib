@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,21 +15,26 @@
             <rect key="frame" x="0.0" y="0.0" width="364" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qve-PQ-ID5">
-                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopCar" translatesAutoresizingMaskIntoConstraints="NO" id="Qve-PQ-ID5">
+                    <rect key="frame" x="10" y="-10" width="50" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="64" id="6FR-Eb-YtZ"/>
-                        <constraint firstAttribute="height" constant="64" id="Cit-ou-rOK"/>
+                        <constraint firstAttribute="width" constant="50" id="6FR-Eb-YtZ"/>
+                        <constraint firstAttribute="height" constant="50" id="Cit-ou-rOK"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="26"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="购物车是空的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjd-3U-gjo">
-                    <rect key="frame" x="74" y="10" width="104" height="21"/>
+                    <rect key="frame" x="70" y="10" width="104" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="另需付配送费5元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMV-Ei-MnK">
-                    <rect key="frame" x="74" y="43" width="101" height="16"/>
+                    <rect key="frame" x="70" y="43" width="101" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -45,16 +50,16 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="cjd-3U-gjo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="BYE-X7-DHl"/>
                 <constraint firstItem="4Lc-Sv-gLs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BaX-kT-NlN"/>
-                <constraint firstItem="Qve-PQ-ID5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Dvm-nN-DXu"/>
+                <constraint firstItem="Qve-PQ-ID5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-10" id="Dvm-nN-DXu"/>
                 <constraint firstAttribute="trailing" secondItem="4Lc-Sv-gLs" secondAttribute="trailing" id="Kls-8F-uun"/>
                 <constraint firstItem="NMV-Ei-MnK" firstAttribute="top" secondItem="cjd-3U-gjo" secondAttribute="bottom" constant="12" id="Qy4-8M-krD"/>
                 <constraint firstItem="NMV-Ei-MnK" firstAttribute="leading" secondItem="cjd-3U-gjo" secondAttribute="leading" id="R5X-gl-5BW"/>
                 <constraint firstItem="cjd-3U-gjo" firstAttribute="leading" secondItem="Qve-PQ-ID5" secondAttribute="trailing" constant="10" id="UBI-ef-kuj"/>
-                <constraint firstItem="Qve-PQ-ID5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gUQ-Gx-9Ku"/>
+                <constraint firstItem="Qve-PQ-ID5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="gUQ-Gx-9Ku"/>
                 <constraint firstAttribute="bottom" secondItem="4Lc-Sv-gLs" secondAttribute="bottom" id="nyE-9y-r2M"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -65,7 +70,10 @@
                 <outlet property="takeoutPriceLabel" destination="NMV-Ei-MnK" id="EcH-n6-3Ba"/>
                 <outlet property="totalPriceLabel" destination="cjd-3U-gjo" id="Imi-SJ-slH"/>
             </connections>
-            <point key="canvasLocation" x="10" y="-16"/>
+            <point key="canvasLocation" x="15" y="-85"/>
         </view>
     </objects>
+    <resources>
+        <image name="shopCar" width="64" height="64"/>
+    </resources>
 </document>

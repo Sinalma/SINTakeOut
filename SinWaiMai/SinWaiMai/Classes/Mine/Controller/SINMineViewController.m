@@ -140,6 +140,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"我的控制器-数据加载失败 %@",error);
+        [self loadNetworkData];
     }];
     });
 }

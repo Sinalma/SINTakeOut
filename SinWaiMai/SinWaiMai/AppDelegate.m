@@ -80,6 +80,10 @@
     // 百度地图
     [self baiduMap];
     
+//    if (range.location != NSNotFound) {
+//        language = [language substringToIndex:range.location];
+//    }
+    
     return YES;
 }
 

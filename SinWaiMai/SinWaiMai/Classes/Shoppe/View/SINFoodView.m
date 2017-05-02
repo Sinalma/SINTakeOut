@@ -170,15 +170,15 @@
     
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(self.backBtn.superview);
-        make.height.equalTo(self.backBtn.superview);
+        make.height.equalTo(@50);
         make.width.equalTo(@50);
     }];
     
     [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.shareBtn.superview);
-        make.top.equalTo(self.shareBtn.superview);
-        make.height.equalTo(self.backBtn.superview);
-        make.width.equalTo(@50);
+        make.top.equalTo(self.shareBtn.superview).offset(5);
+        make.height.equalTo(@38.5);
+        make.width.equalTo(@38.5);
     }];
 }
 
@@ -245,18 +245,20 @@
     
     // 返回按钮
     UIButton *backBtn = [[UIButton alloc] init];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setBackgroundColor:[UIColor darkGrayColor]];
+//    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"arrowLeft"] forState:UIControlStateNormal];
+//    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [backBtn setBackgroundColor:[UIColor darkGrayColor]];
     [backBtn addTarget:self action:@selector(gobackBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [containV addSubview:backBtn];
     self.backBtn = backBtn;
     
     // 分享按钮
     UIButton *shareBtn = [[UIButton alloc] init];
-    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-    [shareBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [shareBtn setBackgroundColor:[UIColor darkGrayColor]];
+//    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+//    [shareBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [shareBtn setImage:[UIImage imageNamed:@"shareFood"] forState:UIControlStateNormal];
+//    [shareBtn setBackgroundColor:[UIColor darkGrayColor]];
     [shareBtn addTarget:self action:@selector(sharedBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [containV addSubview:shareBtn];
     self.shareBtn = shareBtn;

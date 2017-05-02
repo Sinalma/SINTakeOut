@@ -140,6 +140,8 @@
 		18DC02BF1E6A53F60018940E /* SINUserCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02BE1E6A53F60018940E /* SINUserCenterView.m */; };
 		18DC02C21E6B062A0018940E /* SINOrderLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02C11E6B062A0018940E /* SINOrderLoginView.m */; };
 		18DC02C41E6B064D0018940E /* SINOrderLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DC02C31E6B064D0018940E /* SINOrderLoginView.xib */; };
+		18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */; };
+		18E6993D1EB8A984007745E8 /* SINLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6993C1EB8A984007745E8 /* SINLabel.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
 		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
@@ -395,6 +397,10 @@
 		18DC02C01E6B062A0018940E /* SINOrderLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINOrderLoginView.h; sourceTree = "<group>"; };
 		18DC02C11E6B062A0018940E /* SINOrderLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINOrderLoginView.m; sourceTree = "<group>"; };
 		18DC02C31E6B064D0018940E /* SINOrderLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINOrderLoginView.xib; sourceTree = "<group>"; };
+		18E699381EB77BD7007745E8 /* NSArray+SINSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SINSafe.h"; sourceTree = "<group>"; };
+		18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SINSafe.m"; sourceTree = "<group>"; };
+		18E6993B1EB8A984007745E8 /* SINLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINLabel.h; sourceTree = "<group>"; };
+		18E6993C1EB8A984007745E8 /* SINLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINLabel.m; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -586,6 +592,8 @@
 				18C5E0811E616BDE00CC9071 /* SINDiscoveryView.h */,
 				18C5E0821E616BDE00CC9071 /* SINDiscoveryView.m */,
 				18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */,
+				18E6993B1EB8A984007745E8 /* SINLabel.h */,
+				18E6993C1EB8A984007745E8 /* SINLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1157,6 +1165,8 @@
 				18EAC8ED1E31F9F8007FE5E0 /* UIButton+SINWebCache.m */,
 				18EAC8F21E322917007FE5E0 /* NSString+SINFilePath.h */,
 				18EAC8F31E322917007FE5E0 /* NSString+SINFilePath.m */,
+				18E699381EB77BD7007745E8 /* NSArray+SINSafe.h */,
+				18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1487,8 +1497,10 @@
 				185D3DB51EB5DB0A00AAD618 /* SINCycleView.m in Sources */,
 				18A60AC11E778CA90063F81F /* SINAccount.m in Sources */,
 				18DC02BC1E699C350018940E /* SINWallet.m in Sources */,
+				18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
 				18C71BFD1E9DD55100E1710B /* SINShareView.m in Sources */,
+				18E6993D1EB8A984007745E8 /* SINLabel.m in Sources */,
 				18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */,
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
@@ -1675,6 +1687,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = A8LLH3F654;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1711,6 +1724,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -1721,6 +1735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = A8LLH3F654;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1757,6 +1772,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuzhuang.SinWaiMai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

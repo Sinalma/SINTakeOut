@@ -30,6 +30,8 @@
 #import "SINDiscoveryView.h"
 #import "SINShareView.h"
 #import "SINAddress.h"
+#import "NSArray+SINSafe.h"
+#import "SINLabel.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -37,6 +39,8 @@
 #define normalMargin 10
 /** 优惠信息默认显示的数量 */
 #define nromalWelfareAppCount 1
+#define SINTypeTableViewBGColor  [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0]
+
 
 @interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -93,6 +97,12 @@
 
 /** 当前地址模型 */
 @property (nonatomic,strong) SINAddress *curAddress;
+
+/** 保存上一个被选中的商户外卖类型cell */
+@property (nonatomic,strong) UITableViewCell *curSelTypeCell;
+
+/** 存放右边食物tableView所有组标题的label */
+@property (nonatomic,strong) NSMutableArray *foodTitleLabels;
 
 @end
 
@@ -285,8 +295,13 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         SINTakeoutMenu *menu = self.takeoutMenues[indexPath.row];
         
         cell.textLabel.font = [UIFont systemFontOfSize:12];
-        
+        cell.textLabel.textColor = [UIColor darkGrayColor];
         cell.textLabel.text = menu.catalog;
+        cell.backgroundColor = SINTypeTableViewBGColor;
+        
+        if (indexPath.row == 0) {
+            [self selectTypeCell:cell];
+        }
         
         return cell;
         
@@ -303,12 +318,64 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     return cell;
 }
 
+- (void)selectTypeCell:(UITableViewCell *)cell
+{
+    self.curSelTypeCell.textLabel.textColor = [UIColor darkGrayColor];
+    self.curSelTypeCell.backgroundColor = SINTypeTableViewBGColor;
+    cell.textLabel.textColor = [UIColor redColor];
+    cell.backgroundColor = [UIColor whiteColor];
+    self.curSelTypeCell = cell;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if ([tableView isEqual:self.foodTableView]) {
         
         SINTakeoutMenu *takeoutMenu = self.takeoutMenues[section];
         return takeoutMenu.catalog;
+    }
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (tableView == self.foodTableView) {
+        
+        SINTakeoutMenu *takeoutMenu = self.takeoutMenues[section];
+        
+        UIView *view = [[UIView alloc] init];
+        view.frame = CGRectMake(0, 0, self.foodTableView.width, 25);
+        view.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *lab = [UILabel createLabelWithFont:12 textColor:[UIColor redColor]];
+//        if (section == 0) {
+//            lab.textColor = [UIColor redColor];
+//        }
+        lab.x = 10;
+        lab.height = 20;
+        lab.width = view.width;
+        lab.y = 0;
+        lab.text = takeoutMenu.catalog;
+        [view addSubview:lab];
+        [self.foodTitleLabels addObject:lab];
+        
+        UIView *line = [[UIView alloc] init];
+        line.frame = CGRectMake(0, view.height-0.35, view.width, 0.35);
+        line.backgroundColor = [UIColor lightGrayColor];
+        [view addSubview:line];
+        return view;
+    }
+    return nil;
+}
+
+
+// 暂时未用
+- (SINLabel *)labelWithIdentify:(int)identify
+{
+    for (SINLabel *lab in self.foodTitleLabels) {
+        if (lab.identify == identify) {
+            return lab;
+        }
     }
     return nil;
 }
@@ -322,9 +389,13 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     
     if ([tableView isEqual:self.typeTableView]) {
         
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self selectTypeCell:cell];
+        
         // 点击左侧cell，右侧选择相应组cell
         NSIndexPath *indexP = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
         [self.foodTableView selectRowAtIndexPath:indexP animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self.foodTableView deselectRowAtIndexPath:indexP animated:YES];
         
     }else if ([tableView isEqual:self.foodTableView])
     {
@@ -335,6 +406,29 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         foodVC.food = food;
         
         [self presentViewController:foodVC animated:YES completion:nil];
+    }
+}
+
+//static int curSection = 0;
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (tableView == self.foodTableView) {
+//        if (indexPath.section > curSection) {
+//            UILabel *lab = [self.foodTitleLabels sin_safeObjectAtIndex:indexPath.section];
+//            lab.textColor = [UIColor redColor];
+//            NSIndexPath *indexP = [NSIndexPath indexPathForRow:indexPath.section inSection:0];
+//            [self.typeTableView selectRowAtIndexPath:indexP animated:YES scrollPosition:UITableViewScrollPositionNone];
+//            curSection ++;
+//        }
+//    }
+//}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if (tableView == self.foodTableView) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:section inSection:0];
+        [self tableView:self.typeTableView didSelectRowAtIndexPath:indexPath];
+        SINLog(@"display -> %ld",section);
     }
 }
 
@@ -615,13 +709,24 @@ static int welfareOpenState = 0;
         // 添加右边提示
         if (i == 0) {
             // 右边箭头
-            UIImageView *arrowImgV = [[UIImageView alloc] init];
-            arrowImgV.image = [UIImage imageNamed:@"arrowDown"];
+//            UIImageView *arrowImgV = [[UIImageView alloc] init];
+//            arrowImgV.image = [UIImage imageNamed:@"arrowDown"];
+//            [welfareV addSubview:arrowImgV];
+//            [arrowImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.top.equalTo(welfareV).offset(3);
+//                make.right.equalTo(welfareV);
+//                make.width.height.equalTo(@(15));
+//            }];
+            UILabel *arrowImgV = [UILabel createLabelWithFont:19 textColor:[UIColor whiteColor]];
+            arrowImgV.text = @"^";
+            arrowImgV.textAlignment = NSTextAlignmentCenter;
             [welfareV addSubview:arrowImgV];
             [arrowImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.right.equalTo(welfareV);
-                make.width.height.equalTo(@(labW));
+                make.top.equalTo(welfareV).offset(-3);
+                make.right.equalTo(welfareV);
+                make.width.height.equalTo(@(20));
             }];
+            arrowImgV.transform = CGAffineTransformMakeRotation(M_PI);
             
             // 优惠数提醒label
             UILabel *remindLab = [UILabel createLabelWithFont:12 textColor:[UIColor whiteColor]];
@@ -685,19 +790,30 @@ static int welfareOpenState = 0;
     // 声音图标
     UIImageView *voiceImgV = [[UIImageView alloc] init];
     voiceImgV.backgroundColor = [UIColor clearColor];
-    voiceImgV.image = [UIImage imageNamed:@"arrowDown"];
+    voiceImgV.image = [UIImage imageNamed:@"voice"];
     [remindV addSubview:voiceImgV];
     [voiceImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(remindV).offset(10);
-        make.height.width.equalTo(@20);
+        make.height.width.equalTo(@15);
     }];
+    [voiceImgV setTintColor:[UIColor whiteColor]];
+    
     
     // 右侧箭头图标
-    UIImageView *rightArrV = [[UIImageView alloc] init];
-    rightArrV.image = [UIImage imageNamed:@"arrowDown"];
+//    UIImageView *rightArrV = [[UIImageView alloc] init];
+//    rightArrV.image = [UIImage imageNamed:@"arrowRight"];
+//    [remindV addSubview:rightArrV];
+//    [rightArrV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(remindV).offset(-10);
+//        make.top.equalTo(remindV).offset(normalMargin+3);
+//        make.height.width.equalTo(voiceImgV);
+//    }];
+    UILabel *rightArrV = [UILabel createLabelWithFont:16 textColor:[UIColor whiteColor]];
+    rightArrV.text = @">";
+//    rightArrV.image = [UIImage imageNamed:@"arrowRight"];
     [remindV addSubview:rightArrV];
     [rightArrV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(remindV);
+        make.right.equalTo(remindV).offset(-10);
         make.top.equalTo(remindV).offset(normalMargin);
         make.height.width.equalTo(voiceImgV);
     }];
@@ -726,7 +842,7 @@ static int welfareOpenState = 0;
     CGFloat offsetX = 0;
     CGFloat btnW = SINScreenW / count;
     CGFloat btnH = 30;
-    CGFloat diactorH = 5;
+    CGFloat diactorH = 3;
     
     // 两个tableView宽度的比例
     CGFloat tableViewP = 0.3;
@@ -759,16 +875,37 @@ static int welfareOpenState = 0;
     }
     
     // 创建指示条
-    UIView *diactorV = [[UIView alloc] init];
-    diactorV.backgroundColor = [UIColor redColor];
-    [self.contentScrollV addSubview:diactorV];
-    [diactorV mas_makeConstraints:^(MASConstraintMaker *make) {
+    // 白色
+    UIView *diactorBgV = [[UIView alloc] init];
+    diactorBgV.backgroundColor = [UIColor whiteColor];
+    [self.contentScrollV addSubview:diactorBgV];
+    [diactorBgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentScrollV);
         make.top.equalTo(self.remindV.mas_bottom).offset(btnH);
+        make.height.equalTo(@(diactorH));
+        make.width.equalTo(@(SINScreenW));
+    }];
+    
+    UIView *diactorV = [[UIView alloc] init];
+    diactorV.backgroundColor = [UIColor redColor];
+    [diactorBgV addSubview:diactorV];
+    [diactorV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(diactorBgV);
+        make.top.equalTo(diactorBgV);
         make.height.equalTo(@(diactorH));
         make.width.equalTo(@(btnW));
     }];
     self.diactorView = diactorV;
+//    UIView *diactorV = [[UIView alloc] init];
+//    diactorV.backgroundColor = [UIColor redColor];
+//    [self.contentScrollV addSubview:diactorV];
+//    [diactorV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.contentScrollV);
+//        make.top.equalTo(self.remindV.mas_bottom).offset(btnH);
+//        make.height.equalTo(@(diactorH));
+//        make.width.equalTo(@(btnW));
+//    }];
+//    self.diactorView = diactorV;
     
     // 创建商品scrollView
     [self.contentScrollV addSubview:self.tabScrollView];
@@ -865,7 +1002,9 @@ static int welfareOpenState = 0;
 {
     if (_typeTableView == nil) {
         _typeTableView = [[UITableView alloc] init];
+        _typeTableView.backgroundColor = SINTypeTableViewBGColor;
         _typeTableView.dataSource = self;
+        _typeTableView.separatorStyle = NO;
         _typeTableView.delegate = self;
     }
     return _typeTableView;
@@ -878,6 +1017,7 @@ static int welfareOpenState = 0;
         _foodTableView = [[UITableView alloc] init];
         _foodTableView.dataSource = self;
         _foodTableView.delegate = self;
+        _foodTableView.separatorStyle = NO;
         _foodTableView.estimatedRowHeight = 153;
         _foodTableView.rowHeight = 153;
         [_foodTableView registerNib:[UINib nibWithNibName:@"SINFoodCell" bundle:nil] forCellReuseIdentifier:foodTableViewCellID];
@@ -910,6 +1050,14 @@ static int welfareOpenState = 0;
         _shareView.hidden = YES;
     }
     return _shareView;
+}
+
+- (NSMutableArray *)foodTitleLabels
+{
+    if (!_foodTitleLabels) {
+        _foodTitleLabels = [NSMutableArray array];
+    }
+    return _foodTitleLabels;
 }
 
 @end

@@ -7,12 +7,10 @@
 //
 
 #import "SINShareView.h"
-
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @implementation SINShareView
-
 - (instancetype)init
 {
     if (self = [super init]) {

@@ -12,6 +12,8 @@
 #import "SINShopComment.h"
 #import "SINComment.h"
 #import "SINCommentCell.h"
+#import "MJRefresh.h"
+#import "NSArray+SINSafe.h"
 
 @interface SINCommentViewController ()
 
@@ -26,6 +28,8 @@
 
 /** 用户评价模型数组 */
 @property (nonatomic,strong) NSMutableArray *comments;
+
+@property (nonatomic,strong) NSMutableArray *rowHeightArr;
 
 @end
 
@@ -47,6 +51,14 @@
     return _comments;
 }
 
+- (NSMutableArray *)rowHeightArr
+{
+    if (!_rowHeightArr) {
+        _rowHeightArr = [NSMutableArray array];
+    }
+    return _rowHeightArr;
+}
+
 #pragma mark - 重写方法
 - (void)setShopComment:(SINShopComment *)shopComment
 {
@@ -60,7 +72,21 @@
     _shop_id = shop_id;
     
     [self loadData];
+    [self setupRefresh];
 }
+
+- (void)setupRefresh
+{
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    
+    [self.tableView.mj_footer beginRefreshing];
+}
+
+- (void)loadMoreData
+{
+    [self dataWithShop_id:self.shop_id commentCount:(int)self.comments.count+5];
+}
+
 
 #pragma 启动入口
 - (void)viewDidLoad {
@@ -75,21 +101,25 @@
     return self.comments.count;
 }
 
+static CGFloat cellHeight = 0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SINCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:commentCellID];
-    
     cell.comment = self.comments[indexPath.row];
-    
+    cellHeight = cell.cellHeight;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SINCommentCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.layer.masksToBounds = YES;
-    
-    return cell.cellHeight?cell.cellHeight:200;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,14 +127,15 @@
     return 200;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == self.comments.count-1) {
-        SINLog(@"需要加载新数据->%ld",self.comments.count-1);
-        
-        [self dataWithShop_id:self.shop_id commentCount:(int)self.comments.count + 5];
-    }
-}
+// 这个方法不懂
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.row == self.comments.count-1) {
+//        SINLog(@"需要加载新数据->%ld",indexPath.row);
+//        
+//        [self dataWithShop_id:self.shop_id commentCount:(int)self.comments.count + 5];
+//    }
+//}
 
 - (void)loadData
 {
@@ -118,12 +149,14 @@
         
         //        [responseObject writeToFile:@"/Users/apple/desktop/commetn.plist" atomically:YES];
         
-        NSMutableArray *commentArrM = [NSMutableArray array];
+//        NSMutableArray *commentArrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"shopcomment_list"]) {
             SINComment *comment = [SINComment commentWithDict:dict];
-            [commentArrM addObject:comment];
+//            [commentArrM addObject:comment];
+            [self.comments addObject:comment];
         }
-        self.comments = commentArrM;
+//        self.comments = commentArrM;
+        
         
         self.shopComment = [SINShopComment shopCommentWithDict:responseObject[@"result"]];
         self.shopComment.shopcomment_list = self.comments;
@@ -150,7 +183,9 @@
     [self.networkMgr POST:@"http://client.waimai.baidu.com/mobileui/shop/v1/shopcomment" parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
 //        [responseObject writeToFile:@"/Users/apple/desktop/commetn.plist" atomically:YES];
-        
+        [self.comments removeAllObjects];
+        self.comments = nil;
+    
         NSMutableArray *commentArrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"shopcomment_list"]) {
             SINComment *comment = [SINComment commentWithDict:dict];
@@ -172,6 +207,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
         });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

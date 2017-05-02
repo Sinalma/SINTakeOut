@@ -35,6 +35,8 @@
 
 - (void)hideMap
 {
+    self.mapView = nil;
+    self.view = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

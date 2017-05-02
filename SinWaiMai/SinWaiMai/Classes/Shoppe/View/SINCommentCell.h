@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class SINComment;
-
+@class SINCommentCell;
 @interface SINCommentCell : UITableViewCell
 
 /** 模型 */

@@ -48,6 +48,20 @@
     
     self.origin_price_label.text = [NSString stringWithFormat:@"¥%@",food.origin_price];
 }
+- (IBAction)addFood:(UIButton *)sender {
+    
+    UIView *redView = [[UIView alloc] init];
+    redView.frame = sender.frame;
+    redView.layer.cornerRadius = sender.width*0.5;
+    redView.backgroundColor = [UIColor redColor];
+    [self addSubview:redView];
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        redView.transform = CGAffineTransformMakeTranslation(-SINScreenW, SINScreenH-sender.y-50);
+    } completion:^(BOOL finished) {
+        [SINNotificationCenter postNotificationName:AddFoodToShopCarName object:self.food];
+    }];
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
