@@ -24,10 +24,8 @@
 @property (nonatomic,strong) UILabel *myQRCodeLabel;
 @property (nonatomic,strong) UIImageView *QRScanLine;
 @property (nonatomic,strong) NSTimer *scanLineTimer;
-
 // 会话对象
 @property (nonatomic,strong) AVCaptureSession *session;
-
 // 预览图层
 @property (nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
 

@@ -27,6 +27,11 @@
     self.foodView.food = food;
 }
 
+- (void)swipe
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,6 +40,9 @@
     foodView.frame = self.view.bounds;
     [self.view addSubview:foodView];
     self.foodView = foodView;
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe)];
+    [self.view addGestureRecognizer:swipe];
     
     __weak typeof(self) welSelf = self;
     

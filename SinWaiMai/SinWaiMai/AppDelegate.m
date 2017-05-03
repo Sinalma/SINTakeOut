@@ -21,16 +21,6 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 
-/**
- 1.短信登录功能
- 2.存储账号密码、店铺信息至数据库
- 3.地图功能
- 4.手势操作
- 5.物理感应
- 6.分享功能
- 7.支付功能
- */
-
 // SMS (Mob Message )
 #define MobSMSAppKey @"1ce79d24fa768"
 #define MobSMSAppSecret @"02eb72bcdf47137ee49bbea374f657ad"
@@ -61,9 +51,6 @@
     /**
       unexpected nil window in _UIApplicationHandleEventFromQueueEvent, _windowServerHitTestWindow: <UIWindow: 0x17663920; frame = (0 0; 0 0); gestureRecognizers = <NSArray: 0x176641c0>; layer = <UIWindowLayer: 0x17663b30>>
      */
-//    SINLoginViewController *LOGINVC = [[SINLoginViewController alloc] init];
-//    UINavigationController *NAVIVC = [[UINavigationController alloc] initWithRootViewController:LOGINVC];
-//    self.window.rootViewController = NAVIVC;
     
     self.window.rootViewController = [[SINTabBarController alloc] init];
     
@@ -79,10 +66,6 @@
     
     // 百度地图
     [self baiduMap];
-    
-//    if (range.location != NSNotFound) {
-//        language = [language substringToIndex:range.location];
-//    }
     
     return YES;
 }

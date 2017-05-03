@@ -59,6 +59,16 @@ static SINAccount *_account;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviVC animated:YES completion:nil];
 }
 
+/**
+ * 是否跳转至登录界面
+ */
+- (void)isJumpToLoginVc
+{
+    if (!self.isLogin) {
+        [self jumpLoginVc];
+    }
+}
+
 + (instancetype)allocWithZone:(struct _NSZone *)zone
 {
     static dispatch_once_t onceToken;

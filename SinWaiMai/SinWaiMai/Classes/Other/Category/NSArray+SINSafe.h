@@ -10,6 +10,7 @@
 
 @interface NSArray (SINSafe)
 
+/** 对数组操作进行安全检测，保证程序不挂 */
 - (id)sin_safeObjectAtIndex:(NSUInteger)index;
 
 @end

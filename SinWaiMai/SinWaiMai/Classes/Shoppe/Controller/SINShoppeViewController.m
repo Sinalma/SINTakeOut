@@ -31,7 +31,6 @@
 #import "SINShareView.h"
 #import "SINAddress.h"
 #import "NSArray+SINSafe.h"
-#import "SINLabel.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -40,7 +39,6 @@
 /** 优惠信息默认显示的数量 */
 #define nromalWelfareAppCount 1
 #define SINTypeTableViewBGColor  [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0]
-
 
 @interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -348,9 +346,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         view.backgroundColor = [UIColor whiteColor];
         
         UILabel *lab = [UILabel createLabelWithFont:12 textColor:[UIColor redColor]];
-//        if (section == 0) {
-//            lab.textColor = [UIColor redColor];
-//        }
         lab.x = 10;
         lab.height = 20;
         lab.width = view.width;
@@ -364,18 +359,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         line.backgroundColor = [UIColor lightGrayColor];
         [view addSubview:line];
         return view;
-    }
-    return nil;
-}
-
-
-// 暂时未用
-- (SINLabel *)labelWithIdentify:(int)identify
-{
-    for (SINLabel *lab in self.foodTitleLabels) {
-        if (lab.identify == identify) {
-            return lab;
-        }
     }
     return nil;
 }
@@ -408,20 +391,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         [self presentViewController:foodVC animated:YES completion:nil];
     }
 }
-
-//static int curSection = 0;
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (tableView == self.foodTableView) {
-//        if (indexPath.section > curSection) {
-//            UILabel *lab = [self.foodTitleLabels sin_safeObjectAtIndex:indexPath.section];
-//            lab.textColor = [UIColor redColor];
-//            NSIndexPath *indexP = [NSIndexPath indexPathForRow:indexPath.section inSection:0];
-//            [self.typeTableView selectRowAtIndexPath:indexP animated:YES scrollPosition:UITableViewScrollPositionNone];
-//            curSection ++;
-//        }
-//    }
-//}
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
@@ -896,16 +865,6 @@ static int welfareOpenState = 0;
         make.width.equalTo(@(btnW));
     }];
     self.diactorView = diactorV;
-//    UIView *diactorV = [[UIView alloc] init];
-//    diactorV.backgroundColor = [UIColor redColor];
-//    [self.contentScrollV addSubview:diactorV];
-//    [diactorV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.contentScrollV);
-//        make.top.equalTo(self.remindV.mas_bottom).offset(btnH);
-//        make.height.equalTo(@(diactorH));
-//        make.width.equalTo(@(btnW));
-//    }];
-//    self.diactorView = diactorV;
     
     // 创建商品scrollView
     [self.contentScrollV addSubview:self.tabScrollView];
@@ -939,8 +898,8 @@ static int welfareOpenState = 0;
  */
 - (void)setupShopCarView
 {
-//    return;
     SINShopCarView *shopCarV = [SINShopCarView shopCarView];
+    shopCarV.shopInfo = self.shoppeInfoes;
     self.shopCarView = shopCarV;
     [self.view addSubview:shopCarV];
     [shopCarV mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -7,8 +7,20 @@
 //  购物车提示view
 
 #import <UIKit/UIKit.h>
+@class SINShoppeInfo;
+
+@protocol SINCarOverviewDelegate <NSObject>
+
+@required
+- (void)showOverviewWithFoodes:(NSArray *)foodes;
+- (void)hideOverview;
+
+
+@end
 
 @interface SINShopCarView : UIView
+
+@property (nonatomic,strong) SINShoppeInfo *shopInfo;
 
 + (instancetype)shopCarView;
 

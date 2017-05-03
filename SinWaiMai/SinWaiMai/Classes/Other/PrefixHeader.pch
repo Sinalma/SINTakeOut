@@ -46,7 +46,7 @@
 #endif
 
 //获取图片资源
-#define kGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
+#define SINGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
 
 // 通知中心
 #define SINNotificationCenter [NSNotificationCenter defaultCenter]

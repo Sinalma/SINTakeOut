@@ -7,9 +7,7 @@
 //
 
 #import "SINTabBarController.h"
-
 #import "SINNavigationController.h"
-
 #import "SINHomepageViewController.h"
 #import "SINGuideViewController.h"
 #import "SINOrderViewController.h"
