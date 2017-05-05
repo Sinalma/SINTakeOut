@@ -9,6 +9,7 @@
 #import "SINFoodViewController.h"
 #import "SINFoodView.h"
 #import "SINShareView.h"
+#import "SINFood.h"
 
 @interface SINFoodViewController ()
 

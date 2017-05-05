@@ -92,6 +92,7 @@ static int downImageIndex = 0;
                 
                 if (error) {
                     SINLog(@"SINCycleView - The image download fail at %d !",downImageIndex);
+                    self.imageUrls = imageUrls;
                 }
                 if (image) {
                     [webImages addObject:image];

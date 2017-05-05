@@ -14,4 +14,6 @@
 /** 模型 */
 @property (nonatomic,strong) SINFood *food;
 
+/** 当前食物订单数 */
+@property (nonatomic,assign) int curOrderCount;
 @end

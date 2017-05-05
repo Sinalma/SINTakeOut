@@ -93,7 +93,7 @@
                 <outlet property="pass_nameLabel" destination="9z5-3V-GQv" id="gdf-XK-sjr"/>
                 <outlet property="takeoutDetailLabel" destination="QnZ-Nf-QOt" id="PJ5-EX-RQC"/>
             </connections>
-            <point key="canvasLocation" x="-34" y="-59"/>
+            <point key="canvasLocation" x="61" y="-53"/>
         </tableViewCell>
     </objects>
     <resources>

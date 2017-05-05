@@ -18,6 +18,10 @@
 		180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F21E2F9B2800B7599B /* UILabel+Category.m */; };
 		180001F91E30D72600B7599B /* SINActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001F81E30D72600B7599B /* SINActivity.m */; };
 		180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */; };
+		180823E61EBAABFB006E2F5C /* SINOverviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823E51EBAABFB006E2F5C /* SINOverviewCell.m */; };
+		180823EC1EBAED53006E2F5C /* SINThrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823EB1EBAED53006E2F5C /* SINThrowView.m */; };
+		180823EF1EBC19EF006E2F5C /* SINOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180823EE1EBC19EF006E2F5C /* SINOverviewCell.xib */; };
+		180823F21EBC9934006E2F5C /* SINAnimtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823F11EBC9934006E2F5C /* SINAnimtion.m */; };
 		1811061A1E331B4400E3FD84 /* SINUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106191E331B4400E3FD84 /* SINUserInfoView.m */; };
 		1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061C1E331CD000E3FD84 /* SINUserInfo.m */; };
 		181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061F1E331DD400E3FD84 /* SINWalletItem.m */; };
@@ -205,6 +209,13 @@
 		180001F81E30D72600B7599B /* SINActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINActivity.m; sourceTree = "<group>"; };
 		180001FB1E310EC100B7599B /* UIImageView+SINWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SINWebCache.h"; sourceTree = "<group>"; };
 		180001FC1E310EC100B7599B /* UIImageView+SINWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SINWebCache.m"; sourceTree = "<group>"; };
+		180823E41EBAABFB006E2F5C /* SINOverviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINOverviewCell.h; sourceTree = "<group>"; };
+		180823E51EBAABFB006E2F5C /* SINOverviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINOverviewCell.m; sourceTree = "<group>"; };
+		180823EA1EBAED53006E2F5C /* SINThrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINThrowView.h; sourceTree = "<group>"; };
+		180823EB1EBAED53006E2F5C /* SINThrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINThrowView.m; sourceTree = "<group>"; };
+		180823EE1EBC19EF006E2F5C /* SINOverviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINOverviewCell.xib; sourceTree = "<group>"; };
+		180823F01EBC9934006E2F5C /* SINAnimtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAnimtion.h; sourceTree = "<group>"; };
+		180823F11EBC9934006E2F5C /* SINAnimtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAnimtion.m; sourceTree = "<group>"; };
 		181106181E331B4400E3FD84 /* SINUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINUserInfoView.h; sourceTree = "<group>"; };
 		181106191E331B4400E3FD84 /* SINUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINUserInfoView.m; sourceTree = "<group>"; };
 		1811061B1E331CD000E3FD84 /* SINUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINUserInfo.h; path = ../../Guide/Model/SINUserInfo.h; sourceTree = "<group>"; };
@@ -527,6 +538,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		180823E91EBAED15006E2F5C /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				180823EA1EBAED53006E2F5C /* SINThrowView.h */,
+				180823EB1EBAED53006E2F5C /* SINThrowView.m */,
+				180823F01EBC9934006E2F5C /* SINAnimtion.h */,
+				180823F11EBC9934006E2F5C /* SINAnimtion.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		1829332E1E3DC0C900E0C110 /* Shoppe */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +611,9 @@
 				18C5E0811E616BDE00CC9071 /* SINDiscoveryView.h */,
 				18C5E0821E616BDE00CC9071 /* SINDiscoveryView.m */,
 				18C5E0841E616C5A00CC9071 /* SINDiscoveryView.xib */,
+				180823E41EBAABFB006E2F5C /* SINOverviewCell.h */,
+				180823E51EBAABFB006E2F5C /* SINOverviewCell.m */,
+				180823EE1EBC19EF006E2F5C /* SINOverviewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1123,6 +1148,7 @@
 		18EA61BA1E262590009D826E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				180823E91EBAED15006E2F5C /* Animation */,
 				1889B33F1E9E23080022EC70 /* SDK */,
 				18C71BC81E9DCF4B00E1710B /* Share */,
 				18C71BAF1E9CF51F00E1710B /* MessageVerify */,
@@ -1368,6 +1394,7 @@
 				180001E71E2CAF0500B7599B /* SINShoppeTableViewCell.xib in Resources */,
 				18EAC8E81E31E8D1007FE5E0 /* parameters.plist in Resources */,
 				189AE9CA1EACE6B6007A080B /* QRCodeRightBottom@2x.png in Resources */,
+				180823EF1EBC19EF006E2F5C /* SINOverviewCell.xib in Resources */,
 				189AE9D21EACE6B6007A080B /* sound.caf in Resources */,
 				189AE9CC1EACE6B6007A080B /* QRCodeRightTop@2x.png in Resources */,
 				18C7A3C81E52F6220035725C /* test.html in Resources */,
@@ -1493,6 +1520,7 @@
 				18A60AC11E778CA90063F81F /* SINAccount.m in Sources */,
 				18DC02BC1E699C350018940E /* SINWallet.m in Sources */,
 				18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */,
+				180823E61EBAABFB006E2F5C /* SINOverviewCell.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
 				18C71BFD1E9DD55100E1710B /* SINShareView.m in Sources */,
 				18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */,
@@ -1502,6 +1530,7 @@
 				18BFF1351E50071200C5DDB5 /* SINHeaderView.m in Sources */,
 				185D3DB61EB5DB0A00AAD618 /* SINImageView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
+				180823F21EBC9934006E2F5C /* SINAnimtion.m in Sources */,
 				18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */,
 				18BE34A11E51E752005EABB5 /* SINShopComment.m in Sources */,
 				18C5E0831E616BDE00CC9071 /* SINDiscoveryView.m in Sources */,
@@ -1511,6 +1540,7 @@
 				1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */,
 				180001F91E30D72600B7599B /* SINActivity.m in Sources */,
 				181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */,
+				180823EC1EBAED53006E2F5C /* SINThrowView.m in Sources */,
 				180001FD1E310EC100B7599B /* UIImageView+SINWebCache.m in Sources */,
 				189AE9D51EACE6B6007A080B /* SINQRCodeShowController.m in Sources */,
 				180001DD1E2C6E6300B7599B /* SINWMTypeScrollView.m in Sources */,

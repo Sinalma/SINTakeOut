@@ -14,14 +14,14 @@
 @required
 - (void)showOverviewWithFoodes:(NSArray *)foodes;
 - (void)hideOverview;
-
-
 @end
 
 @interface SINShopCarView : UIView
 
+@property (nonatomic,weak) id<SINCarOverviewDelegate> delegate;
+
 @property (nonatomic,strong) SINShoppeInfo *shopInfo;
 
 + (instancetype)shopCarView;
-
+- (void)showOrHideOverview;
 @end

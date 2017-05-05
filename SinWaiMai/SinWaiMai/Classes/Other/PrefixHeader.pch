@@ -60,4 +60,7 @@
 // 添加食物通知
 #define AddFoodToShopCarName @"AddFoodToShopCarName"
 
+// 点击购物车显示一览表的动画时间
+#define ShowOverTableAnimTime 0.5
+
 #endif /* PrefixHeader_pch */

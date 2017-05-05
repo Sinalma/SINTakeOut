@@ -30,7 +30,8 @@
 #import "SINDiscoveryView.h"
 #import "SINShareView.h"
 #import "SINAddress.h"
-#import "NSArray+SINSafe.h"
+#import "SINOverviewCell.h"
+#import "SINAnimtion.h"
 
 /** 优惠信息label高度 */
 #define welfareLabH 20
@@ -40,7 +41,7 @@
 #define nromalWelfareAppCount 1
 #define SINTypeTableViewBGColor  [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0]
 
-@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate>
 
 /** 整体scrollView */
 @property (nonatomic,strong) UIScrollView *gobalView;
@@ -68,9 +69,6 @@
 /** 装tableView的scrollView */
 @property (nonatomic,strong) UIScrollView *tabScrollView;
 
-/** 购物车提示view */
-@property (nonatomic,strong) SINShopCarView *shopCarView;
-
 /** 指示条 */
 @property (nonatomic,strong) UIView *diactorView;
 
@@ -79,6 +77,18 @@
 
 /** 当前选中的导航栏按钮 */
 @property (nonatomic,strong) UIButton *selNaviBtn;
+
+#pragma 购物车相关
+/** 购物车提示view */
+@property (nonatomic,strong) SINShopCarView *shopCarView;
+/** 购物车一览表蒙板 */
+@property (nonatomic,strong) UIWindow *overviewHUD;
+
+/** 购物车内层背景view */
+@property (nonatomic,strong) UIView *overviewBG;
+/** 购物车清单tableView */
+@property (nonatomic,strong) UITableView *overViewTable;
+@property (nonatomic,strong) NSArray *foodes;
 
 #pragma mark - 数据
 /** 存放所有数据的模型数组 */
@@ -101,6 +111,7 @@
 
 /** 存放右边食物tableView所有组标题的label */
 @property (nonatomic,strong) NSMutableArray *foodTitleLabels;
+
 
 @end
 
@@ -255,6 +266,10 @@
     }else if ([tableView isEqual:self.foodTableView])
     {
         return self.takeoutMenues.count;
+    }else if ([tableView isEqual:self.overViewTable])
+    {
+        return [self overview_NumberOfSectionsInTableView:tableView];
+        
     }else
     {
         return 1;
@@ -273,6 +288,9 @@
         NSArray *arr = takeoutMenu.data;
         
         return arr.count;
+    }else if ([tableView isEqual:self.overViewTable])
+    {
+        return [self overview_TableView:tableView numberOfRowsInSection:section];
     }
     return 10;
 }
@@ -306,12 +324,15 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     }else if ([tableView isEqual:self.foodTableView])
     {
         SINFoodCell *foodCell = [tableView dequeueReusableCellWithIdentifier:foodTableViewCellID];
-        
+        foodCell.curOrderCount = 0;
         SINTakeoutMenu *takeoutMenu = self.takeoutMenues[indexPath.section];
         NSArray *arr = takeoutMenu.data;
         foodCell.food = arr[indexPath.row];
         
         return foodCell;
+    }else if ([tableView isEqual:self.overViewTable])
+    {
+        return [self overview_TableView:tableView cellForRowAtIndexPath:indexPath];
     }
     return cell;
 }
@@ -363,12 +384,20 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     return nil;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.overViewTable) {
+        return NO;
+    }
+    return YES;
+}
+
 /**
  * 点击cell调用
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if ([tableView isEqual:self.typeTableView]) {
         
@@ -397,7 +426,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     if (tableView == self.foodTableView) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:section inSection:0];
         [self tableView:self.typeTableView didSelectRowAtIndexPath:indexPath];
-        SINLog(@"display -> %ld",section);
     }
 }
 
@@ -480,6 +508,71 @@ static CGFloat preOffsetY = 0;
         [self selectNaviBtn:selBtn];
     }
 }
+
+// 一览表默认组数(分袋数)
+static NSInteger defaultGroups = 2;
+// 一览表占整屏高度的最大比例
+static CGFloat overViewRate = 0.75;
+#pragma mark - SINCarOverviewDelegate
+- (void)hideOverview
+{
+    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+        self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.overviewHUD.hidden = YES;
+                self.overViewTable.hidden = YES;
+    });
+}
+
+- (void)showOverviewWithFoodes:(NSArray *)foodes
+{
+    self.foodes = foodes;
+    
+    [self.overviewHUD makeKeyAndVisible];
+    self.overviewBG.hidden = NO;
+    self.overViewTable.hidden = NO;
+    [self.overViewTable reloadData];
+    // 最大高度
+    
+    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+        self.overViewTable.transform = CGAffineTransformIdentity;
+    }];
+}
+
+- (NSInteger)overview_NumberOfSectionsInTableView:(UITableView *)tableView
+{
+    return defaultGroups;
+}
+
+- (NSInteger)overview_TableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return self.foodes.count;
+    }
+    return 0;
+}
+
+static NSString *overViewID = @"overViewID";
+- (UITableViewCell *)overview_TableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SINOverviewCell *cell = [tableView dequeueReusableCellWithIdentifier:overViewID];
+    cell.orderCount = 0;
+    SINFood *food = self.foodes[indexPath.row];
+    cell.food = food;
+    
+    return cell;
+}
+
+/**
+ * 点击了蒙板
+ */
+- (void)overviewHUDClick
+{
+    [self.shopCarView showOrHideOverview];
+}
+
 
 #pragma mark - 自定义监听方法
 - (void)dealloc
@@ -900,6 +993,7 @@ static int welfareOpenState = 0;
 {
     SINShopCarView *shopCarV = [SINShopCarView shopCarView];
     shopCarV.shopInfo = self.shoppeInfoes;
+    shopCarV.delegate = self;
     self.shopCarView = shopCarV;
     [self.view addSubview:shopCarV];
     [shopCarV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1019,4 +1113,42 @@ static int welfareOpenState = 0;
     return _foodTitleLabels;
 }
 
+#pragma mark - 购物车一览表懒加载
+// 问题:蒙板必须插在购物车更内层
+- (UIWindow *)overviewHUD
+{
+    if (!_overviewHUD) {
+        _overviewHUD = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, self.view.width,self.view.height+21)];// 状态栏21
+        _overviewHUD.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overviewHUDClick)];
+        [_overviewHUD addGestureRecognizer:tap];
+    }
+    return _overviewHUD;
+}
+
+- (UIView *)overviewBG
+{
+    if (!_overviewBG) {
+        _overviewBG = [[UIView alloc] init];
+        _overviewBG.backgroundColor = [UIColor whiteColor];
+    }
+    return _overviewBG;
+}
+
+- (UITableView *)overViewTable
+{
+    if (!_overViewTable) {
+        _overViewTable = [[UITableView alloc] init];
+        _overViewTable.delegate = self;
+        _overViewTable.dataSource = self;
+        _overViewTable.frame = CGRectMake(0, (1-overViewRate)*self.overviewHUD.height, self.overviewHUD.width, overViewRate*self.overviewHUD.height);
+        _overViewTable.rowHeight = 55;
+        _overViewTable.estimatedRowHeight = 65;
+        
+        [self.overviewHUD addSubview:_overViewTable];
+        _overViewTable.transform = CGAffineTransformMakeTranslation(0, +overViewRate*_overViewTable.height);
+        [_overViewTable registerNib:[UINib nibWithNibName:NSStringFromClass([SINOverviewCell class]) bundle:nil] forCellReuseIdentifier:overViewID];
+    }
+    return _overViewTable;
+}
 @end

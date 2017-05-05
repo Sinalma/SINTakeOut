@@ -48,6 +48,11 @@
     [self presentViewController:naviVC animated:YES completion:nil];
 }
 
+- (void)shopCarBtnClick
+{
+    
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.orderLoginView startImgVAnimation];
@@ -70,6 +75,9 @@
     self.navigationItem.titleView = lab;
     
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shopCar_navi"] style:UIBarButtonItemStylePlain target:self action:@selector(shopCarBtnClick)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
 - (SINOrderLoginView *)orderLoginView

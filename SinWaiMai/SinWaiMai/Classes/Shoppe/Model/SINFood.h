@@ -40,7 +40,7 @@
 /** 是否销售-数字 */
 @property (nonatomic,assign) NSNumber *on_sale;
 
-/** 当前价格 */
+/** 原始价格 */
 @property (nonatomic,strong) NSString *origin_price;
 
 /** 月销售量 */

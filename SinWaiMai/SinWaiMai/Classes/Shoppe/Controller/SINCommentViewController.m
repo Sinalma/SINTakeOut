@@ -13,7 +13,6 @@
 #import "SINComment.h"
 #import "SINCommentCell.h"
 #import "MJRefresh.h"
-#import "NSArray+SINSafe.h"
 
 @interface SINCommentViewController ()
 

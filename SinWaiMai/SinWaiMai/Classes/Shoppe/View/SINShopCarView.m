@@ -11,6 +11,7 @@
 #import "SINShoppeInfo.h"
 #import "SINAccount.h"
 #import "SINLoginViewController.h"
+#import "SINAnimtion.h"
 
 @interface SINShopCarView ()
 
@@ -32,15 +33,6 @@
 /** 存放当前选择的所有食物的数组 */
 @property (nonatomic,strong) NSMutableArray *foodes;
 
-/** 已加入购物车的商品一览表内层view */
-@property (nonatomic,strong) UIView *carOverview;
-
-/** 蒙版 */
-@property (nonatomic,strong) UIWindow *outWindow;
-
-/** 显示商品的tableview */
-@property (nonatomic,strong) UITableView *overTableView;
-
 @end
 
 @implementation SINShopCarView
@@ -49,9 +41,15 @@
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SINShopCarView class]) owner:nil options:nil] lastObject];
 }
 
+#define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
+#define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    self.backgroundColor = SINCarViewGrayColor;
+    self.differPriceLabel.backgroundColor = SINCarViewGrayColor;
+    self.curOrderCountLabel.backgroundColor = SINCarViewPinkColor;
     
     NSString *str = self.shopInfo.takeout_price.length?self.shopInfo.takeout_price:@"0";
     self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",str];
@@ -93,6 +91,7 @@
 {
     SINFood *food = noti.object;
     [self.foodes addObject:food];
+    
     int orderCount = (int)self.foodes.count;
     int price = [self totalPrice];
     self.curOrderCountLabel.hidden = NO;
@@ -105,19 +104,80 @@
     self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",str];
     self.differPriceLabel.text = @"选好了";
     self.differPriceLabel.textColor = [UIColor whiteColor];
-    self.differPriceLabel.backgroundColor = [UIColor redColor];
+    self.differPriceLabel.backgroundColor = SINCarViewPinkColor;
     
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+static BOOL showingOverviewState = NO;
+- (void)showOrHideOverview
 {
     if (!self.foodes.count) {
         SINLog(@"购物车是空的");
         return;
     }
+    if (showingOverviewState) {
+        if ([self.delegate performSelector:@selector(hideOverview)]) {
+            [self.delegate hideOverview];
+            [self hideShopCarAnim];
+        }
+        showingOverviewState = NO;
+        return;
+    }
+    
     // 弹出已选商品总览界面
-    self.outWindow.hidden = NO;
+    if ([self.delegate performSelector:@selector(showOverviewWithFoodes:) withObject:self.foodes]) {
+        [self.delegate showOverviewWithFoodes:self.foodes];
+    }
+    
+    [self showShopCarAnim];
+    
+    showingOverviewState = YES;
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self showOrHideOverview];
+}
+
+- (void)hideShopCarAnim
+{
+//    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+//        self.shoppeCarImgV.transform = CGAffineTransformIdentity;
+//        self.curOrderCountLabel.transform = CGAffineTransformIdentity;
+//        self.totalPriceLabel.transform = CGAffineTransformIdentity;
+//        self.takeoutPriceLabel.transform = CGAffineTransformIdentity;
+//    }];
+    self.userInteractionEnabled = NO;
+    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+        self.shoppeCarImgV.transform = CGAffineTransformIdentity;
+        self.curOrderCountLabel.transform = CGAffineTransformIdentity;
+        self.totalPriceLabel.transform = CGAffineTransformIdentity;
+        self.takeoutPriceLabel.transform = CGAffineTransformIdentity;
+    } completion:^{
+        self.userInteractionEnabled = YES;
+    }];
+}
+
+- (void)showShopCarAnim
+{
+    self.userInteractionEnabled = NO;
+    // 同时做购物车图标上移动画
+//    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+//        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -507);
+//        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -507);
+//        self.totalPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
+//        self.takeoutPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
+//    }];
+    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -507);
+        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -507);
+        self.totalPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
+        self.takeoutPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
+    } completion:^{
+        self.userInteractionEnabled = YES;
+    }];
+}
+
 
 /**
  * 获取当前已选食物总价格
@@ -138,34 +198,6 @@
         _foodes = [NSMutableArray array];
     }
     return _foodes;
-}
-
-- (UIView *)outView
-{
-    if (!_outWindow) {
-        _outWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SINScreenW, SINScreenH-self.height)];
-        _outWindow.backgroundColor = [UIColor redColor];
-        _outWindow.alpha = 0.6;
-        [[UIApplication sharedApplication].keyWindow addSubview:_outWindow];
-    }
-    return _outWindow;
-}
-
-- (UIView *)carOverview
-{
-    if (!_carOverview) {
-        _carOverview = [[UIView alloc] init];
-        _carOverview.backgroundColor = [UIColor whiteColor];
-    }
-    return _carOverview;
-}
-
-- (UITableView *)overTableView
-{
-    if (!_overTableView) {
-        _overTableView = [[UITableView alloc] init];
-    }
-    return _overTableView;
 }
 
 @end
