@@ -11,7 +11,9 @@
 #import "SINShoppeInfo.h"
 #import "SINAccount.h"
 #import "SINLoginViewController.h"
-#import "SINAnimtion.h"
+
+#define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
+#define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 
 @interface SINShopCarView ()
 
@@ -41,8 +43,6 @@
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SINShopCarView class]) owner:nil options:nil] lastObject];
 }
 
-#define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
-#define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -105,7 +105,6 @@
     self.differPriceLabel.text = @"选好了";
     self.differPriceLabel.textColor = [UIColor whiteColor];
     self.differPriceLabel.backgroundColor = SINCarViewPinkColor;
-    
 }
 
 static BOOL showingOverviewState = NO;
@@ -141,12 +140,6 @@ static BOOL showingOverviewState = NO;
 
 - (void)hideShopCarAnim
 {
-//    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
-//        self.shoppeCarImgV.transform = CGAffineTransformIdentity;
-//        self.curOrderCountLabel.transform = CGAffineTransformIdentity;
-//        self.totalPriceLabel.transform = CGAffineTransformIdentity;
-//        self.takeoutPriceLabel.transform = CGAffineTransformIdentity;
-//    }];
     self.userInteractionEnabled = NO;
     [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
         self.shoppeCarImgV.transform = CGAffineTransformIdentity;
@@ -162,15 +155,9 @@ static BOOL showingOverviewState = NO;
 {
     self.userInteractionEnabled = NO;
     // 同时做购物车图标上移动画
-//    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
-//        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -507);
-//        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -507);
-//        self.totalPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
-//        self.takeoutPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
-//    }];
     [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
-        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -507);
-        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -507);
+        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -465);
+        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -465);
         self.totalPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
         self.takeoutPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
     } completion:^{

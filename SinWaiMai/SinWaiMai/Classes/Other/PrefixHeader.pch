@@ -15,6 +15,7 @@
 #import "NSString+Category.h"
 #import "NSString+SINFilePath.h"
 #import "SINHUD.h"
+#import "SINAnimtion.h"
 
 // 日志输出
 #ifdef DEBUG // 开发阶段-DEBUG阶段:使用Log

@@ -210,10 +210,8 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-    
     [self.networkMgr POST:@"http://client.waimai.baidu.com/shopui/na/v1/cliententry" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-//        [responseObject[@"result"][@"newuserentry"] writeToFile:@"/Users/apple/desktop/newuserentry.plist" atomically:YES];
         // 广告模块
         NSMutableArray *adArrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"activity_mobile"]) {
@@ -226,19 +224,15 @@
         
         // 新人专享模块
 //        NSMutableArray *newuserArrM = [NSMutableArray array];
-//        SINLog(@"%@",responseObject[@"result"]);
-//        [responseObject writeToFile:@"/Users/apple/desktop/error.plist" atomically:YES];
-        /*
-        if (responseObject[@"result"][@"newuserentry"][@"entries"]) {
-            for (NSDictionary *dict in responseObject[@"result"][@"newuserentry"][@"entries"]) {
-                SINNewuserentry *entry = [SINNewuserentry newuserentryWithDict:dict];
-                [newuserArrM addObject:entry];
-            }
-            self.newuesrentries = newuserArrM;
-            self.newuserEnjorView.newuesrentries = newuserArrM;
-        }
-        */
-     
+//        if (responseObject[@"result"][@"newuserentry"][@"entries"]) {
+//            for (NSDictionary *dict in responseObject[@"result"][@"newuserentry"][@"entries"]) {
+//                SINNewuserentry *entry = [SINNewuserentry newuserentryWithDict:dict];
+//                [newuserArrM addObject:entry];
+//            }
+//            self.newuesrentries = newuserArrM;
+//            self.newuserEnjorView.newuesrentries = newuserArrM;
+//        }
+        
         // 外卖类型模块数据
         NSMutableArray *arrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"eight_entry"]) {
@@ -278,7 +272,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"请求其他数据失败 error : %@",error);
     }];
-        
     });// 子线程end
 }
 
@@ -336,7 +329,6 @@ static int networkPage = 1;
         [self.gobalScrollView.mj_header endRefreshing];
         [self.shoppeView.mj_footer endRefreshing];
     }];
-        
     });// 子线程end
 }
 
@@ -435,7 +427,6 @@ static int networkPage = 1;
     UILabel *label = [UILabel createLabelWithFont:12 textColor:[UIColor darkGrayColor]];
     label.text = @"龙瑞文化广场";
     // 要在设置尺寸之前调用，否则设置尺寸不准确
-//    [label sizeToFit];
     CGFloat labW = [label.text boundingRectWithSize:CGSizeMake(200, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.width;
     label.width = labW;
     label.height = 21;

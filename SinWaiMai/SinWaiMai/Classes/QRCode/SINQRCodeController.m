@@ -53,7 +53,6 @@ static BOOL flag = YES;
     [super viewDidAppear:animated];
     if (flag) {
         flag = NO;
-        
         return;
     }
     

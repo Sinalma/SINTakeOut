@@ -31,15 +31,14 @@
 #import "SINShareView.h"
 #import "SINAddress.h"
 #import "SINOverviewCell.h"
-#import "SINAnimtion.h"
 
-/** 优惠信息label高度 */
-#define welfareLabH 20
-/** 普通间距 */
-#define normalMargin 10
-/** 优惠信息默认显示的数量 */
-#define nromalWelfareAppCount 1
+#define SINWelfareLabH 20 // 优惠信息label高度
+#define SINNormalMargin 10 // 普通间距
+#define nromalWelfareAppCount 1// 优惠信息默认显示的数量
 #define SINTypeTableViewBGColor  [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0]
+#define DefaultGroups 2 // 一览表默认组数(分袋数)
+#define OverViewRate 0.8 // 一览表占整屏高度的最大比例
+#define SINOverviewHUDBGColor [UIColor colorWithRed:181/255.0 green:181/255.0 blue:179/255.0 alpha:0.5]
 
 @interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate>
 
@@ -82,12 +81,11 @@
 /** 购物车提示view */
 @property (nonatomic,strong) SINShopCarView *shopCarView;
 /** 购物车一览表蒙板 */
-@property (nonatomic,strong) UIWindow *overviewHUD;
-
-/** 购物车内层背景view */
-@property (nonatomic,strong) UIView *overviewBG;
+@property (nonatomic,strong) UIView *overviewHUD;
 /** 购物车清单tableView */
 @property (nonatomic,strong) UITableView *overViewTable;
+/** 覆盖顶部的HUD */
+@property (nonatomic,strong) UIWindow *tempWindow;
 @property (nonatomic,strong) NSArray *foodes;
 
 #pragma mark - 数据
@@ -111,7 +109,6 @@
 
 /** 存放右边食物tableView所有组标题的label */
 @property (nonatomic,strong) NSMutableArray *foodTitleLabels;
-
 
 @end
 
@@ -227,8 +224,6 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
     
     [[AFHTTPSessionManager manager] POST:@"http://client.waimai.baidu.com/shopui/na/v1/shopmenu" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    
-//        [responseObject[@"result"] writeToFile:@"/Users/apple/desktop/shoppeDetail.plist" atomically:YES];
         
         // 商户基本信息
         NSDictionary *dict = responseObject[@"result"][@"shop_info"];
@@ -254,7 +249,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"商户详情数据获取失败 error = %@",error);
     }];
-        
     });// 子线程end
 }
 
@@ -269,7 +263,6 @@
     }else if ([tableView isEqual:self.overViewTable])
     {
         return [self overview_NumberOfSectionsInTableView:tableView];
-        
     }else
     {
         return 1;
@@ -337,6 +330,9 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     return cell;
 }
 
+/**
+ * 切换左侧类型tableView的选中
+ */
 - (void)selectTypeCell:(UITableViewCell *)cell
 {
     self.curSelTypeCell.textLabel.textColor = [UIColor darkGrayColor];
@@ -384,14 +380,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     return nil;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == self.overViewTable) {
-        return NO;
-    }
-    return YES;
-}
-
 /**
  * 点击cell调用
  */
@@ -435,17 +423,18 @@ static CGFloat preOffsetY = 0;
 {
     // 导航条未至顶部时，gobalView可上滑，contentScrollV可下滑
     CGFloat curOffsetY = scrollView.contentOffset.y;
+    
     if (self.gobalView.contentOffset.y < 145) {
-//        SINLog(@"gobalView -> %f",self.gobalView.contentOffset.y);
         
         if (curOffsetY - preOffsetY >= 1) {
             self.gobalView.scrollEnabled = YES;
             self.contentScrollV.scrollEnabled = NO;
-    }else
-    {
-        self.gobalView.scrollEnabled = NO;
-        self.contentScrollV.scrollEnabled = YES;
-    }
+        }else
+        {
+            self.gobalView.scrollEnabled = NO;
+            self.contentScrollV.scrollEnabled = YES;
+        }
+        
     }else if (curOffsetY - preOffsetY < 1)
     {
         self.gobalView.scrollEnabled = NO;
@@ -454,9 +443,10 @@ static CGFloat preOffsetY = 0;
     
     // gobalView置顶
     if (scrollView == self.gobalView) {
+        
         if (scrollView.contentOffset.y >= 145) {
-            [scrollView setContentOffset:CGPointMake(0, 145)];
             
+            [scrollView setContentOffset:CGPointMake(0, 145)];
             self.foodTableView.scrollEnabled = YES;
             self.typeTableView.scrollEnabled = YES;
         }
@@ -509,32 +499,28 @@ static CGFloat preOffsetY = 0;
     }
 }
 
-// 一览表默认组数(分袋数)
-static NSInteger defaultGroups = 2;
-// 一览表占整屏高度的最大比例
-static CGFloat overViewRate = 0.75;
 #pragma mark - SINCarOverviewDelegate
 - (void)hideOverview
 {
-    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
         self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
+    } completion:^{
+        self.overviewHUD.hidden = YES;
+        self.tempWindow.hidden = YES;
+        self.overViewTable.hidden = YES;
     }];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.overviewHUD.hidden = YES;
-                self.overViewTable.hidden = YES;
-    });
 }
 
 - (void)showOverviewWithFoodes:(NSArray *)foodes
 {
     self.foodes = foodes;
     
-    [self.overviewHUD makeKeyAndVisible];
-    self.overviewBG.hidden = NO;
+    // 创建一个模糊的window覆盖导航栏上
+    [self.tempWindow makeKeyAndVisible];
+    
+    self.overviewHUD.hidden = NO;
     self.overViewTable.hidden = NO;
     [self.overViewTable reloadData];
-    // 最大高度
     
     [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
         self.overViewTable.transform = CGAffineTransformIdentity;
@@ -543,7 +529,7 @@ static CGFloat overViewRate = 0.75;
 
 - (NSInteger)overview_NumberOfSectionsInTableView:(UITableView *)tableView
 {
-    return defaultGroups;
+    return DefaultGroups;
 }
 
 - (NSInteger)overview_TableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -570,7 +556,14 @@ static NSString *overViewID = @"overViewID";
  */
 - (void)overviewHUDClick
 {
-    [self.shopCarView showOrHideOverview];
+    self.tempWindow.userInteractionEnabled = NO;
+    self.overviewHUD.userInteractionEnabled = NO;
+    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+        [self.shopCarView showOrHideOverview];
+    } completion:^{
+        self.tempWindow.userInteractionEnabled = YES;
+        self.overviewHUD.userInteractionEnabled = YES;
+    }];
 }
 
 
@@ -583,7 +576,6 @@ static NSString *overViewID = @"overViewID";
 - (void)addressSelect:(NSNotification *)noti
 {
     self.curAddress = noti.object;
-    
     [self loadData];
 }
 
@@ -613,7 +605,6 @@ static NSString *overViewID = @"overViewID";
         
         self.diactorView.transform = CGAffineTransformMakeTranslation(curBtn.tag * (SINScreenW / por), 0);
     }];
-    
     [self.tabScrollView setContentOffset:CGPointMake(curBtn.tag * SINScreenW, 0) animated:YES];
 }
 
@@ -631,7 +622,7 @@ static int welfareOpenState = 0;
     
     NSInteger count = 0;
     
-    CGFloat translationY = (welCount - nromalWelfareAppCount) * (welfareLabH + normalMargin);
+    CGFloat translationY = (welCount - nromalWelfareAppCount) * (SINWelfareLabH + SINNormalMargin);
     CGAffineTransform transform;
     if (welfareOpenState) {
         count = nromalWelfareAppCount;
@@ -679,8 +670,8 @@ static int welfareOpenState = 0;
     welCount = welfareArr.count;
     
     // 优惠信息
-    CGFloat labW = welfareLabH;
-    CGFloat margin = normalMargin;
+    CGFloat labW = SINWelfareLabH;
+    CGFloat margin = SINNormalMargin;
     
     [self.view addSubview:self.gobalView];
     
@@ -770,15 +761,6 @@ static int welfareOpenState = 0;
         
         // 添加右边提示
         if (i == 0) {
-            // 右边箭头
-//            UIImageView *arrowImgV = [[UIImageView alloc] init];
-//            arrowImgV.image = [UIImage imageNamed:@"arrowDown"];
-//            [welfareV addSubview:arrowImgV];
-//            [arrowImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(welfareV).offset(3);
-//                make.right.equalTo(welfareV);
-//                make.width.height.equalTo(@(15));
-//            }];
             UILabel *arrowImgV = [UILabel createLabelWithFont:19 textColor:[UIColor whiteColor]];
             arrowImgV.text = @"^";
             arrowImgV.textAlignment = NSTextAlignmentCenter;
@@ -859,24 +841,13 @@ static int welfareOpenState = 0;
         make.height.width.equalTo(@15);
     }];
     [voiceImgV setTintColor:[UIColor whiteColor]];
-    
-    
-    // 右侧箭头图标
-//    UIImageView *rightArrV = [[UIImageView alloc] init];
-//    rightArrV.image = [UIImage imageNamed:@"arrowRight"];
-//    [remindV addSubview:rightArrV];
-//    [rightArrV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(remindV).offset(-10);
-//        make.top.equalTo(remindV).offset(normalMargin+3);
-//        make.height.width.equalTo(voiceImgV);
-//    }];
+
     UILabel *rightArrV = [UILabel createLabelWithFont:16 textColor:[UIColor whiteColor]];
     rightArrV.text = @">";
-//    rightArrV.image = [UIImage imageNamed:@"arrowRight"];
     [remindV addSubview:rightArrV];
     [rightArrV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(remindV).offset(-10);
-        make.top.equalTo(remindV).offset(normalMargin);
+        make.top.equalTo(remindV).offset(SINNormalMargin);
         make.height.width.equalTo(voiceImgV);
     }];
     
@@ -888,7 +859,7 @@ static int welfareOpenState = 0;
         make.left.equalTo(voiceImgV.mas_right).offset(10);
         make.top.equalTo(voiceImgV);
         make.height.equalTo(voiceImgV);
-        make.right.equalTo(rightArrV.mas_left).offset(-normalMargin * 2);
+        make.right.equalTo(rightArrV.mas_left).offset(-SINNormalMargin * 2);
     }];
 }
 
@@ -1009,16 +980,8 @@ static int welfareOpenState = 0;
 - (void)setupNavi
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    
-//    self.navigationController.navigationBar.backgroundColor = [UIColor orangeColor];
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"orangeBG"] forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"orangeBG"]];
-//   self.navigationController.navigationBar.layer.masksToBounds = YES;
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStyleDone target:self action:@selector(shareBtnClick)];
-    
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
@@ -1114,25 +1077,28 @@ static int welfareOpenState = 0;
 }
 
 #pragma mark - 购物车一览表懒加载
-// 问题:蒙板必须插在购物车更内层
-- (UIWindow *)overviewHUD
+- (UIView *)overviewHUD
 {
     if (!_overviewHUD) {
-        _overviewHUD = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, self.view.width,self.view.height+21)];// 状态栏21
-        _overviewHUD.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
+        _overviewHUD = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SINScreenW,SINScreenH-64-self.shopCarView.height)];
+        _overviewHUD.hidden = YES;
+        _overviewHUD.backgroundColor = SINOverviewHUDBGColor;
+        [self.view insertSubview:_overviewHUD belowSubview:self.shopCarView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overviewHUDClick)];
         [_overviewHUD addGestureRecognizer:tap];
     }
     return _overviewHUD;
 }
 
-- (UIView *)overviewBG
+- (UIWindow *)tempWindow
 {
-    if (!_overviewBG) {
-        _overviewBG = [[UIView alloc] init];
-        _overviewBG.backgroundColor = [UIColor whiteColor];
+    if (!_tempWindow) {
+        _tempWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SINScreenW, 64)];
+        _tempWindow.backgroundColor = SINOverviewHUDBGColor;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(overviewHUDClick)];
+        [_tempWindow addGestureRecognizer:tap];
     }
-    return _overviewBG;
+    return _tempWindow;
 }
 
 - (UITableView *)overViewTable
@@ -1141,14 +1107,15 @@ static int welfareOpenState = 0;
         _overViewTable = [[UITableView alloc] init];
         _overViewTable.delegate = self;
         _overViewTable.dataSource = self;
-        _overViewTable.frame = CGRectMake(0, (1-overViewRate)*self.overviewHUD.height, self.overviewHUD.width, overViewRate*self.overviewHUD.height);
+        _overViewTable.frame = CGRectMake(0, (1-OverViewRate)*SINScreenH, self.overviewHUD.width, OverViewRate*SINScreenH);//self.overviewHUD.height
         _overViewTable.rowHeight = 55;
         _overViewTable.estimatedRowHeight = 65;
         
         [self.overviewHUD addSubview:_overViewTable];
-        _overViewTable.transform = CGAffineTransformMakeTranslation(0, +overViewRate*_overViewTable.height);
+        _overViewTable.transform = CGAffineTransformMakeTranslation(0, +OverViewRate*_overViewTable.height);
         [_overViewTable registerNib:[UINib nibWithNibName:NSStringFromClass([SINOverviewCell class]) bundle:nil] forCellReuseIdentifier:overViewID];
     }
     return _overViewTable;
 }
+
 @end

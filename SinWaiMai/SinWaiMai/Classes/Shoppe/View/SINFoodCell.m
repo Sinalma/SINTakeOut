@@ -86,9 +86,4 @@
     self.orderCountLabel.text = [NSString stringWithFormat:@"%d",self.curOrderCount];
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
 @end
