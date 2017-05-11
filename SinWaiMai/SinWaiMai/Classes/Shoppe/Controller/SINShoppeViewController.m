@@ -31,6 +31,7 @@
 #import "SINShareView.h"
 #import "SINAddress.h"
 #import "SINOverviewCell.h"
+#import "SINCarManager.h"
 
 #define SINWelfareLabH 20 // 优惠信息label高度
 #define SINNormalMargin 10 // 普通间距
@@ -40,7 +41,7 @@
 #define OverViewRate 0.8 // 一览表占整屏高度的最大比例
 #define SINOverviewHUDBGColor [UIColor colorWithRed:181/255.0 green:181/255.0 blue:179/255.0 alpha:0.5]
 
-@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate>
+@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate,SINOverviewMgrDelegate,SINCarMgrDelegate>
 
 /** 整体scrollView */
 @property (nonatomic,strong) UIScrollView *gobalView;
@@ -110,6 +111,8 @@
 /** 存放右边食物tableView所有组标题的label */
 @property (nonatomic,strong) NSMutableArray *foodTitleLabels;
 
+@property (nonatomic,strong) SINCarManager *carMgr;
+
 @end
 
 @implementation SINShoppeViewController
@@ -153,6 +156,9 @@
     self.foodTableView.scrollEnabled = NO;
     
     [SINNotificationCenter addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
+    
+    self.carMgr.overviewDelegate = self;
+    self.carMgr.delegate = self;
 }
 
 /**
@@ -321,7 +327,7 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         SINTakeoutMenu *takeoutMenu = self.takeoutMenues[indexPath.section];
         NSArray *arr = takeoutMenu.data;
         foodCell.food = arr[indexPath.row];
-        
+
         return foodCell;
     }else if ([tableView isEqual:self.overViewTable])
     {
@@ -500,18 +506,27 @@ static CGFloat preOffsetY = 0;
 }
 
 #pragma mark - SINCarOverviewDelegate
-- (void)hideOverview
+//- (void)hideOverview
+//{
+//    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+//        self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
+//    } completion:^{
+//        self.overviewHUD.hidden = YES;
+//        self.tempWindow.hidden = YES;
+//        self.overViewTable.hidden = YES;
+//    }];
+//}
+
+- (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
 {
-    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
-        self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
-    } completion:^{
-        self.overviewHUD.hidden = YES;
-        self.tempWindow.hidden = YES;
-        self.overViewTable.hidden = YES;
-    }];
+    SINLog(@"---totalcount - %@",totalCount);
+    if ([totalCount isEqualToString:@"0"]) {
+        SINLog(@"-----------");
+        [self carMgr_willHideOverview];
+    }
 }
 
-- (void)showOverviewWithFoodes:(NSArray *)foodes
+- (void)carMgr_willShowOverview:(NSMutableArray *)foodes
 {
     self.foodes = foodes;
     
@@ -526,6 +541,33 @@ static CGFloat preOffsetY = 0;
         self.overViewTable.transform = CGAffineTransformIdentity;
     }];
 }
+
+- (void)carMgr_willHideOverview
+{
+    [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+        self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
+    } completion:^{
+        self.overviewHUD.hidden = YES;
+        self.tempWindow.hidden = YES;
+        self.overViewTable.hidden = YES;
+    }];
+}
+
+//- (void)showOverviewWithFoodes:(NSArray *)foodes
+//{
+//    self.foodes = foodes;
+//    
+//    // 创建一个模糊的window覆盖导航栏上
+//    [self.tempWindow makeKeyAndVisible];
+//    
+//    self.overviewHUD.hidden = NO;
+//    self.overViewTable.hidden = NO;
+//    [self.overViewTable reloadData];
+//    
+//    [UIView animateWithDuration:ShowOverTableAnimTime animations:^{
+//        self.overViewTable.transform = CGAffineTransformIdentity;
+//    }];
+//}
 
 - (NSInteger)overview_NumberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -878,7 +920,7 @@ static int welfareOpenState = 0;
     CGFloat diactorH = 3;
     
     // 两个tableView宽度的比例
-    CGFloat tableViewP = 0.3;
+    CGFloat tableViewP = 0.25;
     
     for (int i = 0; i < count; i++) {
         
@@ -1116,6 +1158,14 @@ static int welfareOpenState = 0;
         [_overViewTable registerNib:[UINib nibWithNibName:NSStringFromClass([SINOverviewCell class]) bundle:nil] forCellReuseIdentifier:overViewID];
     }
     return _overViewTable;
+}
+
+- (SINCarManager *)carMgr
+{
+    if (!_carMgr) {
+        _carMgr = [[SINCarManager alloc] init];
+    }
+    return _carMgr;
 }
 
 @end

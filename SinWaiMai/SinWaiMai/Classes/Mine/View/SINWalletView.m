@@ -27,7 +27,6 @@
 - (void)setup
 {
     CGFloat selfW = SINScreenW;
-//    CGFloat selfH = 100;
     CGFloat margin = 10;
     CGFloat imgWH = 20;
     CGFloat lineW = 0.5;

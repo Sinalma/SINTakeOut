@@ -146,16 +146,10 @@ static CGFloat cellHeight = 0;
     
     [self.networkMgr POST:@"http://client.waimai.baidu.com/mobileui/shop/v1/shopcomment" parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        //        [responseObject writeToFile:@"/Users/apple/desktop/commetn.plist" atomically:YES];
-        
-//        NSMutableArray *commentArrM = [NSMutableArray array];
         for (NSDictionary *dict in responseObject[@"result"][@"shopcomment_list"]) {
             SINComment *comment = [SINComment commentWithDict:dict];
-//            [commentArrM addObject:comment];
             [self.comments addObject:comment];
         }
-//        self.comments = commentArrM;
-        
         
         self.shopComment = [SINShopComment shopCommentWithDict:responseObject[@"result"]];
         self.shopComment.shopcomment_list = self.comments;

@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-/** 全局颜色rgb */
+/** Food of operate way. */
+typedef enum : NSUInteger {
+    KOperateByDecrease = 11,
+    KOperateByIncrease = 1,
+    KOperateByDone = 0
+} CarMgrOperateWay;
+
+
+/** 全局颜色RGB */
 #define SINGobalColor [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 
 /** 屏幕宽高 */

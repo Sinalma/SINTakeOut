@@ -13,6 +13,9 @@
 + (instancetype)foodWithDict:(NSDictionary *)dict
 {
     SINFood *food = [[SINFood alloc] init];
+
+    // 初始化
+    food.orderCount = 0;
     
     [food setValuesForKeysWithDictionary:dict];
     
@@ -21,7 +24,6 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    // 改key名
     if ([key isEqualToString:@"description"]) {
         self.desc = value;
         return;

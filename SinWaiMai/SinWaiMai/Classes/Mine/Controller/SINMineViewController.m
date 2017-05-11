@@ -47,6 +47,12 @@
 /** 登录按钮 */
 @property (nonatomic,strong) UIButton *loginBtn;
 
+/** 波浪view */
+@property (nonatomic,strong) SINWaveView *waveView;
+
+/** 头像 */
+@property (nonatomic,strong) UIImageView *iconView;
+
 #pragma mark - 数据
 /** 保存用户信息模型的数组 */
 @property (nonatomic,strong) NSArray *userInfoes;
@@ -73,21 +79,25 @@
     
     // 初始化导航栏
     [self setupNavi];
-    
     // 初始化子控件
     [self setupChildView];
     
     // 加载网络数据
     [self loadNetworkData];
     
-//    [self waveViewAnim];
 }
 
-//- (void)waveViewAnim
-//{
-//    SINWaveView *waveV = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 150)];
-//    [self.view addSubview:waveV];
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.waveView startWaveAnimation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.waveView stopWaveAnimation];
+}
 
 #pragma mark - 自定义方法
 /**
@@ -140,6 +150,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"我的控制器-数据加载失败 %@",error);
+        // 重新加载
         [self loadNetworkData];
     }];
     });
@@ -159,9 +170,6 @@
 }
 
 #pragma mark - 初始化
-/**
- * 初始化导航栏
- */
 - (void)setupNavi
 {
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
@@ -224,7 +232,7 @@
     [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(64);
         make.left.width.equalTo(self.view);
-        make.height.equalTo(@100);
+        make.height.equalTo(@75);// 100
     }];
     
     // 登录view的登录按钮
@@ -234,7 +242,6 @@
         make.height.equalTo(@(MineLoginBtnH));
         make.width.equalTo(@(MineLoginBtnW));
     }];
-    
 }
 
 #pragma mark - 懒加载
@@ -249,12 +256,10 @@
 - (UIScrollView *)gobalScrollView
 {
     if (_gobalScrollView == nil) {
-        
         _gobalScrollView = [[UIScrollView alloc] init];
-        
         _gobalScrollView.frame = self.view.bounds;
-        
         _gobalScrollView.backgroundColor = [UIColor whiteColor];
+        _gobalScrollView.contentSize = CGSizeMake(SINScreenW, SINScreenH * 2);
     }
     return _gobalScrollView;
 }
@@ -264,7 +269,6 @@
     if (_userInfoView == nil) {
         _userInfoView = [[SINUserInfoView alloc] init];
         _userInfoView.backgroundColor = [UIColor whiteColor];
-
     }
     return _userInfoView;
 }
@@ -292,7 +296,6 @@
     if (_loginView == nil) {
         _loginView = [[UIView alloc] init];
         _loginView.backgroundColor = [UIColor colorWithRed:246/255.0 green:56/255.0 blue:82/255.0 alpha:1.0];
-        
     }
     return _loginView;
 }
@@ -310,6 +313,43 @@
         _loginBtn.layer.cornerRadius = 20;
 }
     return _loginBtn;
+}
+
+- (SINWaveView *)waveView
+{
+    if (!_waveView) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        _waveView = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 95)];
+        _waveView.backgroundColor = SINColor(248, 64, 87, 1);
+        [self.view addSubview:_waveView];
+        [_waveView addSubview:self.iconView];
+        __weak typeof(self)weakSelf = self;
+        _waveView.waveBlock = ^(CGFloat currentY){
+            CGRect iconFrame = [weakSelf.iconView frame];
+            iconFrame.origin.y = CGRectGetHeight(weakSelf.waveView.frame)-CGRectGetHeight(weakSelf.iconView.frame)+currentY-weakSelf.waveView.waveHeight;
+            weakSelf.iconView.frame  =iconFrame;
+        };
+
+    }
+    return _waveView;
+}
+
+- (UIImageView *)iconView
+{
+    if (!_iconView) {
+        _iconView = [[UIImageView alloc] init];
+        _iconView.frame = CGRectMake(self.waveView.frame.size.width/2-30, 0, 60, 60);
+        _iconView.image = [UIImage imageNamed:@"iconPlacehold"];
+        _iconView.backgroundColor = [UIColor whiteColor];
+        _iconView.layer.borderColor = [UIColor whiteColor].CGColor;
+        _iconView.layer.borderWidth = 2;
+        _iconView.layer.cornerRadius = 20;
+        _iconView.clipsToBounds = YES;
+        _iconView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginBtnClick)];
+        [_iconView addGestureRecognizer:tap];
+    }
+    return _iconView;
 }
 
 @end

@@ -43,6 +43,7 @@
         self.orderCountLabel.text = @"0";
     }
     _food = food;
+    food.orderCount = 0;
     
     food.url = [[food.url componentsSeparatedByString:@"@"] firstObject];
     [self.logoImgView sin_setImageWithURL:[NSURL URLWithString:food.url]];
@@ -65,6 +66,9 @@
         self.orderCountLabel.hidden = YES;
         self.decreaseBtn.hidden = YES;
     }
+    
+    self.food.operate = KOperateByDecrease;
+    [SINNotificationCenter postNotificationName:AddFoodToShopCarName object:self.food];
 }
 
 - (IBAction)addFood:(UIButton *)sender {
@@ -74,11 +78,13 @@
     imgV.frame = sender.frame;
     imgV.layer.cornerRadius = sender.width*0.5;
     [self addSubview:imgV];
-    imgV.timeRatio = 0.5;
+    imgV.timeRatio = 0.4;
+    self.food.operate = KOperateByIncrease;
     [imgV throwToPoint:CGPointMake(-50, 400) completion:^{
-        // 通知购物车
-        [SINNotificationCenter postNotificationName:AddFoodToShopCarName object:self.food];
+        
     }];
+    // 通知购物车
+    [SINNotificationCenter postNotificationName:AddFoodToShopCarName object:self.food];
     
     self.curOrderCount++;
     self.decreaseBtn.hidden = NO;

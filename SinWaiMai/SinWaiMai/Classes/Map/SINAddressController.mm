@@ -11,7 +11,6 @@
 #import "SINMapViewController.h"
 #import "AFNetworking.h"
 #import "SINAddress.h"
-#import "SINAccount.h"
 #import "SINLoginViewController.h"
 #import <BaiduMapAPI_Search/BMKPoiSearch.h>
 #import <BaiduMapAPI_Location/BMKLocationService.h>

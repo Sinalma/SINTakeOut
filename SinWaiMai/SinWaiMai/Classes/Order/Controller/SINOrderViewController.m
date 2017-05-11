@@ -11,10 +11,8 @@
 #import "Masonry.h"
 #import "SINLoginViewController.h"
 
-@interface SINOrderViewController ()<SINOrderLoginViewDelegate>
-
+@interface SINOrderViewController () <SINOrderLoginViewDelegate>
 @property (nonatomic,strong) SINOrderLoginView *orderLoginView;
-
 @end
 
 @implementation SINOrderViewController

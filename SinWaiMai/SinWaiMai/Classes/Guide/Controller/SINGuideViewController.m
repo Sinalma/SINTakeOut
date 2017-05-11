@@ -17,7 +17,6 @@
 #import "SINLifeViewController.h"
 #import "SINOtherViewController.h"
 #import "SINLoginViewController.h"
-#import "SINAccount.h"
 #import "SINQRCodeController.h"
 
 // 导航条高度

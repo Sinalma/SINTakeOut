@@ -15,16 +15,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *decreaseBtn;
 @property (weak, nonatomic) IBOutlet UILabel *orderCountLable;
 @property (weak, nonatomic) IBOutlet UIButton *increaseBtn;
-
 @end
-@implementation SINOverviewCell
 
+@implementation SINOverviewCell
 - (void)setFood:(SINFood *)food
 {
     _food = food;
     self.foodNameLabel.text = food.name;
     self.foodPriceLabel.text = [NSString stringWithFormat:@"¥%@",food.current_price];
-    self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.orderCount];
+    self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.food.orderCount];
 }
 
 - (IBAction)decrease:(id)sender {
@@ -32,11 +31,14 @@
         self.orderCount--;
         self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.orderCount];
     }
+    self.food.operate = KOperateByDecrease;
+    [SINNotificationCenter postNotificationName:OverviewUpdateFoodNotiName object:self.food];
 }
 - (IBAction)increase:(id)sender {
     self.orderCount++;
     self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.orderCount];
+    self.food.operate = KOperateByIncrease;
+    [SINNotificationCenter postNotificationName:OverviewUpdateFoodNotiName object:self.food];
 }
-
 
 @end

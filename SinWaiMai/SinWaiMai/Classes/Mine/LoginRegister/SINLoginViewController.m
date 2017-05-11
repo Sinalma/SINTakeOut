@@ -340,9 +340,6 @@ static BOOL canJumpToPasswordApp = YES;
 {
     // 防止输入了密码没登入，但跳至短信登录界面时密码不见
     self.pwdTextField.text = self.tempPwd ? self.tempPwd : @"";
-    
-    //    [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
     [self.view endEditing:YES];
     [UIView animateWithDuration:1.5 animations:^{
         self.normalLineView.hidden = NO;
@@ -359,7 +356,6 @@ static BOOL canJumpToPasswordApp = YES;
         [self.questionBtn mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@85);
         }];
-        
     }];
 }
 

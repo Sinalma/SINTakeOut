@@ -107,7 +107,6 @@
         cell.topic = topic;
         return cell;
 
-        
     }else if ([topic.show_big_image isEqualToString:@"1"])
     {
         SINTopTopicCell  *cell = (SINTopTopicCell *)[tableView dequeueReusableCellWithIdentifier:@"topTopicCell"];

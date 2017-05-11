@@ -10,11 +10,15 @@
 
 @interface SINFood : NSObject
 
+/** 自定义的属性，用于购物车结算统计本食物的数量 */
+@property (nonatomic,assign) int orderCount;
+@property (nonatomic,assign) CarMgrOperateWay operate;
+
 /** 全部评价 */
 @property (nonatomic,strong) NSNumber *total_comment_num;
 
 /** 食物id */
-//@property (nonatomic,strong) NSString *category_id;
+@property (nonatomic,strong) NSString *category_id;
 
 /** 当前价格 */
 @property (nonatomic,strong) NSString *current_price;

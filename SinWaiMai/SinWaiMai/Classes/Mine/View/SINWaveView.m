@@ -8,181 +8,167 @@
 
 #import "SINWaveView.h"
 
-@interface SINWaveView ()
-{
-    UIColor *_waterColor;
-    CGFloat _waterLineY;
-    CGFloat _waveAmplitude;
-    CGFloat _waveCycle;
-    BOOL increase;
-    CADisplayLink *_waveDisplayLink;
-}
+@interface SINProxy : NSObject
+@property (nonatomic,weak) id executor;
+@end
 
+@implementation SINProxy
+- (void)callback
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    [_executor performSelector:@selector(wave)];
+#pragma clang diagnostic pop
+
+}
+@end
+
+@interface SINWaveView ()
+/** 刷屏器 */
+@property (nonatomic,strong) CADisplayLink *timer;
+/** 真实浪 */
+@property (nonatomic,strong) CAShapeLayer *realWaveLayer;
+/** 遮罩浪 */
+@property (nonatomic,strong) CAShapeLayer *maskWaveLayer;
+@property (nonatomic,assign) CGFloat offset;
 @end
 
 @implementation SINWaveView
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self initData];
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self initData];
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _waveAmplitude = 3.0;
-        _waveCycle = 1.0;
-        increase = NO;
-        _waterColor=[UIColor colorWithRed:88/255.0f green:202/255.0f blue:139/255.0f alpha:1];
-        _waterLineY=120.0;
-        
-        
-        _waveDisplayLink=[CADisplayLink displayLinkWithTarget:self selector:@selector(runWave)];
-        [_waveDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        [self initData];
     }
     return self;
 }
 
--(void)runWave
+- (void)initData
 {
-    
-    if (increase) {
-        _waveAmplitude += 0.02;
-    }else{
-        _waveAmplitude -= 0.02;
-    }
-    
-    
-    if (_waveAmplitude<=1) {
-        increase = YES;
-    }
-    
-    if (_waveAmplitude>=1.5) {
-        increase = NO;
-    }
-    
-    _waveCycle+=0.1;
-    
-    [self setNeedsDisplay];
+    self.waveSpeed = 0.5;
+    self.waveCurvature = 1.5;
+    self.waveHeight = 4;
+    self.realWaveColor = [UIColor whiteColor];
+    self.maskWaveColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
+    [self.layer addSublayer:self.realWaveLayer];
+    [self.layer addSublayer:self.maskWaveLayer];
 }
 
-
-- (void)drawRect:(CGRect)rect {
-    
-    //初始化画布
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //推入
-    CGContextSaveGState(context);
-    
-    
-    //定义前波浪path
-    CGMutablePathRef frontPath = CGPathCreateMutable();
-    
-    //定义后波浪path
-    CGMutablePathRef backPath=CGPathCreateMutable();
-    
-    //定义前波浪反色path
-    CGMutablePathRef frontReversePath = CGPathCreateMutable();
-    
-    //定义后波浪反色path
-    CGMutablePathRef backReversePath=CGPathCreateMutable();
-    
-    //画水
-    CGContextSetLineWidth(context, 1);
-    
-    
-    //前波浪位置初始化
-    float frontY=_waterLineY;
-    CGPathMoveToPoint(frontPath, NULL, 0, frontY);
-    
-    //前波浪反色位置初始化
-    float frontReverseY=_waterLineY;
-    CGPathMoveToPoint(frontReversePath, NULL, 0,frontReverseY);
-    
-    //后波浪位置初始化
-    float backY=_waterLineY;
-    CGPathMoveToPoint(backPath, NULL, 0, backY);
-    
-    //后波浪反色位置初始化
-    float backReverseY=_waterLineY;
-    CGPathMoveToPoint(backReversePath, NULL, 0, backReverseY);
-    
-    for(float x=0;x<=320;x++){
-        
-        //前波浪绘制
-        frontY= _waveAmplitude * sin( x/180*M_PI + 4*_waveCycle/M_PI ) * 5 + _waterLineY;
-        CGPathAddLineToPoint(frontPath, nil, x, frontY);
-        
-        //后波浪绘制
-        backY= _waveAmplitude * cos( x/180*M_PI + 3*_waveCycle/M_PI ) * 5 + _waterLineY;
-        CGPathAddLineToPoint(backPath, nil, x, backY);
-        
-        
-        if (x>=100) {
-            
-            //后波浪反色绘制
-            backReverseY= _waveAmplitude * cos( x/180*M_PI + 3*_waveCycle/M_PI ) * 5 + _waterLineY;
-            CGPathAddLineToPoint(backReversePath, nil, x, backReverseY);
-            
-            //前波浪反色绘制
-            frontReverseY= _waveAmplitude * sin( x/180*M_PI + 4*_waveCycle/M_PI ) * 5 + _waterLineY;
-            CGPathAddLineToPoint(frontReversePath, nil, x, frontReverseY);
-        }
+- (CAShapeLayer *)realWaveLayer
+{
+    if (!_realWaveLayer) {
+        _realWaveLayer = [CAShapeLayer layer];
+        CGRect frame = self.bounds;
+        frame.origin.y = frame.size.height - self.waveHeight;
+        frame.size.height = self.waveHeight;
+        _realWaveLayer.frame = frame;
+        _realWaveLayer.fillColor = self.realWaveColor.CGColor;
     }
-    
-    //后波浪绘制
-    CGContextSetFillColorWithColor(context, [[UIColor orangeColor] CGColor]);
-    CGPathAddLineToPoint(backPath, nil, 320, rect.size.height);
-    CGPathAddLineToPoint(backPath, nil, 0, rect.size.height);
-    CGPathAddLineToPoint(backPath, nil, 0, _waterLineY);
-    CGPathCloseSubpath(backPath);
-    CGContextAddPath(context, backPath);
-    CGContextFillPath(context);
-    
-    //推入
-    CGContextSaveGState(context);
-    
-    //后波浪反色绘制
-    CGPathAddLineToPoint(backReversePath, nil, 320, rect.size.height);
-    CGPathAddLineToPoint(backReversePath, nil, 100, rect.size.height);
-    CGPathAddLineToPoint(backReversePath, nil, 100, _waterLineY);
-    
-    CGContextAddPath(context, backReversePath);
-    CGContextClip(context);
-    
-    
-    // CGContextSaveGState(context);
-    //弹出
-    CGContextRestoreGState(context);
-    
-    //前波浪绘制
-    CGContextSetFillColorWithColor(context, [_waterColor CGColor]);
-    CGPathAddLineToPoint(frontPath, nil, 320, rect.size.height);
-    CGPathAddLineToPoint(frontPath, nil, 0, rect.size.height);
-    CGPathAddLineToPoint(frontPath, nil, 0, _waterLineY);
-    CGPathCloseSubpath(frontPath);
-    CGContextAddPath(context, frontPath);
-    CGContextFillPath(context);
-    
-    //推入
-    CGContextSaveGState(context);
-    
-    
-    //前波浪反色绘制
-    CGPathAddLineToPoint(frontReversePath, nil, 320, rect.size.height);
-    CGPathAddLineToPoint(frontReversePath, nil, 100, rect.size.height);
-    CGPathAddLineToPoint(frontReversePath, nil, 100, _waterLineY);
-    
-    CGContextAddPath(context, frontReversePath);
-    CGContextClip(context);
-    
-    //推入
-    CGContextSaveGState(context);
-    
-    
-    //释放
-    CGPathRelease(backPath);
-    CGPathRelease(backReversePath);
-    CGPathRelease(frontPath);
-    CGPathRelease(frontReversePath);
+    return _realWaveLayer;
 }
 
+- (CAShapeLayer *)maskWaveLayer
+{
+    if (!_maskWaveLayer) {
+        _maskWaveLayer = [CAShapeLayer layer];
+        CGRect frame = self.bounds;
+        frame.origin.y = frame.size.height - self.waveHeight;
+        frame.size.height = self.waveHeight;
+        _maskWaveLayer.frame = frame;
+        _maskWaveLayer.fillColor = self.maskWaveColor.CGColor;
+    }
+    return _maskWaveLayer;
+}
+
+- (void)setWaveHeight:(CGFloat)waveHeight
+{
+    _waveHeight = waveHeight;
+    
+    CGRect frame = self.bounds;
+    frame.origin.y = frame.size.height - self.waveHeight;
+    frame.size.height = self.waveHeight;
+    _realWaveLayer.frame = frame;
+    
+    CGRect frame1 = self.bounds;
+    frame1.origin.y = frame1.size.height - self.waveHeight;
+    frame1.size.height = self.waveHeight;
+    _maskWaveLayer.frame = frame1;
+}
+
+- (void)startWaveAnimation
+{
+    SINProxy *proxy = [[SINProxy alloc] init];
+    proxy.executor = self;
+    self.timer = [CADisplayLink displayLinkWithTarget:proxy selector:@selector(callback)];
+    [self.timer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopWaveAnimation
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)wave
+{
+    self.offset += self.waveSpeed;
+    
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat height = self.waveHeight;
+    
+    // 真浪
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, 0, height);
+    CGFloat y = 0.f;
+    
+    // 遮罩浪
+    CGMutablePathRef maskPath = CGPathCreateMutable();
+    CGPathMoveToPoint(maskPath, NULL, 0, height);
+    CGFloat maskY = 0.f;
+    for (CGFloat x = 0.f; x <= width; x++) {
+        y = height * sinf(0.01 * self.waveCurvature * x + self.offset * 0.045);
+        CGPathAddLineToPoint(path, NULL, x, y);
+        maskY = -y;
+        CGPathAddLineToPoint(maskPath, NULL, x, maskY);
+    }
+    
+    // 变化的中间y值
+    CGFloat centerX = self.bounds.size.width * 0.5;
+    CGFloat centerY = height * sinf(0.01 * self.waveCurvature * centerX + self.offset * 0.045);
+    if (self.waveBlock) {
+        self.waveBlock(centerY);
+    }
+    
+    CGPathAddLineToPoint(path, NULL, width, height);
+    CGPathAddLineToPoint(path, NULL, 0, height);
+    CGPathCloseSubpath(path);
+    self.realWaveLayer.path = path;
+    self.realWaveLayer.fillColor = self.realWaveColor.CGColor;
+    CGPathRelease(path);
+    
+    CGPathAddLineToPoint(maskPath, NULL, width, height);
+    CGPathAddLineToPoint(maskPath, NULL, 0, height);
+    CGPathCloseSubpath(maskPath);
+    self.maskWaveLayer.path = maskPath;
+    self.maskWaveLayer.fillColor = self.maskWaveColor.CGColor;
+    CGPathRelease(maskPath);
+    
+}
 
 @end

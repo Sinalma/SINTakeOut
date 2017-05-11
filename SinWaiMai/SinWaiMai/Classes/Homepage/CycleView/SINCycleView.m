@@ -10,21 +10,21 @@
 #import "SINImageView.h"
 #import "SINWebImageDownloader.h"
 
-#define SIN_ImageView_Count 3 // UIImageView个数
-#define SIN_Timer_Interval 3.0 // 默认图片切换时间
+#define SIN_ImageView_Count 3 // UIImageView count
+#define SIN_Timer_Interval 3.0 // interval for cut image
 #define Screen_Width [[UIScreen mainScreen] bounds].size.width
 
 @interface SINCycleView () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) UIScrollView *cycleView;
 @property (nonatomic,strong) UIPageControl *pageControl;
-/** 存放imageView的数组 */
+/** deposit imgageViews */
 @property (nonatomic,strong) NSMutableArray *imgVs;
-/** 定时器 */
+/** timer */
 @property (nonatomic,strong) NSTimer *cycleTimer;
-/** 当前显示的图片索引 */
+/** index of current image */
 @property (nonatomic,assign) int curIndex;
-/** 存放所有图片 */
+/** deposit all of images */
 @property (nonatomic,strong) NSArray *images;
 
 @end
@@ -147,7 +147,7 @@ static int downImageIndex = 0;
     self.images = imgArrM;
 }
 
-#pragma mark - 定时器相关
+#pragma mark - Timer
 - (void)startCycleTimer
 {
     CGFloat interval = self.cycleInterval ? self.cycleInterval : SIN_Timer_Interval;
@@ -301,12 +301,16 @@ static int downImageIndex = 0;
         _pageControl = [[UIPageControl alloc] init];
         _pageControl.currentPage = 0 ;
         // 设置未被选中时小圆点颜色
+        // set little circle color for no select statue
         _pageControl.pageIndicatorTintColor = [UIColor redColor] ;
         // 设置被选中时小圆点颜色
+        // set select circle color for select statue
         _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor] ;
         // 默认不能手动点小圆点改变页数
+        // default can not click little circle to change page
         _pageControl.enabled = NO ;
         // 把导航条设置为半透明状态
+        // set navigation bar to translucent statue
         [_pageControl setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.00001]];
     }
     return _pageControl;
