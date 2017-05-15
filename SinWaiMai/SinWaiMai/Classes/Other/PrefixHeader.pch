@@ -53,22 +53,16 @@
 
 #define SINNotificationCenter [NSNotificationCenter defaultCenter]// 通知中心
 
-
 #define PasswordNotiName @"PasswordNotiName"// 密码app回跳通知
-
 
 #define AddressSelectNotiName @"SelectAddressNotiName"// 选择地址通知
 
-
 #define AddFoodToShopCarName @"AddFoodToShopCarName"// 添加食物通知
-
 
 #define ShowOverviewNotiName @"ShowOverviewNotiName"// 购物车显示一览表通知
 #define HideOverviewNotiName @"HideOverviewNotiName"
 
-
 #define OverviewUpdateFoodNotiName @"OverviewUpdateFoodNotiName"// 购物车一览表更新食物数量通知
-
 
 #define ShowOverTableAnimTime 0.5// 点击购物车显示一览表的动画时间
 

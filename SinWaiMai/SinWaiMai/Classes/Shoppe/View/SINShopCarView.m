@@ -15,7 +15,7 @@
 #define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
 #define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 
-@interface SINShopCarView () <SINCarMgrDelegate>
+@interface SINShopCarView () <SINCarMgrBaseDelegate,SINOverviewMgrDelegate>
 
 /** 购物车图片imgView */
 @property (weak, nonatomic) IBOutlet UIImageView *shoppeCarImgV;
@@ -50,8 +50,9 @@
     [super awakeFromNib];
     
     // 初始化
-    self.carMgr = [SINCarManager shareCarMgr];
-    self.carMgr.delegate = self;
+    self.carMgr = [[SINCarManager alloc] init];
+    self.carMgr.baseDelegate = self;
+    self.carMgr.overviewDelegate = self;
     
     self.backgroundColor = SINCarViewGrayColor;
     self.differPriceLabel.backgroundColor = SINCarViewGrayColor;
@@ -98,7 +99,7 @@
     self.curOrderCountLabel.hidden = NO;
     self.curOrderCountLabel.text = totalCount;
     int count = [totalCount intValue];
-    SINLog(@"totalCount - %@ - %d",totalCount,count);
+    SINLog(@"car - %@ - %d",totalCount,count);
     if (count <= 0) {
         self.curOrderCountLabel.hidden = YES;
     }
@@ -120,6 +121,11 @@
 - (void)carMgr_OrderFromFood:(SINFood *)food operate:(CarMgrOperateWay)operate
 {
     
+}
+
+- (void)carMgr_willHideOverview
+{
+    [self hideShopCarAnim];
 }
 
 /**

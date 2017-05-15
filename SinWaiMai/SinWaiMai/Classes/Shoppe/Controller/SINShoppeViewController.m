@@ -41,7 +41,7 @@
 #define OverViewRate 0.8 // 一览表占整屏高度的最大比例
 #define SINOverviewHUDBGColor [UIColor colorWithRed:181/255.0 green:181/255.0 blue:179/255.0 alpha:0.5]
 
-@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate,SINOverviewMgrDelegate,SINCarMgrDelegate>
+@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate,SINOverviewMgrDelegate,SINCarMgrBaseDelegate>
 
 /** 整体scrollView */
 @property (nonatomic,strong) UIScrollView *gobalView;
@@ -158,7 +158,7 @@
     [SINNotificationCenter addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
     
     self.carMgr.overviewDelegate = self;
-    self.carMgr.delegate = self;
+    self.carMgr.baseDelegate = self;
 }
 
 /**
@@ -167,14 +167,17 @@
 - (void)setupDiscoveryModule
 {
     SINDiscoveryView *disV = [SINDiscoveryView discoveryView];
+    disV.shop_photo_info = self.shoppeInfoes.shop_photo_info;
+    disV.shop_certification_info = self.shoppeInfoes.shop_certification_info;
+    disV.welfare_basic_info = self.shoppeInfoes.welfare_basic_info;
     [self.tabScrollView addSubview:disV];
     [disV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.tabScrollView).offset(SINScreenW * 2);
-        make.right.equalTo(self.tabScrollView);
+        make.top.equalTo(self.tabScrollView);
         make.width.equalTo(@(SINScreenW));
-        make.height.equalTo(@(SINScreenH));
+        make.height.equalTo(@(SINScreenH+300));
     }];
-    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 3);
+//    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 3);
 }
 
 /**
@@ -519,7 +522,7 @@ static CGFloat preOffsetY = 0;
 
 - (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
 {
-    SINLog(@"---totalcount - %@",totalCount);
+    SINLog(@"shopvc - %@",totalCount);
     if ([totalCount isEqualToString:@"0"]) {
         SINLog(@"-----------");
         [self carMgr_willHideOverview];

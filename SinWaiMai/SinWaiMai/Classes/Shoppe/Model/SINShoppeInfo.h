@@ -68,6 +68,9 @@
 // 商家模块
 @property (nonatomic,strong) NSDictionary *front_logistics_brand;
 
+
+@property (nonatomic,strong) NSString *shop_id;
+
 ///** 标题 */
 //@property (nonatomic,strong) NSString *brand;
 ///** 描述 */

@@ -172,15 +172,6 @@
 #pragma mark - 初始化
 - (void)setupNavi
 {
-    [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
-    
-    //    UILabel *lab = [[UILabel alloc] init];
-    //    lab.text = @"我的";
-    //    lab.font = [UIFont systemFontOfSize:19];
-    //    lab.frame = CGRectMake(0, 0, 20, 50);
-    //    lab.textColor = [UIColor whiteColor];
-    //    self.navigationItem.titleView = lab;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
@@ -224,7 +215,7 @@
     // 设置整体scrollView的内容尺寸
 //    CGFloat scrollVH = self.userInfoView.height + self.walletView.height + self.userCenterView.height;
 //    SINLog(@"scrollVH%f",scrollVH);
-    self.gobalScrollView.contentSize = CGSizeMake(0,739);
+    self.gobalScrollView.contentSize = CGSizeMake(0,739+140);
     
     
     // 登录view
@@ -319,7 +310,7 @@
 {
     if (!_waveView) {
         self.automaticallyAdjustsScrollViewInsets = NO;
-        _waveView = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 50, SINScreenW, 95)];
+        _waveView = [[SINWaveView alloc] initWithFrame:CGRectMake(0, 0, SINScreenW, 140)];// y = 50 w = 95
         _waveView.backgroundColor = SINColor(248, 64, 87, 1);
         [self.view addSubview:_waveView];
         [_waveView addSubview:self.iconView];

@@ -9,9 +9,9 @@
 #import "SINFoodCell.h"
 #import "UIImageView+SINWebCache.h"
 #import "SINThrowView.h"
+#import "SINCarManager.h"
 
-@interface SINFoodCell ()
-
+@interface SINFoodCell () <SINCarMgrBaseDelegate>
 /** 商户logoUrl */
 @property (weak, nonatomic) IBOutlet UIImageView *logoImgView;
 /** 商户名label */
@@ -31,12 +31,16 @@
 /** 原始价格 */
 @property (weak, nonatomic) IBOutlet UILabel *originalPriceLabel;
 
+@property (nonatomic,strong) SINCarManager *carMgr;
 @end
 
 @implementation SINFoodCell
 
 - (void)setFood:(SINFood *)food
 {
+    self.carMgr = [[SINCarManager alloc] init];
+    self.carMgr.baseDelegate = self;
+    
     if (!self.curOrderCount) {
         self.decreaseBtn.hidden = YES;
         self.orderCountLabel.hidden = YES;
@@ -57,6 +61,25 @@
     self.saledWithGoodCommentLabel.text = [NSString stringWithFormat:@"月售%@ 好评率%@",food.saled,ratioStr];
     
     self.currentPricelabel.text = [NSString stringWithFormat:@"¥%@",food.current_price];
+}
+
+- (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
+{
+    if (!foodes.count || [totalCount isEqualToString:@"0"]) {
+        self.food.orderCount = 0;//---
+        self.orderCountLabel.text = totalCount;
+        self.decreaseBtn.hidden = YES;
+        self.orderCountLabel.hidden = YES;
+        return;
+    }
+    
+    for (SINFood *food in foodes) {
+        if (self.food.item_id == food.item_id) {
+            self.food.orderCount = food.orderCount;//---
+            self.orderCountLabel.text = [NSString stringWithFormat:@"%d",food.orderCount];
+            SINLog(@"food - %@",totalCount);
+        }
+    }
 }
 
 - (IBAction)decreaseBtnClick:(id)sender {

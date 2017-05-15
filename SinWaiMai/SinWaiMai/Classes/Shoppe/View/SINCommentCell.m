@@ -128,9 +128,7 @@
         }
     }
     UILabel *timeLab = [self alignmentWithLabStrs:@[self.comment.create_time] imgN:@"commentTime" startY:timeStartY superV:self.commentContentView];
-    
     self.cellHeight = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + commentTypeMargin*2;
-//    [self sizeToFit];
 }
 
 /**

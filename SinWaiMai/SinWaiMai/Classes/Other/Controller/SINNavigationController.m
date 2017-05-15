@@ -9,6 +9,7 @@
 #import "SINNavigationController.h"
 #import "SINHomepageViewController.h"
 #import "SINShoppeViewController.h"
+#import "SINMineViewController.h"
 
 @interface SINNavigationController ()
 
@@ -39,6 +40,16 @@
             [self.navigationBar setShadowImage:[[UIImage alloc] init]];
             return self;
         }
+        
+        if ([rootViewController isKindOfClass:[SINMineViewController class]]) {
+            [self.navigationBar setBarTintColor:SINGobalColor];
+            [self.navigationBar setBackgroundColor:[UIColor colorWithRed:244/255.0 green:46/255.0 blue:81/255.0 alpha:1.0]];
+            [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:244/255.0 green:46/255.0 blue:81/255.0 alpha:1.0]}];
+            self.navigationBar.translucent = NO;
+            [self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+            [self.navigationBar setShadowImage:[[UIImage alloc] init]];
+        }
+        
         [self.navigationBar setBackgroundColor:SINGobalColor];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:SINGobalColor}];
         

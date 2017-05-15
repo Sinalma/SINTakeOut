@@ -21,17 +21,12 @@
 @end
 
 @implementation SINCarManager
-
-/** Achieve all order for the class method  */
-static NSArray *_classFoodes;
-
-#pragma mark - 单粒
 static SINCarManager *_carMgr;
+
 #pragma mark - Inital Method
 - (instancetype)init
 {
     if (self = [super init]) {
-        
         [SINNotificationCenter addObserver:self selector:@selector(foodCell_updateFood:) name:AddFoodToShopCarName object:nil];
         [SINNotificationCenter addObserver:self selector:@selector(overview_updateFoodCount:) name:OverviewUpdateFoodCountNoti object:nil];
         [SINNotificationCenter addObserver:self selector:@selector(carViewWillShowOverview:) name:ShowOverviewNotiName object:nil];
@@ -41,32 +36,10 @@ static SINCarManager *_carMgr;
     return self;
 }
 
-- (void)carViewWillShowOverview:(NSNotification *)noti
-{
-    if ([self.overviewDelegate performSelector:@selector(carMgr_willShowOverview:) withObject:nil]) {
-        [self.overviewDelegate carMgr_willShowOverview:self.foodes];
-    }
-}
-
-- (void)carViewWillHideOverview
-{
-    if ([self.overviewDelegate performSelector:@selector(carMgr_willShowOverview:) withObject:nil]) {
-        [self.overviewDelegate carMgr_willHideOverview];
-    }
-}
-
-#pragma mark - Override Method
-
 #pragma mark - Oneself Assign Method
-+ (NSArray *)totalOrderFromFood
-{
-    return _classFoodes;
-}
-
 - (void)carMgr_addObjectToFoodes:(SINFood *)food
 {
     [self.foodes addObject:food];
-    _classFoodes = self.foodes;
 }
 
 static NSString *totalCountStr = nil;
@@ -74,7 +47,9 @@ static NSArray *emptyFoodIndexes = nil;
 - (void)compareFood_idAndDealFood:(SINFood *)food
 {
     self.totalFoodCount = 0;
+    // 重复food不添加进数组
     BOOL isRepetion = NO;
+    NSMutableArray *arrM = [NSMutableArray array];
     
     for (SINFood *curFood in self.foodes) {
         
@@ -94,38 +69,43 @@ static NSArray *emptyFoodIndexes = nil;
                 default:
                     break;
             }
+            
             isRepetion = YES;
         }
         
-        NSMutableArray *arrM = [NSMutableArray array];
         if (curFood.orderCount == 0) {
             [arrM addObject:curFood];
         }
-        emptyFoodIndexes = arrM;
     }
+    // 空数量food
+    if (arrM.count) emptyFoodIndexes = arrM;
     
     if (!isRepetion || !self.foodes.count) {
-        food.orderCount = 1;
+        food.orderCount = 1;// 注意
         self.totalFoodCount += food.orderCount;
         [self carMgr_addObjectToFoodes:food];
     }
     
+    food.operate = KOperateByDone;
+    totalCountStr = [NSString stringWithFormat:@"%d",self.totalFoodCount];
+    
     for (SINFood *food in emptyFoodIndexes) {
         [self.foodes removeObject:food];
     }
-    
-    food.operate = KOperateByDone;
-    totalCountStr = [NSString stringWithFormat:@"%d",self.totalFoodCount];
     if (self.totalFoodCount == 0) {
-        self.foodes = nil;
+        [self.foodes removeAllObjects];
+        totalCountStr = @"0";
+        totalPriceStr = @"0";
     }
 }
 
-static NSString *totalPriceStr = nil;
+static NSString *totalPriceStr = @"0";
 static int totalPrice;
 - (void)countingTotalPrice
 {
     totalPrice = 0;
+    if (!self.foodes.count) return;
+    
     int price = 0;
     for (SINFood *food in self.foodes) {
        price = [food.current_price intValue];
@@ -149,23 +129,44 @@ static int totalPrice;
     });
     
     SINDISPATCH_MAIN_THREAD(^{
-        
+    
         // notify delegate
-        if ([self.delegate performSelector:@selector(carMgr_OrderFromFood:operate:) withObject:food withObject:@(KOperateByIncrease)]) {
-            [self.delegate carMgr_OrderFromFood:food operate:KOperateByIncrease];
+        if ([self.baseDelegate respondsToSelector:@selector(carMgr_OrderFromFood:operate:)]) {
+            [self.baseDelegate carMgr_OrderFromFood:food operate:food.operate];
         }
+        
         [self updateDelegateCountAndPrice];
+        
+        if (!self.foodes.count) {
+            if ([self.overviewDelegate respondsToSelector:@selector(carMgr_willHideOverview)]) {
+                [self.overviewDelegate carMgr_willHideOverview];
+            }
+        }
     });
 }
 
 - (void)updateDelegateCountAndPrice
 {
-    if ([self.delegate performSelector:@selector(carMgr_updateOrder:totalCount:) withObject:self.foodes withObject:totalCountStr]) {
-        [self.delegate carMgr_updateOrder:self.foodes totalCount:totalCountStr];
+    if ([self.baseDelegate respondsToSelector:@selector(carMgr_updateOrder:totalCount:)]) {
+        [self.baseDelegate carMgr_updateOrder:self.foodes totalCount:totalCountStr];
     }
     
-    if ([self.delegate performSelector:@selector(carMgr_updateTotalPrice:) withObject:totalPriceStr]) {
-        [self.delegate carMgr_updateTotalPrice:totalPriceStr];
+    if ([self.baseDelegate respondsToSelector:@selector(carMgr_updateTotalPrice:)]){
+        [self.baseDelegate carMgr_updateTotalPrice:totalPriceStr];
+    }
+}
+
+- (void)carViewWillShowOverview:(NSNotification *)noti
+{
+    if ([self.overviewDelegate respondsToSelector:@selector(carMgr_willShowOverview:)]) {
+        [self.overviewDelegate carMgr_willShowOverview:self.foodes];
+    }
+}
+
+- (void)carViewWillHideOverview
+{
+    if ([self.overviewDelegate respondsToSelector:@selector(carMgr_willHideOverview)]) {
+        [self.overviewDelegate carMgr_willHideOverview];
     }
 }
 
@@ -190,27 +191,27 @@ static int totalPrice;
 }
 
 #pragma mark - Single Method
-+ (instancetype)shareCarMgr
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _carMgr = [[self alloc] init];
-    });
-    return _carMgr;
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _carMgr = [super allocWithZone:zone];
-    });
-    return _carMgr;
-}
-
-- (instancetype)copy
-{
-    return _carMgr;
-}
+//+ (instancetype)shareCarMgr
+//{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _carMgr = [[self alloc] init];
+//    });
+//    return _carMgr;
+//}
+//
+//+ (instancetype)allocWithZone:(struct _NSZone *)zone
+//{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _carMgr = [super allocWithZone:zone];
+//    });
+//    return _carMgr;
+//}
+//
+//- (instancetype)copy
+//{
+//    return _carMgr;
+//}
 
 @end
