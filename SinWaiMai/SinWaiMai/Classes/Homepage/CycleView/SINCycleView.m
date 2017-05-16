@@ -50,8 +50,7 @@
         [self addSubview:self.pageControl];
         
         for (int i = 0; i < SIN_ImageView_Count; i++) {
-            SINImageView *imgV= [[SINImageView alloc] init];
-            imgV.frame = CGRectMake(i*w, 0, w, h);
+            SINImageView *imgV= [[SINImageView alloc] initWithFrame: CGRectMake(i*w, 0, w, h)];
             imgV.identify = i;
             imgV.userInteractionEnabled = YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgClick:)];
@@ -104,7 +103,7 @@ static int downImageIndex = 0;
                     self.images = webImages;
                     });
                 }
-                
+
             }];
          }
    });

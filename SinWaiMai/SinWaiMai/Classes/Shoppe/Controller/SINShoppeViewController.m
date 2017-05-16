@@ -129,7 +129,6 @@
         SINTakeoutMenu *takemenu = (SINTakeoutMenu *)takeoutMenues[i];
         
         NSArray *dataArr = takemenu.data;
-        
         for (int j = 0; j < dataArr.count; j++) {
             NSDictionary *dict = dataArr[j];
             
@@ -257,7 +256,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"商户详情数据获取失败 error = %@",error);
-    }];
+    }];// 请求结束
     });// 子线程end
 }
 
@@ -522,9 +521,7 @@ static CGFloat preOffsetY = 0;
 
 - (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
 {
-    SINLog(@"shopvc - %@",totalCount);
     if ([totalCount isEqualToString:@"0"]) {
-        SINLog(@"-----------");
         [self carMgr_willHideOverview];
     }
 }

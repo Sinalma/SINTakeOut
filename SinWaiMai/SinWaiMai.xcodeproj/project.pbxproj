@@ -27,12 +27,12 @@
 		1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061C1E331CD000E3FD84 /* SINUserInfo.m */; };
 		181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061F1E331DD400E3FD84 /* SINWalletItem.m */; };
 		181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106221E331E6B00E3FD84 /* SINUserCenterItem.m */; };
+		181E0CFC1ECADB7F009CFB5C /* SINImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0CFB1ECADB7F009CFB5C /* SINImageView.m */; };
 		182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933311E3DC0C900E0C110 /* SINShoppeViewController.m */; };
 		1829333A1E3DC0C900E0C110 /* SINFoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933351E3DC0C900E0C110 /* SINFoodCell.m */; };
 		1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182933361E3DC0C900E0C110 /* SINFoodCell.xib */; };
 		1829333F1E3DCEDB00E0C110 /* SINShoppeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */; };
 		185D3DB51EB5DB0A00AAD618 /* SINCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */; };
-		185D3DB61EB5DB0A00AAD618 /* SINImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB21EB5DB0A00AAD618 /* SINImageView.m */; };
 		185D3DB71EB5DB0A00AAD618 /* SINWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */; };
 		188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316441E2888FA00CE1455 /* SINNormalButton.m */; };
 		188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188316471E28BD7E00CE1455 /* SINNewUserEnjorView.m */; };
@@ -146,6 +146,7 @@
 		18DC02C41E6B064D0018940E /* SINOrderLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DC02C31E6B064D0018940E /* SINOrderLoginView.xib */; };
 		18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */; };
 		18E6EC641EC87A7F00ABFA8D /* SINCarDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6EC631EC87A7F00ABFA8D /* SINCarDatabase.m */; };
+		18E6EC681EC9DDC600ABFA8D /* SINPhotoBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6EC671EC9DDC600ABFA8D /* SINPhotoBrowserController.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
 		18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA61821E25DA9D009D826E /* LaunchScreen.storyboard */; };
@@ -227,6 +228,8 @@
 		1811061F1E331DD400E3FD84 /* SINWalletItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINWalletItem.m; path = ../../Guide/Model/SINWalletItem.m; sourceTree = "<group>"; };
 		181106211E331E6B00E3FD84 /* SINUserCenterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINUserCenterItem.h; path = ../../Guide/Model/SINUserCenterItem.h; sourceTree = "<group>"; };
 		181106221E331E6B00E3FD84 /* SINUserCenterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINUserCenterItem.m; path = ../../Guide/Model/SINUserCenterItem.m; sourceTree = "<group>"; };
+		181E0CFA1ECADB7F009CFB5C /* SINImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINImageView.h; sourceTree = "<group>"; };
+		181E0CFB1ECADB7F009CFB5C /* SINImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINImageView.m; sourceTree = "<group>"; };
 		182933301E3DC0C900E0C110 /* SINShoppeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeViewController.h; sourceTree = "<group>"; };
 		182933311E3DC0C900E0C110 /* SINShoppeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeViewController.m; sourceTree = "<group>"; };
 		182933341E3DC0C900E0C110 /* SINFoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodCell.h; sourceTree = "<group>"; };
@@ -236,8 +239,6 @@
 		1829333E1E3DCEDB00E0C110 /* SINShoppeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeInfo.m; sourceTree = "<group>"; };
 		185D3DAF1EB5DB0A00AAD618 /* SINCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCycleView.h; sourceTree = "<group>"; };
 		185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCycleView.m; sourceTree = "<group>"; };
-		185D3DB11EB5DB0A00AAD618 /* SINImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINImageView.h; sourceTree = "<group>"; };
-		185D3DB21EB5DB0A00AAD618 /* SINImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINImageView.m; sourceTree = "<group>"; };
 		185D3DB31EB5DB0A00AAD618 /* SINWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINWebImageDownloader.h; sourceTree = "<group>"; };
 		185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINWebImageDownloader.m; sourceTree = "<group>"; };
 		188316431E2888FA00CE1455 /* SINNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINNormalButton.h; sourceTree = "<group>"; };
@@ -412,6 +413,8 @@
 		18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SINSafe.m"; sourceTree = "<group>"; };
 		18E6EC621EC87A7F00ABFA8D /* SINCarDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarDatabase.h; sourceTree = "<group>"; };
 		18E6EC631EC87A7F00ABFA8D /* SINCarDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarDatabase.m; sourceTree = "<group>"; };
+		18E6EC661EC9DDC600ABFA8D /* SINPhotoBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINPhotoBrowserController.h; sourceTree = "<group>"; };
+		18E6EC671EC9DDC600ABFA8D /* SINPhotoBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINPhotoBrowserController.m; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EA61771E25DA9D009D826E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18EA61781E25DA9D009D826E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -628,8 +631,6 @@
 			children = (
 				185D3DAF1EB5DB0A00AAD618 /* SINCycleView.h */,
 				185D3DB01EB5DB0A00AAD618 /* SINCycleView.m */,
-				185D3DB11EB5DB0A00AAD618 /* SINImageView.h */,
-				185D3DB21EB5DB0A00AAD618 /* SINImageView.m */,
 				185D3DB31EB5DB0A00AAD618 /* SINWebImageDownloader.h */,
 				185D3DB41EB5DB0A00AAD618 /* SINWebImageDownloader.m */,
 			);
@@ -865,6 +866,17 @@
 			path = Mine/LoginRegister;
 			sourceTree = "<group>";
 		};
+		18E6EC651EC9DDA700ABFA8D /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				181E0CFA1ECADB7F009CFB5C /* SINImageView.h */,
+				181E0CFB1ECADB7F009CFB5C /* SINImageView.m */,
+				18E6EC661EC9DDC600ABFA8D /* SINPhotoBrowserController.h */,
+				18E6EC671EC9DDC600ABFA8D /* SINPhotoBrowserController.m */,
+			);
+			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
 		18EA61681E25DA9D009D826E = {
 			isa = PBXGroup;
 			children = (
@@ -930,6 +942,7 @@
 		18EA61A91E262590009D826E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18E6EC651EC9DDA700ABFA8D /* PhotoBrowser */,
 				189AE9AA1EACE6B6007A080B /* QRCode */,
 				18C71BFE1E9E172300E1710B /* Map */,
 				18C71BFA1E9DD51F00E1710B /* ShareView */,
@@ -1482,6 +1495,7 @@
 				180001ED1E2F472B00B7599B /* SINWelfare.m in Sources */,
 				1829333A1E3DC0C900E0C110 /* SINFoodCell.m in Sources */,
 				18D6820B1E34EEDC006158E0 /* Text.m in Sources */,
+				181E0CFC1ECADB7F009CFB5C /* SINImageView.m in Sources */,
 				18D2372C1E6E4F8200387FB8 /* SINTopTopicCell.m in Sources */,
 				18C71C011E9E183600E1710B /* SINAddressController.mm in Sources */,
 				189AE9D41EACE6B6007A080B /* SINQRCodeController.m in Sources */,
@@ -1518,6 +1532,7 @@
 				18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
 				18EA61C91E262960009D826E /* SINHomepageViewController.m in Sources */,
+				18E6EC681EC9DDC600ABFA8D /* SINPhotoBrowserController.m in Sources */,
 				188316631E2B91E100CE1455 /* SINGuideViewController.m in Sources */,
 				18DC02BF1E6A53F60018940E /* SINUserCenterView.m in Sources */,
 				18EAC8EB1E31F6D7007FE5E0 /* SINWMType.m in Sources */,
@@ -1535,7 +1550,6 @@
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
 				18DC02B61E690CDF0018940E /* SINWalletView.m in Sources */,
 				18BFF1351E50071200C5DDB5 /* SINHeaderView.m in Sources */,
-				185D3DB61EB5DB0A00AAD618 /* SINImageView.m in Sources */,
 				1883164D1E28CA9A00CE1455 /* CALayer+SINXibBorderColor.m in Sources */,
 				180823F21EBC9934006E2F5C /* SINAnimtion.m in Sources */,
 				18D2374F1E72CA6C00387FB8 /* SINLoginViewController.m in Sources */,

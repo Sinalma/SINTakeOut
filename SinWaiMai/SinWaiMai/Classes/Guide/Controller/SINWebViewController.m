@@ -88,7 +88,6 @@
 {
     if (_webView == nil) {
         _webView = [[UIWebView alloc] init];
-        _webView.backgroundColor = [UIColor orangeColor];
     }
     return _webView;
 }
