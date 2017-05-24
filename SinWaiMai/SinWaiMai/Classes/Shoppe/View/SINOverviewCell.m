@@ -29,8 +29,9 @@
 - (SINBuyView *)buyView
 {
     if (!_buyView) {
-        CGFloat y = 30-self.foodPriceLabel.height;
-         self.buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(self.width - 100 - 10, y * 0.5, 100, 30)];
+        CGFloat y = 30-self.foodPriceLabel.height+15;
+        CGFloat x = SINScreenW - 100 - 10;
+         self.buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(x, y * 0.5, 100, 30)];
     }
     return _buyView;
 }

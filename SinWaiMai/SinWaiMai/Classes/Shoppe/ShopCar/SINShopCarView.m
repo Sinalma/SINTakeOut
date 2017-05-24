@@ -14,6 +14,7 @@
 
 #define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
 #define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
+#define TranslationOffset_Y_Ratio  -0.68// 购物车图标上移比例
 
 @interface SINShopCarView () <SINOverviewMgrDelegate>
 
@@ -160,8 +161,8 @@ static BOOL showingOverviewState = NO;
     self.userInteractionEnabled = NO;
     // 同时做购物车图标上移动画
     [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
-        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, -465);
-        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, -465);
+        self.shoppeCarImgV.transform = CGAffineTransformMakeTranslation(0, TranslationOffset_Y_Ratio * SINScreenH);
+        self.curOrderCountLabel.transform = CGAffineTransformMakeTranslation(0, TranslationOffset_Y_Ratio * SINScreenH);
         self.totalPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
         self.takeoutPriceLabel.transform = CGAffineTransformMakeTranslation(-60, 0);
     } completion:^{

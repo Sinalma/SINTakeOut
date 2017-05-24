@@ -65,6 +65,13 @@ static int buyMaxCount = 100;
     
     if (self.buyCount >= buyMaxCount) return;
     
+    if (self.buyCount >= 999) {
+        self.countLabel.font = [UIFont systemFontOfSize:12];
+    }else
+    {
+        self.countLabel.font = [UIFont systemFontOfSize:14];
+    }
+    
     self.buyCount++;
     self.decreaseBtn.hidden = NO;
     self.countLabel.hidden = NO;
@@ -72,6 +79,7 @@ static int buyMaxCount = 100;
     self.countLabel.text = [NSString stringWithFormat:@"%d",self.buyCount];
     [[SINCarManager shareCarMgr] addFoodToShopCar:self.food];
     [self sendNotication];
+    
 }
 
 - (void)decreaseFood
@@ -103,8 +111,8 @@ static int buyMaxCount = 100;
 {
     [super layoutSubviews];
     
-    self.decreaseBtn.frame = CGRectMake(0, 0, self.width * 0.3, self.height);
-    self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.decreaseBtn.frame), 0, self.width * 0.4, self.height);
+    self.decreaseBtn.frame = CGRectMake(10, 0, self.width * 0.3, self.height);
+    self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.decreaseBtn.frame), 0, self.width * 0.3, self.height);
     self.increaseBtn.frame = CGRectMake(CGRectGetMaxX(self.countLabel.frame), 0, self.width * 0.3, self.height);
 }
 

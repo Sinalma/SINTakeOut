@@ -28,7 +28,6 @@
 
 @property (nonatomic,strong) SINCarManager *carMgr;
 
-
 @property (nonatomic,strong) SINBuyView *buyView;
 @end
 
@@ -40,7 +39,7 @@
     
     [self addSubview:self.buyView];
     self.buyView.food = food;
-    
+    SINLog(@"buyView - %@",NSStringFromCGRect(self.buyView.frame));
     food.orderCount = 0;
     
     food.url = [[food.url componentsSeparatedByString:@"@"] firstObject];
@@ -61,7 +60,9 @@
 {
     if (!_buyView) {
         CGFloat y = (30 - self.originalPriceLabel.height) * 0.5;
-        _buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(self.width-65, self.originalPriceLabel.y-y, 100, 30)];
+        CGFloat x = SINScreenW * 0.75 - 100 - 10;
+        _buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(x, self.originalPriceLabel.y-y, 100, 30)];
+//        _buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(50, 50, 100, 30)];
     }
     return _buyView;
 }
