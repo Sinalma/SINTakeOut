@@ -1,0 +1,8 @@
+use_frameworks!
+target 'SinWaiMai' do
+   pod 'Masonry'
+   pod 'AFNetworking'
+   pod 'SDWebImage'
+   pod 'MJRefresh'
+   pod 'MBProgressHUD'   
+end
