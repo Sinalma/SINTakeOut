@@ -12,7 +12,6 @@
 #import "SINMineViewController.h"
 
 @interface SINNavigationController ()
-
 @end
 
 @implementation SINNavigationController

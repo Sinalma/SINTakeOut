@@ -21,7 +21,6 @@
     [super viewDidLoad];
    
     [self setupNaiv];
-    
     [self setupChildView];
 }
 
@@ -33,7 +32,6 @@
         make.width.equalTo(@200);
         make.height.equalTo(@300);
     }];
-    
 }
 
 #pragma mark - SINOrderLoginViewDelegata
@@ -48,7 +46,7 @@
 
 - (void)shopCarBtnClick
 {
-    
+    SINLog(@"Shop car click.");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,7 +72,7 @@
     
     [self.navigationController.navigationBar setBarTintColor:SINGobalColor];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shopCar_navi"] style:UIBarButtonItemStylePlain target:self action:@selector(shopCarBtnClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shopmenu_shop_card_30x30_"] style:UIBarButtonItemStylePlain target:self action:@selector(shopCarBtnClick)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 

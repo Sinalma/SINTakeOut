@@ -12,34 +12,26 @@
 #import "UIImageView+SINWebCache.h"
 
 @interface SINShoppeTableViewCell ()
+
 #pragma mark - 控件
 /** 新店图标 */
 @property (weak, nonatomic) IBOutlet UIImageView *shop_mark_picView;
-
 /** 商户logoImageView */
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
-
 /** 商户名label */
 @property (weak, nonatomic) IBOutlet UILabel *shopNameLabel;
-
 /** 配送商label */
 @property (weak, nonatomic) IBOutlet UILabel *front_logistics_text;
-
 /** 月销售量label */
 @property (weak, nonatomic) IBOutlet UILabel *saledMouthLabel;
-
 /** 起送价label */
 @property (weak, nonatomic) IBOutlet UILabel *takeOutPriceLabel;
-
 /** 配送费label */
 @property (weak, nonatomic) IBOutlet UILabel *takeOutCostLabel;
-
 /** 配送时间label */
 @property (weak, nonatomic) IBOutlet UILabel *delivery_time;
-
 /** 距离label */
 @property (weak, nonatomic) IBOutlet UILabel *distance;
-
 /** 底部优惠信息容器View */
 @property (weak, nonatomic) IBOutlet UIView *welfareContainer;
 
@@ -63,7 +55,7 @@
     _shoppe = shoppe;
     
     // 商户logo
-    [self.logoImageView sin_setImageWithURL:[NSURL URLWithString:shoppe.logo_url] placeholderImage:nil];
+    [self.logoImageView sin_setImageWithURL:[NSURL URLWithString:shoppe.logo_url] placeholderImage:[UIImage imageNamed:@"category_default_50x50_"]];
     
     // 商户名称
     self.shopNameLabel.text = shoppe.shop_name;
@@ -188,7 +180,7 @@
             [self.welfareContainer addSubview:lab];
             
             UIButton *btn = [[UIButton alloc] init];
-            [btn setImage:[UIImage imageNamed:@"downArrow"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"downarrow_14x14_"] forState:UIControlStateNormal];
             arrowY = (lab.height - arrowWH) / 2;
             arrowX = CGRectGetMaxX(lab.frame);
             btn.frame = CGRectMake(arrowX, arrowY, arrowWH, arrowWH);

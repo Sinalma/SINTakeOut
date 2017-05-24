@@ -129,8 +129,6 @@ static NSString * const SINDefaultText = @"清除缓存";
             });
             
             cell.textLabel.text = SINDefaultText;
-            
-            // 禁止点击事件
             cell.userInteractionEnabled = NO;
         }];
     }];
@@ -140,7 +138,7 @@ static NSString * const SINDefaultText = @"清除缓存";
 - (void)setup
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_icon_white_nomal_24x24_"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
     
     self.tableView.rowHeight = 55;

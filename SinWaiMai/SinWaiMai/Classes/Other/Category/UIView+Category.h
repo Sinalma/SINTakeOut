@@ -4,7 +4,7 @@
 //
 //  Created by apple on 11/01/2017.
 //  Copyright © 2017 sinalma. All rights reserved.
-//  用点语法实现改控件的单个尺寸和单个位置坐标
+//  
 
 #import <UIKit/UIKit.h>
 

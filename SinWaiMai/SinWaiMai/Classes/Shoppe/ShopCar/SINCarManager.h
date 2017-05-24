@@ -4,9 +4,9 @@
 //
 //  Created by apple on 06/05/2017.
 //  Copyright © 2017 sinalma. All rights reserved.
-//
+//  添加食物的第一响应类，食物的采集者
 
-// This calss is manager food data、detail and logic about user all of order .
+// This calss is manager food data、detail and logic about user all of order.
 
 /**
  * Implementation Detail 
@@ -20,18 +20,6 @@
 #import <Foundation/Foundation.h>
 @class SINFood;
 
-
-@protocol SINCarMgrBaseDelegate <NSObject>
-
-@required
-/** When receive notification of add food , back up this method from delegate. */
-- (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount;
-@optional
-- (void)carMgr_updateTotalPrice:(NSString *)totalPrice;
-- (void)carMgr_OrderFromFood:(SINFood *)food operate:(CarMgrOperateWay)operate;
-
-@end
-
 @protocol SINOverviewMgrDelegate <NSObject>
 
 @optional
@@ -42,10 +30,16 @@
 
 @interface SINCarManager : NSObject
 
-@property (nonatomic,weak) id<SINCarMgrBaseDelegate> baseDelegate;
-
 @property (nonatomic,weak) id<SINOverviewMgrDelegate> overviewDelegate;
 
-//+ (instancetype)shareCarMgr;
++ (instancetype)shareCarMgr;
+
+- (void)addFoodToShopCar:(SINFood *)food;
+- (void)removeFood:(SINFood *)food;
+- (NSMutableArray *)getShopCarFoodes;
+- (NSInteger)getFoodTypeCount;
+- (int)getTotalFoodCount;
+- (NSString *)getAllFoodPrice;
+- (BOOL)isEmpty;
 
 @end

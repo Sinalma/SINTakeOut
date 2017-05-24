@@ -145,11 +145,9 @@ typedef enum : NSUInteger {
             //            if (self.content_ids.count) {
             //            for (NSString *content_id in self.content_ids) {
             //                if ([topic.content_id isEqualToString:content_id]) {
-            //                    SINLog(@"相同id");
             //                    continue;
             //                }else
             //                {
-            //                SINLog(@"到后面");
             //                [self.topics addObject:topic];
             //                [self.content_ids addObject:topic.content_id];
             //                }

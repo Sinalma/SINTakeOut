@@ -19,7 +19,6 @@
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
 /** 存放顶部内容段子数据 */
 @property (nonatomic,strong) NSArray *topTopics;
-
 /** 存放内容段子数据 */
 @property (nonatomic,strong) NSMutableArray *topics;
 /** 推荐 */
@@ -53,8 +52,6 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-//        [responseObject writeToFile:@"/Users/apple/desktop/guide_outData.plist" atomically:YES];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         SINLog(@"指南界面 - 后面数据加载失败 = %@",error);

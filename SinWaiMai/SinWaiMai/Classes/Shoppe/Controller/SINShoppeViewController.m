@@ -14,6 +14,9 @@
  * 当gobalView向上滚动到不能滚动时，让typeTableView和foodTableView可以向上滚动，但不能向下，这时候contentScrollView不能滚动
  */
 
+// 当前触发跳转其他控制器事件的view，超出scrollView的contentSize时，跳转前会调用scrollView代理的scrollViewDidScroll方法。
+// 自定义导航条(若干个按钮+一个指示条):scrollView减速完成时(scrollViewDidEndDecelerating)和点击按钮滚动scrollView，调用同一个方法,并传入需要选中的按钮索引，来滚动指示条和设置scrollView的contentOffset，示例 ： selectNaviBtn
+
 #import "SINShoppeViewController.h"
 #import "Masonry.h"
 #import "UILabel+Category.h"
@@ -32,6 +35,7 @@
 #import "SINAddress.h"
 #import "SINOverviewCell.h"
 #import "SINCarManager.h"
+#import "SINLoadingHUD.h"
 
 #define SINWelfareLabH 20 // 优惠信息label高度
 #define SINNormalMargin 10 // 普通间距
@@ -41,40 +45,30 @@
 #define OverViewRate 0.8 // 一览表占整屏高度的最大比例
 #define SINOverviewHUDBGColor [UIColor colorWithRed:181/255.0 green:181/255.0 blue:179/255.0 alpha:0.5]
 
-@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINCarOverviewDelegate,SINOverviewMgrDelegate,SINCarMgrBaseDelegate>
+@interface SINShoppeViewController () <UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SINOverviewMgrDelegate>
 
 /** 整体scrollView */
 @property (nonatomic,strong) UIScrollView *gobalView;
-
 /** 优惠信息容器 */
 @property (nonatomic,strong) UIView *welfareV;
-
 /** 顶部模块整体view */
 @property (nonatomic,strong) UIView *topModuleV;
-
+/** 分割线 */
 @property (nonatomic,strong) UIView *lineV;
-
 /** 内容scrollView */
 @property (nonatomic,strong) UIScrollView *contentScrollV;
-
 /** 爱心提醒模块 */
 @property (nonatomic,strong) UIView *remindV;
-
 /** 左侧商品类型tableView */
 @property (nonatomic,strong) UITableView *typeTableView;
-
 /** 右侧食物tableView */
 @property (nonatomic,strong) UITableView *foodTableView;
-
 /** 装tableView的scrollView */
 @property (nonatomic,strong) UIScrollView *tabScrollView;
-
 /** 指示条 */
 @property (nonatomic,strong) UIView *diactorView;
-
 /** 导航条的子按钮数组 */
 @property (nonatomic,strong) NSMutableArray *naviBtns;
-
 /** 当前选中的导航栏按钮 */
 @property (nonatomic,strong) UIButton *selNaviBtn;
 
@@ -92,26 +86,23 @@
 #pragma mark - 数据
 /** 存放所有数据的模型数组 */
 @property (nonatomic,strong) SINShoppeInfo *shoppeInfoes;
-
 /** 存放外卖菜单的模型数组 */
 @property (nonatomic,strong) NSArray *takeoutMenues;
-
 /** 评论控制器的view */
 @property (nonatomic,strong) SINCommentViewController *commentVC;
-
 /** 分享view */
 @property (nonatomic,strong) SINShareView *shareView;
-
 /** 当前地址模型 */
 @property (nonatomic,strong) SINAddress *curAddress;
-
 /** 保存上一个被选中的商户外卖类型cell */
 @property (nonatomic,strong) UITableViewCell *curSelTypeCell;
-
 /** 存放右边食物tableView所有组标题的label */
 @property (nonatomic,strong) NSMutableArray *foodTitleLabels;
-
+/** 购物车管理者 */
 @property (nonatomic,strong) SINCarManager *carMgr;
+/** 进入购物车一览表时食物列表的偏移量 */
+//@property (nonatomic,assign) CGPoint foodviewOffset;
+@property (nonatomic,strong) SINLoadingHUD *loadingHUD;
 
 @end
 
@@ -123,15 +114,11 @@
     
     // 嵌套数据转模型
     for (int i = 0; i < takeoutMenues.count; i++) {
-
         NSMutableArray *foods = [NSMutableArray array];
-        
         SINTakeoutMenu *takemenu = (SINTakeoutMenu *)takeoutMenues[i];
-        
         NSArray *dataArr = takemenu.data;
         for (int j = 0; j < dataArr.count; j++) {
             NSDictionary *dict = dataArr[j];
-            
             SINFood *food = [SINFood foodWithDict:dict];
             [foods addObject:food];
         }
@@ -143,12 +130,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // 初始化导航栏
     [self setupNavi];
-    
-    // 请求网络数据
+    [self setup];
     [self loadData];
-    
+}
+
+- (void)setup
+{
+    self.loadingHUD = [SINLoadingHUD showHudToView:self.view completion:nil];
     self.gobalView.scrollEnabled = YES;
     self.contentScrollV.scrollEnabled = NO;
     self.typeTableView.scrollEnabled = NO;
@@ -157,7 +146,6 @@
     [SINNotificationCenter addObserver:self selector:@selector(addressSelect:) name:AddressSelectNotiName object:nil];
     
     self.carMgr.overviewDelegate = self;
-    self.carMgr.baseDelegate = self;
 }
 
 /**
@@ -169,6 +157,7 @@
     disV.shop_photo_info = self.shoppeInfoes.shop_photo_info;
     disV.shop_certification_info = self.shoppeInfoes.shop_certification_info;
     disV.welfare_basic_info = self.shoppeInfoes.welfare_basic_info;
+    disV.shop_phone = self.shoppeInfoes.shop_phone;
     [self.tabScrollView addSubview:disV];
     [disV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.tabScrollView).offset(SINScreenW * 2);
@@ -176,7 +165,7 @@
         make.width.equalTo(@(SINScreenW));
         make.height.equalTo(@(SINScreenH+300));
     }];
-//    self.tabScrollView.contentSize = CGSizeMake(0, SINScreenH * 3);
+    self.tabScrollView.contentSize = CGSizeMake(SINScreenW * 3, 0);
 }
 
 /**
@@ -204,7 +193,7 @@
 {
     // 初始化顶部模块
     [self setupTopModule];
-    
+
     // 初始化内容模块
     [self setupContentModule];
     
@@ -247,11 +236,13 @@
         }
         self.takeoutMenues = takeoutMenues;
         
-        dispatch_async(dispatch_get_main_queue(), ^{            
+        dispatch_async(dispatch_get_main_queue(), ^{
             // 初始化子控件
             [self setupOrderFoodMoudle];
             [self setupCommentModule];
             [self setupDiscoveryModule];
+            
+            [self.loadingHUD hideHud];
         });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -310,12 +301,12 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
         }
         
         SINTakeoutMenu *menu = self.takeoutMenues[indexPath.row];
-        
         cell.textLabel.font = [UIFont systemFontOfSize:12];
         cell.textLabel.textColor = [UIColor darkGrayColor];
         cell.textLabel.text = menu.catalog;
         cell.backgroundColor = SINTypeTableViewBGColor;
         
+        // 默认选中左侧cell
         if (indexPath.row == 0) {
             [self selectTypeCell:cell];
         }
@@ -353,7 +344,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if ([tableView isEqual:self.foodTableView]) {
-        
         SINTakeoutMenu *takeoutMenu = self.takeoutMenues[section];
         return takeoutMenu.catalog;
     }
@@ -388,9 +378,6 @@ static NSString *foodTableViewCellID = @"foodTableViewCell";
     return nil;
 }
 
-/**
- * 点击cell调用
- */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -453,7 +440,6 @@ static CGFloat preOffsetY = 0;
     if (scrollView == self.gobalView) {
         
         if (scrollView.contentOffset.y >= 145) {
-            
             [scrollView setContentOffset:CGPointMake(0, 145)];
             self.foodTableView.scrollEnabled = YES;
             self.typeTableView.scrollEnabled = YES;
@@ -475,19 +461,12 @@ static CGFloat preOffsetY = 0;
     }
     
     if ([scrollView isEqual:self.contentScrollV]) {
-        
         if (scrollView.contentOffset.y > 0) {
             self.contentScrollV.transform = CGAffineTransformMakeTranslation(0, -scrollView.contentOffset.y);
         }else
         {
             self.contentScrollV.transform = CGAffineTransformMakeTranslation(0, -scrollView.contentOffset.y * 1.5);
         }
-    }
-    
-    // 处理指示条滚动
-    if (scrollView == self.tabScrollView) {
-        
-        self.diactorView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x / 3, 0);
     }
     
     // 粘住购物车view
@@ -502,7 +481,6 @@ static CGFloat preOffsetY = 0;
     if (scrollView == self.tabScrollView) {
         NSInteger naviSelCount = scrollView.contentOffset.x / SINScreenW;
         UIButton *selBtn = self.naviBtns[naviSelCount];
-        
         [self selectNaviBtn:selBtn];
     }
 }
@@ -518,13 +496,6 @@ static CGFloat preOffsetY = 0;
 //        self.overViewTable.hidden = YES;
 //    }];
 //}
-
-- (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
-{
-    if ([totalCount isEqualToString:@"0"]) {
-        [self carMgr_willHideOverview];
-    }
-}
 
 - (void)carMgr_willShowOverview:(NSMutableArray *)foodes
 {
@@ -545,6 +516,7 @@ static CGFloat preOffsetY = 0;
 - (void)carMgr_willHideOverview
 {
     [SINAnimtion sin_animateWithDuration:ShowOverTableAnimTime animations:^{
+        [self.foodTableView reloadData];
         self.overViewTable.transform = CGAffineTransformMakeTranslation(0, SINScreenH);
     } completion:^{
         self.overviewHUD.hidden = YES;
@@ -594,7 +566,7 @@ static NSString *overViewID = @"overViewID";
 }
 
 /**
- * 点击了蒙板
+ * 点击了购物车商品一览表蒙板
  */
 - (void)overviewHUDClick
 {
@@ -607,7 +579,6 @@ static NSString *overViewID = @"overViewID";
         self.overviewHUD.userInteractionEnabled = YES;
     }];
 }
-
 
 #pragma mark - 自定义监听方法
 - (void)dealloc
@@ -623,7 +594,6 @@ static NSString *overViewID = @"overViewID";
 
 /**
  * 处理导航栏按钮的选中
- * curBtn : 传进来当前需要选中的按钮
  */
 - (void)selectNaviBtn:(UIButton *)curBtn
 {
@@ -633,19 +603,9 @@ static NSString *overViewID = @"overViewID";
     
     self.selNaviBtn = curBtn;
     
-    // 几等份
-    __block NSInteger por = 0;
-    
-    // 处理指示条滚动
-    [UIView animateWithDuration:0.5 animations:^{
-        if (self.selNaviBtn.tag > curBtn.tag) {
-            por = -3;
-        }else
-        {
-            por = 3;
-        }
-        
-        self.diactorView.transform = CGAffineTransformMakeTranslation(curBtn.tag * (SINScreenW / por), 0);
+    // 滚动指示条
+    [UIView animateWithDuration:0.3 animations:^{
+        self.diactorView.x = curBtn.tag * (SINScreenW / 3);// por
     }];
     [self.tabScrollView setContentOffset:CGPointMake(curBtn.tag * SINScreenW, 0) animated:YES];
 }
@@ -653,13 +613,12 @@ static NSString *overViewID = @"overViewID";
 static NSInteger welCount = 3;
 static int welfareOpenState = 0;
 /**
- * 点击了优惠信息容器
+ * 优惠信息容器点击
  */
 - (void)welfareViewClick
 {
     welCount = self.shoppeInfoes.welfare_act_info.count;
     
-    // 优惠信息容器的x值
     CGFloat welfareViewX = self.welfareV.y;
     
     NSInteger count = 0;
@@ -683,16 +642,13 @@ static int welfareOpenState = 0;
     }];
 }
 
-/**
- * 点击了返回
- */
 - (void)naviBackBtnClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /**
- * 点击了分享
+ * 分享点击
  */
 - (void)shareBtnClick
 {
@@ -876,7 +832,7 @@ static int welfareOpenState = 0;
     // 声音图标
     UIImageView *voiceImgV = [[UIImageView alloc] init];
     voiceImgV.backgroundColor = [UIColor clearColor];
-    voiceImgV.image = [UIImage imageNamed:@"voice"];
+    voiceImgV.image = [UIImage imageNamed:@"shopmenu_nitice_icon_13x13_"];
     [remindV addSubview:voiceImgV];
     [voiceImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(remindV).offset(10);
@@ -1006,7 +962,6 @@ static int welfareOpenState = 0;
 {
     SINShopCarView *shopCarV = [SINShopCarView shopCarView];
     shopCarV.shopInfo = self.shoppeInfoes;
-    shopCarV.delegate = self;
     self.shopCarView = shopCarV;
     [self.view addSubview:shopCarV];
     [shopCarV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1021,11 +976,10 @@ static int welfareOpenState = 0;
  */
 - (void)setupNavi
 {
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backAnd"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStyleDone target:self action:@selector(shareBtnClick)];
-    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+//    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_icon_white_nomal_24x24_"] style:UIBarButtonItemStyleDone target:self action:@selector(naviBackBtnClick)];
+    UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shopmenu_navigationbar_share_nomal_22x22_"] style:UIBarButtonItemStyleDone target:self action:@selector(shareBtnClick)];
+    self.navigationItem.rightBarButtonItems = @[shareBtn];
 }
 
 #pragma mark - 懒加载
@@ -1118,7 +1072,7 @@ static int welfareOpenState = 0;
     return _foodTitleLabels;
 }
 
-#pragma mark - 购物车一览表懒加载
+#pragma mark - 购物车
 - (UIView *)overviewHUD
 {
     if (!_overviewHUD) {

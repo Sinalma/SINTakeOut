@@ -79,7 +79,6 @@ typedef enum : NSUInteger {
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getcategorylist" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     
         self.history_member = [responseObject[@"result"][@"history_member"] intValue];
-//        SINLog(@"2 - history_member -> %d",self.history_member);
         
         SINDISPATCH_MAIN_THREAD(^{            
             [self loadData:LoadDataTypeUp];
@@ -112,9 +111,9 @@ typedef enum : NSUInteger {
     if (self.history_member != 0) {
         
         if (loadDataType == LoadDataTypeUp) {
+            
             self.history_member -= 1;
-            
-            
+
         }else if (loadDataType == LoadDataTypeDown)
         {
             self.history_member += 1;
@@ -127,8 +126,6 @@ typedef enum : NSUInteger {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
-//        SINLog(@"%@",responseObject);
         self.history_member = [responseObject[@"result"][@"history_member"] intValue];
         
         for (NSDictionary *dict in responseObject[@"result"][@"content_list"]) {
@@ -164,8 +161,6 @@ typedef enum : NSUInteger {
     [header setTitle:@"加载更多指南" forState:MJRefreshStatePulling];
     [header setTitle:@"加载更多指南" forState:MJRefreshStateRefreshing];
     self.tableView.mj_header = header;
-    
-//    [self.tableView.mj_header beginRefreshing];
     
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }

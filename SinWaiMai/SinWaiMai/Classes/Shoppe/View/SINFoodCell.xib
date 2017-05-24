@@ -37,17 +37,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mlx-pu-zhe">
-                        <rect key="frame" x="197" y="117" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="Ax1-4Q-lLf"/>
-                            <constraint firstAttribute="width" constant="30" id="HU3-9O-ERI"/>
-                        </constraints>
-                        <state key="normal" image="increase"/>
-                        <connections>
-                            <action selector="addFood:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ksd-ia-YOP"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1个原味板烧鸡腿堡 1份薯条 (中) 杯可口可乐 (中)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7SO-xV-fNH">
                         <rect key="frame" x="65" y="51" width="162" height="33.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -63,40 +52,18 @@
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="122" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1l7-w4-msU">
-                        <rect key="frame" x="169" y="123" width="28" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="28" id="jul-rF-2y8"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥22" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKq-po-ieS">
                         <rect key="frame" x="110" y="122.5" width="29" height="19.5"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aie-es-j4G">
-                        <rect key="frame" x="139" y="117" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="O2d-1D-Vnx"/>
-                            <constraint firstAttribute="height" constant="30" id="wOC-4A-jf8"/>
-                        </constraints>
-                        <state key="normal" image="decrease"/>
-                        <connections>
-                            <action selector="decreaseBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="B7n-CN-hZY"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7SO-xV-fNH" firstAttribute="top" secondItem="U3h-JF-ilO" secondAttribute="bottom" constant="10" id="256-mb-Alk"/>
-                    <constraint firstItem="1l7-w4-msU" firstAttribute="leading" secondItem="aie-es-j4G" secondAttribute="trailing" id="8DA-JF-yDt"/>
                     <constraint firstItem="TKq-po-ieS" firstAttribute="centerY" secondItem="vOK-Z5-2Qu" secondAttribute="centerY" id="AdS-ux-EIX"/>
                     <constraint firstItem="oOi-G9-6Sh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="B9Q-Fu-ebX"/>
                     <constraint firstItem="vOK-Z5-2Qu" firstAttribute="leading" secondItem="ARK-YP-zbN" secondAttribute="leading" id="CGY-VJ-LYi"/>
-                    <constraint firstItem="aie-es-j4G" firstAttribute="centerY" secondItem="TKq-po-ieS" secondAttribute="centerY" id="DcK-x1-Y3b"/>
                     <constraint firstItem="U3h-JF-ilO" firstAttribute="leading" secondItem="oOi-G9-6Sh" secondAttribute="trailing" constant="5" id="HBH-Ec-qoh"/>
                     <constraint firstAttribute="trailing" secondItem="ARK-YP-zbN" secondAttribute="trailing" constant="10" id="Hqb-ap-JGp"/>
                     <constraint firstItem="oOi-G9-6Sh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="L1f-5Y-yV5"/>
@@ -104,12 +71,7 @@
                     <constraint firstItem="vOK-Z5-2Qu" firstAttribute="top" secondItem="ARK-YP-zbN" secondAttribute="bottom" constant="10" id="LlW-f0-lgS"/>
                     <constraint firstAttribute="trailing" secondItem="7SO-xV-fNH" secondAttribute="trailing" constant="10" id="NRC-xa-H6S"/>
                     <constraint firstItem="U3h-JF-ilO" firstAttribute="top" secondItem="oOi-G9-6Sh" secondAttribute="top" id="OOC-82-cQ7"/>
-                    <constraint firstAttribute="trailing" secondItem="Mlx-pu-zhe" secondAttribute="trailing" constant="10" id="PfP-n7-IoI"/>
                     <constraint firstItem="ARK-YP-zbN" firstAttribute="leading" secondItem="7SO-xV-fNH" secondAttribute="leading" id="Rsx-hs-NpK"/>
-                    <constraint firstItem="Mlx-pu-zhe" firstAttribute="leading" secondItem="1l7-w4-msU" secondAttribute="trailing" id="YTd-Rl-Ini"/>
-                    <constraint firstItem="Mlx-pu-zhe" firstAttribute="centerY" secondItem="1l7-w4-msU" secondAttribute="centerY" id="cfT-A7-Pwy"/>
-                    <constraint firstItem="1l7-w4-msU" firstAttribute="centerY" secondItem="aie-es-j4G" secondAttribute="centerY" id="egc-KV-Oep"/>
-                    <constraint firstItem="aie-es-j4G" firstAttribute="leading" secondItem="TKq-po-ieS" secondAttribute="trailing" id="ndv-6L-wVB"/>
                     <constraint firstItem="TKq-po-ieS" firstAttribute="leading" secondItem="vOK-Z5-2Qu" secondAttribute="trailing" id="nvO-tl-6a8"/>
                     <constraint firstAttribute="trailing" secondItem="U3h-JF-ilO" secondAttribute="trailing" constant="10" id="pBd-VK-lzz"/>
                     <constraint firstItem="ARK-YP-zbN" firstAttribute="top" secondItem="7SO-xV-fNH" secondAttribute="bottom" constant="10" id="zcO-ug-d65"/>
@@ -117,11 +79,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="currentPricelabel" destination="vOK-Z5-2Qu" id="s4M-JE-nFd"/>
-                <outlet property="decreaseBtn" destination="aie-es-j4G" id="cCY-Lx-KRc"/>
                 <outlet property="descption_Label" destination="7SO-xV-fNH" id="FjL-Fd-VRB"/>
-                <outlet property="inCreaseBtn" destination="Mlx-pu-zhe" id="D0B-b1-QFo"/>
                 <outlet property="logoImgView" destination="oOi-G9-6Sh" id="chg-dc-iI9"/>
-                <outlet property="orderCountLabel" destination="1l7-w4-msU" id="tB1-5o-7mE"/>
                 <outlet property="originalPriceLabel" destination="TKq-po-ieS" id="qeb-2d-N4C"/>
                 <outlet property="saledWithGoodCommentLabel" destination="ARK-YP-zbN" id="nKK-To-qXb"/>
                 <outlet property="shop_name_label" destination="U3h-JF-ilO" id="Wog-Gz-7xP"/>
@@ -129,8 +88,4 @@
             <point key="canvasLocation" x="-193.5" y="-103.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="decrease" width="24" height="22"/>
-        <image name="increase" width="24" height="24"/>
-    </resources>
 </document>

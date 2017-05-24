@@ -22,6 +22,9 @@
 /** 营业时间 */
 @property (nonatomic,strong) NSString *bussiness_time;
 
+/** 商家电话 */
+@property (nonatomic,strong) NSString *shop_phone;
+
 // 公告板
 /** 配送费说明 */
 @property (nonatomic,strong) NSArray *delivery_announcement;

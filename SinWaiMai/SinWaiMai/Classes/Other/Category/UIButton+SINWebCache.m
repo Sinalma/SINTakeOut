@@ -7,7 +7,6 @@
 //
 
 #import "UIButton+SINWebCache.h"
-
 #import "UIButton+WebCache.h"
 
 @implementation UIButton (SINWebCache)

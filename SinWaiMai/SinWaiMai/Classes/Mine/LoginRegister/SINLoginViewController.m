@@ -147,7 +147,6 @@ static BOOL canJumpToPasswordApp = YES;
     self.pwdTextField.text = noti.object;
 }
 
-
 /**
  * 跳转到密码填充app
  */

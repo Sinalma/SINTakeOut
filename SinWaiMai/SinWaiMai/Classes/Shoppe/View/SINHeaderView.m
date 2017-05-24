@@ -38,30 +38,12 @@
 @end
 
 @implementation SINHeaderView
-#pragma mark - 懒加载
 - (NSMutableArray *)commentBtns
 {
     if (_commentBtns == nil) {
         _commentBtns = [NSMutableArray array];
     }
     return _commentBtns;
-}
-
-#pragma mark - 重写方法
-- (instancetype)init
-{
-    if (self = [super init]) {
-    
-//        [self setup];
-    }
-    return self;
-}
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-//        [self setup];
 }
 
 + (instancetype)headerView
@@ -74,6 +56,11 @@
     _shopComment = shopComment;
     
     self.averageScoreLabel.text = shopComment.average_dish_score;
+    
+//    self.isShowContentButton.layer.cornerRadius = self.isShowContentButton.height*0.5;
+//    self.isShowContentButton.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    self.isShowContentButton.layer.borderWidth = 0.3;
+    
     
     // 星星
 //    self.starImgView
@@ -98,11 +85,19 @@
 static BOOL isSelHook = YES;
 - (IBAction)showConetentBtnClick:(UIButton *)btn {
     isSelHook = !isSelHook;
-    if (isSelHook) {
-        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    if (!btn.selected) {
+        btn.selected = YES;
     }else
     {
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        btn.selected = NO;
+    }
+    if (isSelHook) {
+//        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+//        [btn setImage:[UIImage imageNamed:@"global_selected_14x14_"] forState:UIControlStateSelected];
+    }else
+    {
+//        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//        [btn setImage:[UIImage imageNamed:@"getcoupon_21x21_"] forState:UIControlStateNormal];
     }
 }
 
@@ -180,7 +175,6 @@ static BOOL isSelHook = YES;
         
         preBtn = button;
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 2, 0, 2);
-//        [button sizeToFit];
         
         if (i == 0) {
             [self commentTypeBtnClick:button];

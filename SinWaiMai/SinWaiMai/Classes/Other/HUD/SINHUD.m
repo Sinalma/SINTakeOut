@@ -9,10 +9,6 @@
 #import "SINHUD.h"
 
 @interface SINHUD ()
-
-//
-//@property (nonatomic,strong) SINHUD *hud;
-
 @end
 
 @implementation SINHUD

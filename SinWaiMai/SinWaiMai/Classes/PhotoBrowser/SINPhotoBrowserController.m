@@ -13,19 +13,13 @@
 @interface SINPhotoBrowserController () <UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) UIScrollView *scrollView;
-
 @property (nonatomic,strong) UIImageView *imageView;
-
 @property (nonatomic,strong) NSArray *images;
 
 @property (nonatomic,strong) UIPinchGestureRecognizer *pinch;
-
 @property (nonatomic,strong) UIRotationGestureRecognizer *rotation;
-
 @property (nonatomic,strong) UILongPressGestureRecognizer *longPress;
-
 @property (nonatomic,strong) UITapGestureRecognizer *tap;
-
 @property (nonatomic,strong) UITapGestureRecognizer *doubleTap;
 
 @end
@@ -119,7 +113,7 @@
     
     self.title = [NSString stringWithFormat:@"%@ %ld/%ld",self.typeTitle,self.index+1,self.imageUrls.count];
     
-    CGFloat margin = 50;
+    CGFloat margin = 50;// 上下空隙
     for (int i = 0; i < imageUrls.count; i++) {
         UIImageView *imgV = [[UIImageView alloc] init];
         NSString *str = [[imageUrls[i] componentsSeparatedByString:@"@"] firstObject];
@@ -156,7 +150,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    int index = ((int)(scrollView.contentOffset.x/scrollView.width) ) + 1;
+    int index = (int)(scrollView.contentOffset.x/scrollView.width) + 1;
     self.title = [NSString stringWithFormat:@"%@ %d/%ld",self.typeTitle,index,self.imageUrls.count];
 }
 

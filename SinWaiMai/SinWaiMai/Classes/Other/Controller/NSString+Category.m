@@ -18,7 +18,6 @@
     NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundBankers scale:1 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
     NSDecimalNumber* decimalObj = [[NSDecimalNumber alloc] initWithDouble:decimal];
     NSNumber* ratio = [decimalObj decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
-    
     return [NSString stringWithFormat:@"%@",ratio];
 }
 

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="377" height="52"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xeV-fX-iPe" id="tBL-f6-cEJ">
-                <rect key="frame" x="0.0" y="0.0" width="377" height="52"/>
+                <rect key="frame" x="0.0" y="0.0" width="377" height="51.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HK-f1-wGr">
@@ -41,71 +41,26 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1N-e3-ccO">
-                        <rect key="frame" x="218" y="18" width="50" height="18"/>
+                        <rect key="frame" x="218" y="18" width="28" height="18"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6X-s3-yXY">
-                        <rect key="frame" x="303" y="17.5" width="39" height="19.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="39" id="4UQ-nB-PJS"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsr-eo-oTl">
-                        <rect key="frame" x="278" y="15" width="25" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="awA-O1-woZ"/>
-                            <constraint firstAttribute="width" constant="25" id="szv-Er-hzo"/>
-                        </constraints>
-                        <state key="normal" title="Button" image="decrease"/>
-                        <connections>
-                            <action selector="decrease:" destination="xeV-fX-iPe" eventType="touchUpInside" id="fEj-Oz-pdj"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueA-b3-9qt">
-                        <rect key="frame" x="342" y="15.5" width="25" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="25" id="87V-KY-LrW"/>
-                            <constraint firstAttribute="height" constant="25" id="sAZ-mU-MZ7"/>
-                        </constraints>
-                        <state key="normal" title="Button" image="increase"/>
-                        <connections>
-                            <action selector="increase:" destination="xeV-fX-iPe" eventType="touchUpInside" id="o98-iy-Dw6"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ueA-b3-9qt" firstAttribute="leading" secondItem="w6X-s3-yXY" secondAttribute="trailing" id="2HP-GO-3Zh"/>
                     <constraint firstItem="T1N-e3-ccO" firstAttribute="leading" secondItem="MZJ-E4-akV" secondAttribute="trailing" constant="10" id="L4c-hN-iqU"/>
                     <constraint firstItem="9HK-f1-wGr" firstAttribute="leading" secondItem="tBL-f6-cEJ" secondAttribute="leading" constant="8" id="Nis-1R-lLq"/>
-                    <constraint firstItem="Dsr-eo-oTl" firstAttribute="leading" secondItem="T1N-e3-ccO" secondAttribute="trailing" constant="10" id="P4i-H4-hti"/>
                     <constraint firstItem="T1N-e3-ccO" firstAttribute="centerY" secondItem="MZJ-E4-akV" secondAttribute="centerY" id="V9y-P8-tdz"/>
                     <constraint firstItem="9HK-f1-wGr" firstAttribute="centerY" secondItem="tBL-f6-cEJ" secondAttribute="centerY" id="WIl-4e-gjL"/>
-                    <constraint firstItem="w6X-s3-yXY" firstAttribute="leading" secondItem="Dsr-eo-oTl" secondAttribute="trailing" id="YPL-es-1tC"/>
-                    <constraint firstAttribute="trailing" secondItem="ueA-b3-9qt" secondAttribute="trailing" constant="10" id="Yfo-gA-XU5"/>
-                    <constraint firstItem="ueA-b3-9qt" firstAttribute="centerY" secondItem="w6X-s3-yXY" secondAttribute="centerY" id="hmc-Gk-TEv"/>
                     <constraint firstItem="MZJ-E4-akV" firstAttribute="leading" secondItem="9HK-f1-wGr" secondAttribute="trailing" constant="10" id="imF-mZ-5yF"/>
-                    <constraint firstItem="w6X-s3-yXY" firstAttribute="centerY" secondItem="Dsr-eo-oTl" secondAttribute="centerY" id="jJl-Xp-Tbk"/>
-                    <constraint firstItem="Dsr-eo-oTl" firstAttribute="centerY" secondItem="T1N-e3-ccO" secondAttribute="centerY" id="vV8-oi-C6Z"/>
                     <constraint firstItem="MZJ-E4-akV" firstAttribute="centerY" secondItem="9HK-f1-wGr" secondAttribute="centerY" id="xJo-bW-BU8"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="decreaseBtn" destination="Dsr-eo-oTl" id="gXq-mV-tQ8"/>
                 <outlet property="foodNameLabel" destination="MZJ-E4-akV" id="2vB-er-7ac"/>
                 <outlet property="foodPriceLabel" destination="T1N-e3-ccO" id="4Hu-IX-WlU"/>
-                <outlet property="increaseBtn" destination="ueA-b3-9qt" id="Npt-M8-RJU"/>
-                <outlet property="orderCountLable" destination="w6X-s3-yXY" id="yWS-sT-n2T"/>
             </connections>
             <point key="canvasLocation" x="-774.5" y="-452"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="decrease" width="24" height="22"/>
-        <image name="increase" width="24" height="24"/>
-    </resources>
 </document>

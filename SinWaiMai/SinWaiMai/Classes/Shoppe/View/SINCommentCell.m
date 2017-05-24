@@ -28,7 +28,6 @@
 /** 保存遍历创建中的上一个标签label */
 @property (nonatomic,strong) UILabel *previousTagLab;
 
-
 @end
 
 @implementation SINCommentCell
@@ -127,7 +126,7 @@
             timeStartY = self.comment.content.length?CGRectGetMaxY(contentLabel.frame)+commentTypeMargin:0;
         }
     }
-    UILabel *timeLab = [self alignmentWithLabStrs:@[self.comment.create_time] imgN:@"commentTime" startY:timeStartY superV:self.commentContentView];
+    UILabel *timeLab = [self alignmentWithLabStrs:@[self.comment.create_time] imgN:@"shopfind_deliverytime_18x18_" startY:timeStartY superV:self.commentContentView];
     self.cellHeight = CGRectGetMaxY(timeLab.frame) + self.commentContentView.y + commentTypeMargin*2;
 }
 

@@ -26,8 +26,8 @@
 #import "SINAddressController.h"
 #import "SINAddress.h"
 #import "SINNavigationController.h"
+#import "SINLoadingHUD.h"
 
-/** 普通间距 */
 #define margin 10
 
 @interface SINHomepageViewController () <UITableViewDataSource,UIScrollViewDelegate,SINShoppeTableViewCellDelegate,UITableViewDelegate,SINCycleViewDelegate>
@@ -85,22 +85,25 @@
 /** 当前选择的地址模型及单个属性 */
 @property (nonatomic,strong) SINAddress *curAddress;
 
+@property (nonatomic,strong) SINLoadingHUD *loadingHUD;
+
 @end
 
 @implementation SINHomepageViewController
 #pragma mark - 首页启动入口
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // 初始化
     [self setup];
     [self setupNavi];
-    
-    // 添加和布局整体scrollView子控件
     [self layoutGobalScrollViewChildView];
-    
-    // 初始化刷新控件
+    [self setupLoadingHUD];
     [self setupRefreshing];
+}
+
+- (void)setupLoadingHUD
+{
+    SINLoadingHUD *hud = [SINLoadingHUD showHudToView:self.view completion:nil];
+    self.loadingHUD = hud;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -123,7 +126,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    SINLog(@"内存吃紧，请处理");
+    SINLog(@"内存吃紧");
     self.activties = nil;
     self.wMTypes = nil;
     self.adImgUrls = nil;
@@ -321,6 +324,7 @@ static int networkPage = 1;
         dispatch_async(dispatch_get_main_queue(), ^{
             // 刷新tableView
             [self.shoppeView reloadData];
+            [self.loadingHUD hideHud];
         });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -420,7 +424,7 @@ static int networkPage = 1;
     // 小车图标
     UIImageView *bicycleImg = [[UIImageView alloc] init];
     bicycleImg.frame = CGRectMake(0, 0, 15, 15);
-    bicycleImg.image = [UIImage imageNamed:@"bicycle"];
+    bicycleImg.image = [UIImage imageNamed:@"home_navi_address_16x16_"];
     [cusView addSubview:bicycleImg];
     
     // 地址label，需要能点击

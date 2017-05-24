@@ -245,20 +245,14 @@
     
     // 返回按钮
     UIButton *backBtn = [[UIButton alloc] init];
-//    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"arrowLeft"] forState:UIControlStateNormal];
-//    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [backBtn setBackgroundColor:[UIColor darkGrayColor]];
+    [backBtn setImage:[UIImage imageNamed:@"dish_detail_back_43x43_"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(gobackBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [containV addSubview:backBtn];
     self.backBtn = backBtn;
     
     // 分享按钮
     UIButton *shareBtn = [[UIButton alloc] init];
-//    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-//    [shareBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [shareBtn setImage:[UIImage imageNamed:@"shareFood"] forState:UIControlStateNormal];
-//    [shareBtn setBackgroundColor:[UIColor darkGrayColor]];
+    [shareBtn setImage:[UIImage imageNamed:@"dish_share_43x43_"] forState:UIControlStateNormal];
     [shareBtn addTarget:self action:@selector(sharedBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [containV addSubview:shareBtn];
     self.shareBtn = shareBtn;

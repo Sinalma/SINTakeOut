@@ -56,7 +56,6 @@
     groupAnim.duration = duration;
     groupAnim.animations = @[positionAnim,self.rotationAnim];
     [self.layer addAnimation:groupAnim forKey:nil];
-    
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
@@ -64,9 +63,9 @@
     // 动画执行结束移除view
     [self removeFromSuperview];
     
-//    if (self.completion) {
+    if (self.completion) {
         self.completion();
-//    }
+    }
 }
 
 - (CABasicAnimation *)rotationAnim

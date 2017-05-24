@@ -27,19 +27,10 @@
     return _wMTypeBtns;
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    // 初始化子控件
-//    [self setup];
-}
-
 - (void)setWMTypes:(NSArray *)wMTypes
 {
     _wMTypes = wMTypes;
     
-    // 初始化子控件
     [self setup];
     
     [self setupGravityBehaviour];
@@ -65,13 +56,8 @@
     
     CGFloat margin = 10;
     
-    // 行数
     int rowCount = 2;
-    // 一页列数
     int columnCount = 5;
-    
-    // 求出总共的列数
-    // 这里可以用公式
     CGFloat colFloat = wMTypeCount % 2;
     NSInteger colInt = wMTypeCount / 2;
     

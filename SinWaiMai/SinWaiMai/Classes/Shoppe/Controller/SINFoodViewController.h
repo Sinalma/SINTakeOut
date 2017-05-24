@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 @class SINFood;
 
-
 @interface SINFoodViewController : UIViewController
 
-// 模型
 @property (nonatomic,strong) SINFood *food;
 
 @end

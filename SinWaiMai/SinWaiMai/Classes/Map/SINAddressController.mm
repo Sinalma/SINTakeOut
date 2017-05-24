@@ -249,6 +249,7 @@ static int curPage = 0;
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"subtitleCellID"];
             cell.detailTextLabel.text = @"当前定位地址";
             cell.detailTextLabel.textColor = [UIColor redColor];
+            cell.imageView.image = [UIImage imageNamed:@"icon_address_location_h_18x18_"];
         }
         cell.textLabel.text = address.address;
         cell.textLabel.font = [UIFont systemFontOfSize:15];

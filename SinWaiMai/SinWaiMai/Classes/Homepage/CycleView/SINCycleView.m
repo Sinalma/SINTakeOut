@@ -103,7 +103,6 @@ static int downImageIndex = 0;
                     self.images = webImages;
                     });
                 }
-
             }];
          }
    });
@@ -187,7 +186,6 @@ static int downImageIndex = 0;
         {
             self.curIndex ++;
         }
-        
     }else
     {
         if (self.curIndex == 0) {

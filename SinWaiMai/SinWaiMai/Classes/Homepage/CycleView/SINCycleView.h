@@ -14,7 +14,6 @@
 @optional
 /** 点击图片时跳用代理方法 */
 - (void)cycleView:(SINCycleView *)cycleView didClickImageAtIndex:(int)index;
-
 @end
 
 @interface SINCycleView : UIView

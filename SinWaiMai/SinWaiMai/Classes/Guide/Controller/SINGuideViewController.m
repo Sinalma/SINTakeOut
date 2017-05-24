@@ -18,6 +18,7 @@
 #import "SINOtherViewController.h"
 #import "SINLoginViewController.h"
 #import "SINQRCodeController.h"
+#import "SINLoadingHUD.h"
 
 // 导航条高度
 #define GuideNaviViewHeight 30
@@ -25,50 +26,37 @@
 @interface SINGuideViewController ()
 /** 网络管理者 */
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
-
 /** 导航条 */
 @property (nonatomic,strong) UIScrollView *naviView;
-
 /** 导航条所有lab */
 @property (nonatomic,strong) NSMutableArray *naviLabs;
-
 /** 导航条所有指示条 */
 @property (nonatomic,strong) NSMutableArray *naviLines;
-
 /** 当前选中导航条的lab */
 @property (nonatomic,strong) UILabel *selLab;
-
 /** 当前需要显示的指示条 */
 @property (nonatomic,strong) UIView *selLine;
-
 /** 吃货控制器 */
 @property (nonatomic,strong) SINFoodieViewController *foodieVC;
-
 /** 推荐控制器 */
 @property (nonatomic,strong) SINRecommendViewController *recommendVC;
-
 /** 关注控制器 */
 @property (nonatomic,strong) SINFollowViewController *followVC;
-
 /** 剁手控制器 */
 @property (nonatomic,strong) SINChophandViewController *chophandVC;
-
 /** 生活控制器 */
 @property (nonatomic,strong) SINLifeViewController *lifeVC;
-
 /** 其他控制器 */
 @property (nonatomic,strong) SINOtherViewController *otherVC;
-
 /** 底层scrollView */
 @property (nonatomic,strong) UIScrollView *groundScrollView;
+@property (nonatomic,strong) SINLoadingHUD *loadingHUD;
 
 #pragma mark - 数据
 /** 导航栏标题数组 */
 @property (nonatomic,strong) NSArray *naviTitles;
-
 /** 存放所有控制器的数组 */
 @property (nonatomic,strong) NSMutableArray *AllChildVC;
-
 
 @end
 
@@ -86,11 +74,11 @@
     
     [self setupNavi];
     
+    [self loadTopData];
+    
     [self setupChildVC];
     
     [self setupChildView];
-    
-    [self loadTopData];
 }
 
 - (void)loadTopData
@@ -103,7 +91,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getindex" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [responseObject writeToFile:@"Users/apple/desktop/guide_topData.plist" atomically:YES];
         
         // 导航栏标题
         NSMutableArray *naviLabStrArrM = [NSMutableArray array];
@@ -218,7 +205,6 @@ static BOOL loginStatu = NO;
  */
 - (void)naviScrollWithCurrentLab:(UILabel *)lab
 {
-    // 滚动到合适位置
     CGFloat labCenterX = lab.x + lab.width * 0.5;
     CGFloat naviW = self.naviView.width;
     CGFloat naviVContentW = self.naviView.contentSize.width;
@@ -244,7 +230,7 @@ static BOOL loginStatu = NO;
 }
 
 /**
- * 初始化导航条子控件
+ * 初始化自定义导航条子控件
  */
 - (void)setupNaviViewChildView
 {
@@ -275,8 +261,7 @@ static BOOL loginStatu = NO;
         preLab = lab;
         [self.naviLabs addObject:lab];
     
-        
-        // 底部标记条
+        // 底部指示条
         UIView *line = [[UIView alloc] init];
         line.backgroundColor = [UIColor redColor];
         line.hidden = YES;

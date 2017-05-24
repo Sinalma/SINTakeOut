@@ -20,7 +20,6 @@
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
 /** 存放顶部内容段子数据 */
 @property (nonatomic,strong) NSArray *topTopics;
-
 /** 存放内容段子数据 */
 @property (nonatomic,strong) NSMutableArray *topics;
 /** 推荐 */

@@ -4,7 +4,7 @@
 //
 //  Created by apple on 31/01/2017.
 //  Copyright © 2017 sinalma. All rights reserved.
-//  购物车提示view
+//
 
 #import "SINShopCarView.h"
 #import "SINFood.h"
@@ -15,26 +15,20 @@
 #define SINCarViewGrayColor [UIColor colorWithRed:66/255.0 green:62/255.0 blue:59/255.0 alpha:1.0]
 #define SINCarViewPinkColor [UIColor colorWithRed:245/255.0 green:56/255.0 blue:82/255.0 alpha:1.0]
 
-@interface SINShopCarView () <SINCarMgrBaseDelegate,SINOverviewMgrDelegate>
+@interface SINShopCarView () <SINOverviewMgrDelegate>
 
 /** 购物车图片imgView */
 @property (weak, nonatomic) IBOutlet UIImageView *shoppeCarImgV;
-
 /** 总价 */
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
-
 /** 配送费 */
 @property (weak, nonatomic) IBOutlet UILabel *takeoutPriceLabel;
-
-/** 起送差额 */
+/** 起送费 */
 @property (weak, nonatomic) IBOutlet UILabel *differPriceLabel;
-
-/** 当前订单数label */
+/** 当前订单数 */
 @property (weak, nonatomic) IBOutlet UILabel *curOrderCountLabel;
-
-/** 存放当前选择的所有食物的数组 */
+/** 购物车食物的数组 */
 @property (nonatomic,strong) NSMutableArray *foodes;
-
 @property (nonatomic,strong) SINCarManager *carMgr;
 
 @end
@@ -49,14 +43,10 @@
 {
     [super awakeFromNib];
     
-    // 初始化
-    self.carMgr = [[SINCarManager alloc] init];
-    self.carMgr.baseDelegate = self;
-    self.carMgr.overviewDelegate = self;
-    
     self.backgroundColor = SINCarViewGrayColor;
     self.differPriceLabel.backgroundColor = SINCarViewGrayColor;
     self.curOrderCountLabel.backgroundColor = SINCarViewPinkColor;
+    self.differPriceLabel.textColor = [UIColor whiteColor];
     
     NSString *str = self.shopInfo.takeout_price.length?self.shopInfo.takeout_price:@"0";
     self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",str];
@@ -64,7 +54,33 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(choiceOK)];
     [self.differPriceLabel addGestureRecognizer:tap];
     
-//    [SINNotificationCenter addObserver:self selector:@selector(receiveFood:) name:AddFoodToShopCarName object:nil];
+    [SINNotificationCenter addObserver:self selector:@selector(priceDidChange) name:SINShopCarPriceDidChangeNoti object:nil];
+    [SINNotificationCenter addObserver:self selector:@selector(showOrHideOverview) name:SINShopCarDidClearNoti object:nil];
+}
+
+- (void)priceDidChange
+{
+    int count = [[SINCarManager shareCarMgr] getTotalFoodCount];
+    
+    if (count <= 0)
+    {
+        self.curOrderCountLabel.hidden = YES;
+        self.differPriceLabel.backgroundColor = SINCarViewGrayColor;
+        NSString *difStr = self.shopInfo.takeout_price.length?self.shopInfo.takeout_price:@"0";
+        self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",difStr];
+    }else
+    {
+        self.differPriceLabel.text = @"选好了";
+        self.differPriceLabel.backgroundColor = SINCarViewPinkColor;
+        self.curOrderCountLabel.hidden = NO;
+    }
+    self.curOrderCountLabel.text = [NSString stringWithFormat:@"%d",count];
+    self.foodes = [[SINCarManager shareCarMgr] getShopCarFoodes];
+    
+    NSString *priceStr = [[SINCarManager shareCarMgr] getAllFoodPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"共¥%@",priceStr];
+    
+    self.takeoutPriceLabel.text = [NSString stringWithFormat:@"另需配送费%@元",self.shopInfo.takeout_cost];
 }
 
 - (void)dealloc
@@ -73,15 +89,15 @@
 }
 
 /**
- * 右边起送费lable点击
+ * Right pink button click , is select ok.
  */
 - (void)choiceOK
 {
     if (!self.foodes.count) {
-        // 购物车为空
+        // HUD:Shop car is empty.
         return;
     }
-    // 未登录则跳转至登录界面
+    // Not login,jump to login view control.
     if (![[SINAccount sharedAccount] isLogin])
     {
         UIViewController *rootVC = [[UIApplication sharedApplication].keyWindow rootViewController];
@@ -93,62 +109,10 @@
 }
 
 #pragma mark - SINCarMgrDelegate
-- (void)carMgr_updateOrder:(NSArray *)foodes totalCount:(NSString *)totalCount
-{
-    self.foodes = [foodes copy];
-    self.curOrderCountLabel.hidden = NO;
-    self.curOrderCountLabel.text = totalCount;
-    int count = [totalCount intValue];
-    SINLog(@"car - %@ - %d",totalCount,count);
-    if (count <= 0) {
-        self.curOrderCountLabel.hidden = YES;
-    }
-}
-
-- (void)carMgr_updateTotalPrice:(NSString *)totalPrice
-{
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"共¥%@",totalPrice];
-    
-    self.takeoutPriceLabel.text = [NSString stringWithFormat:@"另需配送费%@元",self.shopInfo.takeout_cost];
-    NSString *str = self.shopInfo.takeout_price.length?self.shopInfo.takeout_price:@"0";
-    
-    self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",str];
-    self.differPriceLabel.text = @"选好了";
-    self.differPriceLabel.textColor = [UIColor whiteColor];
-    self.differPriceLabel.backgroundColor = SINCarViewPinkColor;
-}
-
-- (void)carMgr_OrderFromFood:(SINFood *)food operate:(CarMgrOperateWay)operate
-{
-    
-}
 
 - (void)carMgr_willHideOverview
 {
     [self hideShopCarAnim];
-}
-
-/**
- * 接到添加食物通知调用方法
- */
-- (void)receiveFood:(NSNotification *)noti
-{
-    SINFood *food = noti.object;
-    [self.foodes addObject:food];
-    
-    int orderCount = (int)self.foodes.count;
-    int price = [self totalPrice];
-    self.curOrderCountLabel.hidden = NO;
-    self.curOrderCountLabel.text = [NSString stringWithFormat:@"%d",orderCount];
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"共¥%d",price];
-    
-    self.takeoutPriceLabel.text = [NSString stringWithFormat:@"另需配送费%@元",self.shopInfo.takeout_cost];
-    NSString *str = self.shopInfo.takeout_price.length?self.shopInfo.takeout_price:@"0";
-    
-    self.differPriceLabel.text = [NSString stringWithFormat:@"%@元起送",str];
-    self.differPriceLabel.text = @"选好了";
-    self.differPriceLabel.textColor = [UIColor whiteColor];
-    self.differPriceLabel.backgroundColor = SINCarViewPinkColor;
 }
 
 static BOOL showingOverviewState = NO;
@@ -159,20 +123,13 @@ static BOOL showingOverviewState = NO;
         return;
     }
     if (showingOverviewState) {
-//        if ([self.delegate performSelector:@selector(hideOverview)]) {
-//            [self.delegate hideOverview];
-//            [self hideShopCarAnim];
-//        }
         [SINNotificationCenter postNotificationName:HideOverviewNotiName object:nil];
         [self hideShopCarAnim];
         showingOverviewState = NO;
         return;
     }
     
-    // 弹出已选商品总览界面
-//    if ([self.delegate performSelector:@selector(showOverviewWithFoodes:) withObject:self.foodes]) {
-//        [self.delegate showOverviewWithFoodes:self.foodes];
-//    }
+    // 弹出已选商品一览界面
     [SINNotificationCenter postNotificationName:ShowOverviewNotiName object:self.foodes];
     
     [self showShopCarAnim];
@@ -210,20 +167,6 @@ static BOOL showingOverviewState = NO;
     } completion:^{
         self.userInteractionEnabled = YES;
     }];
-}
-
-
-/**
- * 获取当前已选食物总价格
- */
-- (int)totalPrice
-{
-    int totalP = 0;
-    for (SINFood *food in self.foodes) {
-        int price = [food.current_price intValue];
-        totalP += price;
-    }
-    return totalP;
 }
 
 - (NSMutableArray *)foodes

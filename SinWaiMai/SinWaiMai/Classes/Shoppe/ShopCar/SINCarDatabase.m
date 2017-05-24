@@ -20,8 +20,6 @@
 @end
 
 @implementation SINCarDatabase
-
-
 - (int)carDB_curUserOrderCount
 {
     int totalCount = 0;
@@ -55,7 +53,6 @@
         [_orderFoodes removeObjectForKey:food.item_id];
     }
 }
-
 
 - (NSMutableDictionary *)orderFoodes
 {

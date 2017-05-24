@@ -8,37 +8,31 @@
 
 #import "SINOverviewCell.h"
 #import "SINFood.h"
+#import "SINBuyView.h"
 
 @interface SINOverviewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *foodNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *foodPriceLabel;
-@property (weak, nonatomic) IBOutlet UIButton *decreaseBtn;
-@property (weak, nonatomic) IBOutlet UILabel *orderCountLable;
-@property (weak, nonatomic) IBOutlet UIButton *increaseBtn;
+@property (nonatomic,strong) SINBuyView *buyView;
 @end
 
 @implementation SINOverviewCell
 - (void)setFood:(SINFood *)food
 {
     _food = food;
+    
     self.foodNameLabel.text = food.name;
-    self.foodPriceLabel.text = [NSString stringWithFormat:@"¥%@",food.current_price];
-    self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.food.orderCount];
+    [self addSubview:self.buyView];
+    self.buyView.food = food;
 }
 
-- (IBAction)decrease:(id)sender {
-    if (self.orderCount != 0) {
-        self.orderCount--;
-        self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.orderCount];
+- (SINBuyView *)buyView
+{
+    if (!_buyView) {
+        CGFloat y = 30-self.foodPriceLabel.height;
+         self.buyView = [[SINBuyView alloc] initWithFrame:CGRectMake(self.width - 100 - 10, y * 0.5, 100, 30)];
     }
-    self.food.operate = KOperateByDecrease;
-    [SINNotificationCenter postNotificationName:OverviewUpdateFoodNotiName object:self.food];
-}
-- (IBAction)increase:(id)sender {
-    self.orderCount++;
-    self.orderCountLable.text = [NSString stringWithFormat:@"%d",self.orderCount];
-    self.food.operate = KOperateByIncrease;
-    [SINNotificationCenter postNotificationName:OverviewUpdateFoodNotiName object:self.food];
+    return _buyView;
 }
 
 @end

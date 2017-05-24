@@ -7,9 +7,7 @@
 //
 
 #import "SINNewUserEnjorView.h"
-
 #import "SINNewuserentry.h"
-
 #import "UIImageView+SINWebCache.h"
 
 @interface SINNewUserEnjorView ()

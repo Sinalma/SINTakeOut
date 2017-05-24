@@ -22,12 +22,18 @@
 		180823EC1EBAED53006E2F5C /* SINThrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823EB1EBAED53006E2F5C /* SINThrowView.m */; };
 		180823EF1EBC19EF006E2F5C /* SINOverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180823EE1EBC19EF006E2F5C /* SINOverviewCell.xib */; };
 		180823F21EBC9934006E2F5C /* SINAnimtion.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823F11EBC9934006E2F5C /* SINAnimtion.m */; };
-		180823F61EBD59DD006E2F5C /* SINCarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 180823F51EBD59DD006E2F5C /* SINCarManager.m */; };
+		180D32041ED51A860010EA56 /* SINLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D32031ED51A860010EA56 /* SINLoadingHUD.m */; };
 		1811061A1E331B4400E3FD84 /* SINUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106191E331B4400E3FD84 /* SINUserInfoView.m */; };
 		1811061D1E331CD000E3FD84 /* SINUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061C1E331CD000E3FD84 /* SINUserInfo.m */; };
 		181106201E331DD400E3FD84 /* SINWalletItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811061F1E331DD400E3FD84 /* SINWalletItem.m */; };
 		181106231E331E6B00E3FD84 /* SINUserCenterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 181106221E331E6B00E3FD84 /* SINUserCenterItem.m */; };
 		181E0CFC1ECADB7F009CFB5C /* SINImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0CFB1ECADB7F009CFB5C /* SINImageView.m */; };
+		181E0D061ECBD924009CFB5C /* SINCarDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0D001ECBD924009CFB5C /* SINCarDatabase.m */; };
+		181E0D071ECBD924009CFB5C /* SINCarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0D021ECBD924009CFB5C /* SINCarManager.m */; };
+		181E0D081ECBD924009CFB5C /* SINShopCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0D041ECBD924009CFB5C /* SINShopCarView.m */; };
+		181E0D091ECBD924009CFB5C /* SINShopCarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181E0D051ECBD924009CFB5C /* SINShopCarView.xib */; };
+		181E0D101ECC8C6D009CFB5C /* SINCarCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0D0F1ECC8C6D009CFB5C /* SINCarCalculate.m */; };
+		181E0D171ED025A3009CFB5C /* SINBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E0D161ED025A3009CFB5C /* SINBuyView.m */; };
 		182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933311E3DC0C900E0C110 /* SINShoppeViewController.m */; };
 		1829333A1E3DC0C900E0C110 /* SINFoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182933351E3DC0C900E0C110 /* SINFoodCell.m */; };
 		1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182933361E3DC0C900E0C110 /* SINFoodCell.xib */; };
@@ -116,8 +122,6 @@
 		18C71BFD1E9DD55100E1710B /* SINShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C71BFC1E9DD55100E1710B /* SINShareView.m */; };
 		18C71C011E9E183600E1710B /* SINAddressController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C71C001E9E183600E1710B /* SINAddressController.mm */; };
 		18C7A3C81E52F6220035725C /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 18C7A3C71E52F6220035725C /* test.html */; };
-		18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C3731E405D0800609BC1 /* SINShopCarView.m */; };
-		18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C3751E405D2400609BC1 /* SINShopCarView.xib */; };
 		18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C3781E40634500609BC1 /* SINFoodView.m */; };
 		18C9C37E1E40CDE500609BC1 /* SINFoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9C37D1E40CDE500609BC1 /* SINFoodViewController.m */; };
 		18D2371A1E6BB58600387FB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D237191E6BB58600387FB8 /* Assets.xcassets */; };
@@ -145,7 +149,6 @@
 		18DC02C21E6B062A0018940E /* SINOrderLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DC02C11E6B062A0018940E /* SINOrderLoginView.m */; };
 		18DC02C41E6B064D0018940E /* SINOrderLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18DC02C31E6B064D0018940E /* SINOrderLoginView.xib */; };
 		18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */; };
-		18E6EC641EC87A7F00ABFA8D /* SINCarDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6EC631EC87A7F00ABFA8D /* SINCarDatabase.m */; };
 		18E6EC681EC9DDC600ABFA8D /* SINPhotoBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E6EC671EC9DDC600ABFA8D /* SINPhotoBrowserController.m */; };
 		18EA61791E25DA9D009D826E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA61781E25DA9D009D826E /* AppDelegate.m */; };
 		18EA617F1E25DA9D009D826E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18EA617D1E25DA9D009D826E /* Main.storyboard */; };
@@ -218,8 +221,8 @@
 		180823EE1EBC19EF006E2F5C /* SINOverviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINOverviewCell.xib; sourceTree = "<group>"; };
 		180823F01EBC9934006E2F5C /* SINAnimtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAnimtion.h; sourceTree = "<group>"; };
 		180823F11EBC9934006E2F5C /* SINAnimtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINAnimtion.m; sourceTree = "<group>"; };
-		180823F41EBD59DD006E2F5C /* SINCarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarManager.h; sourceTree = "<group>"; };
-		180823F51EBD59DD006E2F5C /* SINCarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarManager.m; sourceTree = "<group>"; };
+		180D32021ED51A860010EA56 /* SINLoadingHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINLoadingHUD.h; sourceTree = "<group>"; };
+		180D32031ED51A860010EA56 /* SINLoadingHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINLoadingHUD.m; sourceTree = "<group>"; };
 		181106181E331B4400E3FD84 /* SINUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINUserInfoView.h; sourceTree = "<group>"; };
 		181106191E331B4400E3FD84 /* SINUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINUserInfoView.m; sourceTree = "<group>"; };
 		1811061B1E331CD000E3FD84 /* SINUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SINUserInfo.h; path = ../../Guide/Model/SINUserInfo.h; sourceTree = "<group>"; };
@@ -230,6 +233,17 @@
 		181106221E331E6B00E3FD84 /* SINUserCenterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SINUserCenterItem.m; path = ../../Guide/Model/SINUserCenterItem.m; sourceTree = "<group>"; };
 		181E0CFA1ECADB7F009CFB5C /* SINImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINImageView.h; sourceTree = "<group>"; };
 		181E0CFB1ECADB7F009CFB5C /* SINImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINImageView.m; sourceTree = "<group>"; };
+		181E0CFF1ECBD924009CFB5C /* SINCarDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarDatabase.h; sourceTree = "<group>"; };
+		181E0D001ECBD924009CFB5C /* SINCarDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarDatabase.m; sourceTree = "<group>"; };
+		181E0D011ECBD924009CFB5C /* SINCarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarManager.h; sourceTree = "<group>"; };
+		181E0D021ECBD924009CFB5C /* SINCarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarManager.m; sourceTree = "<group>"; };
+		181E0D031ECBD924009CFB5C /* SINShopCarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShopCarView.h; sourceTree = "<group>"; };
+		181E0D041ECBD924009CFB5C /* SINShopCarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShopCarView.m; sourceTree = "<group>"; };
+		181E0D051ECBD924009CFB5C /* SINShopCarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINShopCarView.xib; sourceTree = "<group>"; };
+		181E0D0E1ECC8C6D009CFB5C /* SINCarCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarCalculate.h; sourceTree = "<group>"; };
+		181E0D0F1ECC8C6D009CFB5C /* SINCarCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarCalculate.m; sourceTree = "<group>"; };
+		181E0D151ED025A3009CFB5C /* SINBuyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINBuyView.h; sourceTree = "<group>"; };
+		181E0D161ED025A3009CFB5C /* SINBuyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINBuyView.m; sourceTree = "<group>"; };
 		182933301E3DC0C900E0C110 /* SINShoppeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShoppeViewController.h; sourceTree = "<group>"; };
 		182933311E3DC0C900E0C110 /* SINShoppeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShoppeViewController.m; sourceTree = "<group>"; };
 		182933341E3DC0C900E0C110 /* SINFoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodCell.h; sourceTree = "<group>"; };
@@ -358,9 +372,6 @@
 		18C71BFF1E9E183600E1710B /* SINAddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINAddressController.h; sourceTree = "<group>"; };
 		18C71C001E9E183600E1710B /* SINAddressController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SINAddressController.mm; sourceTree = "<group>"; };
 		18C7A3C71E52F6220035725C /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../Shoppe/View/test.html; sourceTree = "<group>"; };
-		18C9C3721E405D0800609BC1 /* SINShopCarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINShopCarView.h; sourceTree = "<group>"; };
-		18C9C3731E405D0800609BC1 /* SINShopCarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINShopCarView.m; sourceTree = "<group>"; };
-		18C9C3751E405D2400609BC1 /* SINShopCarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINShopCarView.xib; sourceTree = "<group>"; };
 		18C9C3771E40634500609BC1 /* SINFoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodView.h; sourceTree = "<group>"; };
 		18C9C3781E40634500609BC1 /* SINFoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINFoodView.m; sourceTree = "<group>"; };
 		18C9C37C1E40CDE500609BC1 /* SINFoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINFoodViewController.h; sourceTree = "<group>"; };
@@ -411,8 +422,6 @@
 		18DC02C31E6B064D0018940E /* SINOrderLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SINOrderLoginView.xib; sourceTree = "<group>"; };
 		18E699381EB77BD7007745E8 /* NSArray+SINSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SINSafe.h"; sourceTree = "<group>"; };
 		18E699391EB77BD7007745E8 /* NSArray+SINSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SINSafe.m"; sourceTree = "<group>"; };
-		18E6EC621EC87A7F00ABFA8D /* SINCarDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINCarDatabase.h; sourceTree = "<group>"; };
-		18E6EC631EC87A7F00ABFA8D /* SINCarDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINCarDatabase.m; sourceTree = "<group>"; };
 		18E6EC661EC9DDC600ABFA8D /* SINPhotoBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SINPhotoBrowserController.h; sourceTree = "<group>"; };
 		18E6EC671EC9DDC600ABFA8D /* SINPhotoBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SINPhotoBrowserController.m; sourceTree = "<group>"; };
 		18EA61711E25DA9D009D826E /* SinWaiMai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinWaiMai.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -555,9 +564,28 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		181E0CFE1ECBD924009CFB5C /* ShopCar */ = {
+			isa = PBXGroup;
+			children = (
+				181E0CFF1ECBD924009CFB5C /* SINCarDatabase.h */,
+				181E0D001ECBD924009CFB5C /* SINCarDatabase.m */,
+				181E0D011ECBD924009CFB5C /* SINCarManager.h */,
+				181E0D021ECBD924009CFB5C /* SINCarManager.m */,
+				181E0D0E1ECC8C6D009CFB5C /* SINCarCalculate.h */,
+				181E0D0F1ECC8C6D009CFB5C /* SINCarCalculate.m */,
+				181E0D031ECBD924009CFB5C /* SINShopCarView.h */,
+				181E0D041ECBD924009CFB5C /* SINShopCarView.m */,
+				181E0D051ECBD924009CFB5C /* SINShopCarView.xib */,
+				181E0D151ED025A3009CFB5C /* SINBuyView.h */,
+				181E0D161ED025A3009CFB5C /* SINBuyView.m */,
+			);
+			path = ShopCar;
+			sourceTree = "<group>";
+		};
 		1829332E1E3DC0C900E0C110 /* Shoppe */ = {
 			isa = PBXGroup;
 			children = (
+				181E0CFE1ECBD924009CFB5C /* ShopCar */,
 				1829332F1E3DC0C900E0C110 /* Controller */,
 				182933321E3DC0C900E0C110 /* Model */,
 				182933331E3DC0C900E0C110 /* View */,
@@ -574,10 +602,6 @@
 				18C9C37D1E40CDE500609BC1 /* SINFoodViewController.m */,
 				18BFF1381E505EA300C5DDB5 /* SINCommentViewController.h */,
 				18BFF1391E505EA300C5DDB5 /* SINCommentViewController.m */,
-				180823F41EBD59DD006E2F5C /* SINCarManager.h */,
-				180823F51EBD59DD006E2F5C /* SINCarManager.m */,
-				18E6EC621EC87A7F00ABFA8D /* SINCarDatabase.h */,
-				18E6EC631EC87A7F00ABFA8D /* SINCarDatabase.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -605,9 +629,6 @@
 				182933341E3DC0C900E0C110 /* SINFoodCell.h */,
 				182933351E3DC0C900E0C110 /* SINFoodCell.m */,
 				182933361E3DC0C900E0C110 /* SINFoodCell.xib */,
-				18C9C3721E405D0800609BC1 /* SINShopCarView.h */,
-				18C9C3731E405D0800609BC1 /* SINShopCarView.m */,
-				18C9C3751E405D2400609BC1 /* SINShopCarView.xib */,
 				18C9C3771E40634500609BC1 /* SINFoodView.h */,
 				18C9C3781E40634500609BC1 /* SINFoodView.m */,
 				18BFF1331E50071200C5DDB5 /* SINHeaderView.h */,
@@ -850,6 +871,8 @@
 			children = (
 				18D237461E7048DE00387FB8 /* SINHUD.h */,
 				18D237471E7048DE00387FB8 /* SINHUD.m */,
+				180D32021ED51A860010EA56 /* SINLoadingHUD.h */,
+				180D32031ED51A860010EA56 /* SINLoadingHUD.m */,
 			);
 			path = HUD;
 			sourceTree = "<group>";
@@ -1394,7 +1417,6 @@
 				1829333B1E3DC0C900E0C110 /* SINFoodCell.xib in Resources */,
 				18D2371A1E6BB58600387FB8 /* Assets.xcassets in Resources */,
 				189AE9C81EACE6B6007A080B /* QRCodeLeftTop@2x.png in Resources */,
-				18C9C3761E405D2400609BC1 /* SINShopCarView.xib in Resources */,
 				189AE9DA1EACE81B007A080B /* logo.png in Resources */,
 				18EA61841E25DA9D009D826E /* LaunchScreen.storyboard in Resources */,
 				18C71BF21E9DCF8500E1710B /* WeiboSDK.bundle in Resources */,
@@ -1416,6 +1438,7 @@
 				189AE9D21EACE6B6007A080B /* sound.caf in Resources */,
 				189AE9CC1EACE6B6007A080B /* QRCodeRightTop@2x.png in Resources */,
 				18C7A3C81E52F6220035725C /* test.html in Resources */,
+				181E0D091ECBD924009CFB5C /* SINShopCarView.xib in Resources */,
 				18C71BEB1E9DCF8500E1710B /* ShareSDKUI.bundle in Resources */,
 				18BFF1371E50072900C5DDB5 /* SINHeaderView.xib in Resources */,
 				189AE9CB1EACE6B6007A080B /* QRCodeRightBottom@3x.png in Resources */,
@@ -1513,13 +1536,16 @@
 				18EA61DF1E267C88009D826E /* SINNavigationController.m in Sources */,
 				18D237361E6EB56000387FB8 /* SINChophandViewController.m in Sources */,
 				18EAC8F11E320CD7007FE5E0 /* SINNewuserentry.m in Sources */,
+				181E0D101ECC8C6D009CFB5C /* SINCarCalculate.m in Sources */,
 				189AE9E61EADD8FC007A080B /* SINSettingController.m in Sources */,
 				188316451E2888FA00CE1455 /* SINNormalButton.m in Sources */,
 				18EA61D91E262E83009D826E /* SINConst.m in Sources */,
+				181E0D171ED025A3009CFB5C /* SINBuyView.m in Sources */,
 				180001E61E2CAF0500B7599B /* SINShoppeTableViewCell.m in Sources */,
 				18D2371D1E6BF62100387FB8 /* SINWaveView.m in Sources */,
 				185D3DB71EB5DB0A00AAD618 /* SINWebImageDownloader.m in Sources */,
 				180001EA1E2F452900B7599B /* SINShoppe.m in Sources */,
+				181E0D071ECBD924009CFB5C /* SINCarManager.m in Sources */,
 				18EAC8EE1E31F9F8007FE5E0 /* UIButton+SINWebCache.m in Sources */,
 				18BFF13A1E505EA300C5DDB5 /* SINCommentViewController.m in Sources */,
 				188316481E28BD7E00CE1455 /* SINNewUserEnjorView.m in Sources */,
@@ -1527,7 +1553,9 @@
 				18BE349B1E51DBAD005EABB5 /* SINComment.m in Sources */,
 				18D237301E6EB4D300387FB8 /* SINFoodieViewController.m in Sources */,
 				18D237391E6EB57000387FB8 /* SINLifeViewController.m in Sources */,
+				181E0D081ECBD924009CFB5C /* SINShopCarView.m in Sources */,
 				18D237481E7048DE00387FB8 /* SINHUD.m in Sources */,
+				181E0D061ECBD924009CFB5C /* SINCarDatabase.m in Sources */,
 				18EA61CC1E262971009D826E /* SINMineViewController.m in Sources */,
 				18C9C3791E40634500609BC1 /* SINFoodView.m in Sources */,
 				18EA61D51E262BC8009D826E /* UIColor+Category.m in Sources */,
@@ -1541,10 +1569,9 @@
 				18DC02BC1E699C350018940E /* SINWallet.m in Sources */,
 				18E6993A1EB77BD7007745E8 /* NSArray+SINSafe.m in Sources */,
 				180823E61EBAABFB006E2F5C /* SINOverviewCell.m in Sources */,
+				180D32041ED51A860010EA56 /* SINLoadingHUD.m in Sources */,
 				188316501E28DA1C00CE1455 /* SINSecondModuleView.m in Sources */,
-				18E6EC641EC87A7F00ABFA8D /* SINCarDatabase.m in Sources */,
 				18C71BFD1E9DD55100E1710B /* SINShareView.m in Sources */,
-				180823F61EBD59DD006E2F5C /* SINCarManager.m in Sources */,
 				18C019BC1E3ED53100B8A910 /* SINFood.m in Sources */,
 				180001F31E2F9B2800B7599B /* UILabel+Category.m in Sources */,
 				182933391E3DC0C900E0C110 /* SINShoppeViewController.m in Sources */,
@@ -1577,7 +1604,6 @@
 				18D237331E6EB52B00387FB8 /* SINFollowViewController.m in Sources */,
 				18EA61CF1E26297F009D826E /* SINOrderViewController.m in Sources */,
 				18DC02C21E6B062A0018940E /* SINOrderLoginView.m in Sources */,
-				18C9C3741E405D0800609BC1 /* SINShopCarView.m in Sources */,
 				18BE34971E517ABE005EABB5 /* SINCommentCell.m in Sources */,
 				189AE9D71EACE6B6007A080B /* SINQRCodeWebView.m in Sources */,
 				18C019B91E3ED37300B8A910 /* SINTakeoutMenu.m in Sources */,

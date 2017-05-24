@@ -111,7 +111,6 @@ typedef enum : NSUInteger {
  */
 - (void)loadData:(LoadDataType)loadDataType
 {
-//    SINLog(@"---------%d",self.history_member);
     if (self.history_member != 0) {
         
         if (loadDataType == LoadDataTypeUp) {
@@ -130,8 +129,6 @@ typedef enum : NSUInteger {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.networkMgr GET:@"http://waimai.baidu.com/strategyui/getrecommendhistory" parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //        [responseObject writeToFile:@"Users/apple/desktop/guide_contentList.plist" atomically:YES];
-        //        SINLog(@"%@",responseObject);
         self.history_member = [responseObject[@"result"][@"history_member"] intValue];
         
         for (NSDictionary *dict in responseObject[@"result"][@"content_list"]) {
@@ -142,11 +139,9 @@ typedef enum : NSUInteger {
 //            if (self.content_ids.count) {
 //            for (NSString *content_id in self.content_ids) {
 //                if ([topic.content_id isEqualToString:content_id]) {
-//                    SINLog(@"相同id");
 //                    continue;
 //                }else
 //                {
-//                SINLog(@"到后面");
 //                [self.topics addObject:topic];
 //                [self.content_ids addObject:topic.content_id];
 //                }

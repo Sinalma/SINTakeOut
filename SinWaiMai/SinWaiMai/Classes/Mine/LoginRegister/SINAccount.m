@@ -27,7 +27,6 @@ typedef enum : NSUInteger {
 
 @interface SINAccount ()
 
-/** 保存 */
 @property (nonatomic,strong) NSMutableDictionary *accPwdDict;
 
 @end
@@ -50,6 +49,21 @@ static SINAccount *_account;
     _isLogin = isLogin;
     
     SINLog(@"登录%d",_isLogin);
+}
+
+- (BOOL)viewJumpToLoginVc
+{
+    if (self.isLogin) {
+        return YES;
+    }
+    
+    UIViewController *rootVC = [[UIApplication sharedApplication].keyWindow rootViewController];
+    UINavigationController *naviVC = (UINavigationController *)rootVC.presentedViewController;
+    SINLoginViewController *loginVC = [[SINLoginViewController alloc] init];
+    UINavigationController *curNaviVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [naviVC presentViewController:curNaviVC animated:YES completion:nil];
+    
+    return NO;
 }
 
 - (void)jumpLoginVc

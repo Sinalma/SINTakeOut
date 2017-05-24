@@ -15,21 +15,15 @@
 #import "MJRefresh.h"
 
 @interface SINCommentViewController ()
-
 /** 头部view */
 @property (nonatomic,strong) SINHeaderView *headerView;
-
 /** 网络管理者 */
 @property (nonatomic,strong) AFHTTPSessionManager *networkMgr;
-
 /** 商户的评价模型数组 */
 @property (nonatomic,strong) SINShopComment *shopComment;
-
 /** 用户评价模型数组 */
 @property (nonatomic,strong) NSMutableArray *comments;
-
 @property (nonatomic,strong) NSMutableArray *rowHeightArr;
-
 @end
 
 @implementation SINCommentViewController
@@ -85,7 +79,6 @@
 {
     [self dataWithShop_id:self.shop_id commentCount:(int)self.comments.count+5];
 }
-
 
 #pragma 启动入口
 - (void)viewDidLoad {
@@ -175,7 +168,6 @@ static CGFloat cellHeight = 0;
     
     [self.networkMgr POST:@"http://client.waimai.baidu.com/mobileui/shop/v1/shopcomment" parameters:parmas progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
-//        [responseObject writeToFile:@"/Users/apple/desktop/commetn.plist" atomically:YES];
         [self.comments removeAllObjects];
         self.comments = nil;
     

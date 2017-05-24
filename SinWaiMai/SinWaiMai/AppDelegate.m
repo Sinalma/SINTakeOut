@@ -53,6 +53,7 @@
      */
     
     self.window.rootViewController = [[SINTabBarController alloc] init];
+//    [self chooseRootVC];
     
     [self.window makeKeyAndVisible];
     
@@ -161,6 +162,16 @@
                  break;
          }
      }];
+}
+
+- (void)chooseRootVC
+{
+    if ([self isNewUpdate]) {
+        self.window.rootViewController = [[SINTabBarController alloc] init];
+    }else
+    {
+        // 新版本引导界面
+    }
 }
 
 - (BOOL)isNewUpdate

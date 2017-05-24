@@ -50,10 +50,7 @@
         if (i == 0) { // 设置左边模块数据
             
             [self.leftTextImageView sin_setImageWithURL:[NSURL URLWithString:act.head_icon]];
-            
             self.leftTextLabel.text = act.desc;
-            // 颜色没设置
-            
             [self.leftOutImageView sin_setImageWithURL:[NSURL URLWithString:act.spec_icon]];
             [self.leftInnerImageView sin_setImageWithURL:[NSURL URLWithString:act.img_url]];
             
@@ -78,7 +75,6 @@
 {
     [super awakeFromNib];
     
-    // 添加手势
     UITapGestureRecognizer *leftTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftViewClick:)];
     [self.leftView addGestureRecognizer:leftTap];
     
@@ -89,9 +85,6 @@
     [self.rightBottomView addGestureRecognizer:rightBottomTap];
 }
 
-/**
- * 快速加载xib控件
- */
 + (instancetype)secondModuleView
 {
     return [[[NSBundle mainBundle] loadNibNamed:@"SINSecondModuleView" owner:nil options:nil] lastObject];

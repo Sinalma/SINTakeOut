@@ -22,14 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 添加所有子控制器
     [self setupAllChildVC];
 }
 
-
-/**
- * 添加所有子控制器
- */
 - (void)setupAllChildVC
 {
     SINHomepageViewController *homepage = [[SINHomepageViewController alloc] init];
@@ -45,17 +40,16 @@
     [self setupChildVC:mine title:@"我的" imgN:@"tabbar_mine"];
 }
 
-/**
- * 快速创建控制器，包装导航控制器
- */
 - (void)setupChildVC:(UIViewController *)vc title:(NSString *)title imgN:(NSString *)imgN
 {
     SINNavigationController *naviVC = [[SINNavigationController alloc] initWithRootViewController:vc];
     [naviVC.tabBarItem setImage:[UIImage imageNamed:imgN]];
     NSString *highLightImgN = [imgN stringByAppendingString:@"_highlighted"];
     [naviVC.tabBarItem setSelectedImage:[UIImage imageNamed:highLightImgN]];
+//    [[UITabBar appearance] setTintColor:SINGobalColor];
+     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:SINGobalColor} forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName:[UIColor darkGrayColor]} forState:UIControlStateNormal];
     
-    [[UITabBar appearance] setTintColor:SINGobalColor];
     vc.navigationController.title = title;
     vc.view.backgroundColor = [UIColor whiteColor];
     [self addChildViewController:naviVC];

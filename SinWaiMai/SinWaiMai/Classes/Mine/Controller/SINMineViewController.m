@@ -25,47 +25,34 @@
 #define MineLoginBtnH 40
 
 @interface SINMineViewController ()
-
 /** 网络管理者 */
 @property (nonatomic,strong) AFHTTPSessionManager *netWorkMgr;
-
 /** 整体scrollView */
 @property (nonatomic,strong) UIScrollView *gobalScrollView;
-
 /** 用户信息view */
 @property (nonatomic,strong) SINUserInfoView *userInfoView;
-
 /** 钱包view */
 @property (nonatomic,strong) SINWalletView *walletView;
-
 /** 用户中心view */
 @property (nonatomic,strong) SINUserCenterView *userCenterView;
-
 /** 登录view */
 @property (nonatomic,strong) UIView *loginView;
-
 /** 登录按钮 */
 @property (nonatomic,strong) UIButton *loginBtn;
-
 /** 波浪view */
 @property (nonatomic,strong) SINWaveView *waveView;
-
 /** 头像 */
 @property (nonatomic,strong) UIImageView *iconView;
 
 #pragma mark - 数据
 /** 保存用户信息模型的数组 */
 @property (nonatomic,strong) NSArray *userInfoes;
-
 /** 保存用户钱包模型的数组 */
 @property (nonatomic,strong) NSArray *walletItems;
-
 /** 保存钱包模块所有数据 */
 @property (nonatomic,strong) SINWallet *wallet;
-
 /** 保存用户中心模块数据 */
 @property (nonatomic,strong) NSArray *userCenterItems;
-
 /** 保存客服热线字典 */
 // name phone
 @property (nonatomic,strong) NSDictionary *customer_service_Dict;
@@ -77,14 +64,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 初始化导航栏
     [self setupNavi];
-    // 初始化子控件
     [self setupChildView];
-    
-    // 加载网络数据
     [self loadNetworkData];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,8 +91,6 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [self.netWorkMgr POST:@"http://client.waimai.baidu.com/mobileui/user/v2/usercenter" parameters:parames progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-  
-//        [responseObject writeToFile:@"/Users/apple/desktop/mine.plist" atomically:YES];
         
         // 客服热线
         self.customer_service_Dict = responseObject[@"result"][@"customer_service"];
@@ -172,7 +152,7 @@
 #pragma mark - 初始化
 - (void)setupNavi
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting_usercenter_icon_22x22_"] style:UIBarButtonItemStylePlain target:self action:@selector(setting)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
@@ -182,7 +162,6 @@
  */
 - (void)setupChildView
 {
-    // 创建子控件
     [self.view addSubview:self.gobalScrollView];
   
     // 用户信息view
@@ -213,8 +192,6 @@
     }];
     
     // 设置整体scrollView的内容尺寸
-//    CGFloat scrollVH = self.userInfoView.height + self.walletView.height + self.userCenterView.height;
-//    SINLog(@"scrollVH%f",scrollVH);
     self.gobalScrollView.contentSize = CGSizeMake(0,739+140);
     
     
@@ -223,7 +200,7 @@
     [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(64);
         make.left.width.equalTo(self.view);
-        make.height.equalTo(@75);// 100
+        make.height.equalTo(@75);
     }];
     
     // 登录view的登录按钮

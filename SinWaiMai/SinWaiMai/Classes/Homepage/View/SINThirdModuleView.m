@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIView *leftBottomView;
 @property (weak, nonatomic) IBOutlet UIView *rightBottomView;
 
-
 @end
 
 @implementation SINThirdModuleView
@@ -24,7 +23,6 @@
 {
     [super awakeFromNib];
     
-    // 添加手势
     UITapGestureRecognizer *leftTopTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftTopViewClick:)];
     [self.leftTopView addGestureRecognizer:leftTopTap];
     

@@ -11,6 +11,7 @@
 #import "UIImageView+SINWebCache.h"
 #import "SINPhotoBrowserController.h"
 #import "SINImageView.h"
+#import "SINAccount.h"
 
 #define DiscoveryIconWH 20
 #define DiscoveryMargin 10
@@ -22,6 +23,10 @@
 
 // 子控件动态创建模块的共同view
 @property (weak, nonatomic) IBOutlet UIView *dynamicContentView;
+// 电话
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+// 举报
+@property (weak, nonatomic) IBOutlet UILabel *reportLabel;
 
 @property (nonatomic,assign) CGFloat tangY;
 
@@ -39,12 +44,26 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(callPhone)];
+    self.phoneLabel.userInteractionEnabled = YES;
+    [self.phoneLabel addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *reportTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(report)];
+    self.reportLabel.userInteractionEnabled = YES;
+    [self.reportLabel addGestureRecognizer:reportTap];
+}
+
+- (void)setShop_phone:(NSString *)shop_phone
+{
+    _shop_phone = shop_phone;
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@ >",shop_phone];
 }
 
 - (void)setWelfare_basic_info:(NSArray *)welfare_basic_info
 {
     _welfare_basic_info = welfare_basic_info;
-
+    
     CGFloat stayY = [self createLabImgModuleWithIconUrl:@"tang" labStr:@"堂景食堂" imgUrls:_shop_photo_info supV:self.dynamicContentView startY:0] + 10;
     self.tangY = stayY;
     CGFloat endY = [self createLabImgModuleWithIconUrl:@"zheng" labStr:@"资质证书" imgUrls:_shop_certification_info supV:_dynamicContentView startY:stayY] + 10;
@@ -129,6 +148,23 @@
     SINImageView *imgV = (SINImageView *)tap.view;
     
     [self jumpToBrowserVC:_shop_photo_info  index:imgV.identify typeTitle:imgV.typeTitle];
+}
+
+- (void)report
+{
+    BOOL isLogin = [[SINAccount sharedAccount] viewJumpToLoginVc];
+    if (!isLogin) {
+        return;
+    }
+    // 进入举报界面
+}
+
+- (void)callPhone
+{
+    UIWebView *callWebview = [[UIWebView alloc] init];
+    NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",self.shop_phone];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:phoneStr]]];
+    [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
 }
 
 @end

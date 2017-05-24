@@ -21,8 +21,12 @@
 
 - (void)jumpLoginVc;
 
+- (void)isJumpToLoginVc;
+
 - (BOOL)registerWithAccount:(NSString *)acc password:(NSString *)pwd;
 
 - (BOOL)verifyWithAccount:(NSString *)account pwd:(NSString *)pwd;
+
+- (BOOL)viewJumpToLoginVc;
 
 @end
