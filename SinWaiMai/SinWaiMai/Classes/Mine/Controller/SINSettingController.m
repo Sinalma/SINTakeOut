@@ -22,9 +22,6 @@
     [super viewDidLoad];
     
     [self setup];
-    
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    [self.view addGestureRecognizer:pan];
 }
 
 - (void)pan:(UIPanGestureRecognizer *)pan
@@ -44,7 +41,6 @@
 }
 
 static NSString * const SINDefaultText = @"清除缓存";
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID = @"cell";
@@ -144,6 +140,9 @@ static NSString * const SINDefaultText = @"清除缓存";
     self.tableView.rowHeight = 55;
     [self.view addSubview:self.tableView];
     self.tableView.frame = CGRectMake(0, 0, self.view.width, 55*self.data.count+64);
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:pan];
 }
 
 - (void)goBack

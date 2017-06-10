@@ -110,6 +110,9 @@
 {
     [super viewDidAppear:animated];
     [self.cycleView startCycleTimer];
+    ///<<<
+    self.navigationController.navigationBar.alpha = 0.0;
+    ///>>>
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -126,7 +129,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    SINLog(@"内存吃紧");
+    SINLog(@"内存就像海绵一样，挤一挤还是能出水的。");
     self.activties = nil;
     self.wMTypes = nil;
     self.adImgUrls = nil;
@@ -473,6 +476,13 @@ static int networkPage = 1;
             self.gobalScrollView.scrollEnabled = NO;
             self.shoppeView.scrollEnabled = YES;
         }
+        
+        ///<<<
+        CGFloat alpha = scrollView.contentOffset.y / 100;
+        if (scrollView.contentOffset.y >0 && scrollView.contentOffset.y < 64) {
+            self.navigationController.navigationBar.alpha = alpha;
+        }
+        ///>>>>>
     }
     
     if ([scrollView isEqual:self.shoppeView]) {

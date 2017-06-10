@@ -24,9 +24,7 @@
 @property (nonatomic,strong) UILabel *myQRCodeLabel;
 @property (nonatomic,strong) UIImageView *QRScanLine;
 @property (nonatomic,strong) NSTimer *scanLineTimer;
-// 会话对象
 @property (nonatomic,strong) AVCaptureSession *session;
-// 预览图层
 @property (nonatomic,strong) AVCaptureVideoPreviewLayer *previewLayer;
 
 @end
@@ -113,7 +111,7 @@ static BOOL flag = YES;
         }else if (status == AVAuthorizationStatusDenied){
             
             // 用户拒绝当前应用访问相机
-            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"⚠️ 警告" message:@"请去-> [设置 - 隐私 - 相机 - SGQRCodeExample] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"⚠️ 警告" message:@"请去-> [设置 - 隐私 - 相机 - SinWaiMai] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
             
@@ -128,7 +126,7 @@ static BOOL flag = YES;
         
     }else
     {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头,请去-> [设置 - 隐私 - 相机 - SGQRCodeExample] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头,请去-> [设置 - 隐私 - 相机 - SinWaiMai] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -355,7 +353,7 @@ void soundCompleteCallback(SystemSoundID soundID, void *clientData){
         }else if (status == PHAuthorizationStatusDenied)
         {
             // 用户拒绝当前应用访问相册
-            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"⚠️ 警告" message:@"请去-> [设置 - 隐私 - 照片 - SGQRCodeExample] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"⚠️ 警告" message:@"请去-> [设置 - 隐私 - 照片 - SinWaiMai] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                 
             }];

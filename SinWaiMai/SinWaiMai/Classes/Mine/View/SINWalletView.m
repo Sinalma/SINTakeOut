@@ -20,8 +20,6 @@
     _wallet = wallet;
     
     [self setup];
-    
-    
 }
 
 - (void)setup
@@ -129,9 +127,7 @@
             lineView.width = lineW;
             [self addSubview:lineView];
         }
-        
     }
-    
 }
 
 @end
