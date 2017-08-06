@@ -113,7 +113,7 @@
     
     self.title = [NSString stringWithFormat:@"%@ %ld/%ld",self.typeTitle,self.index+1,self.imageUrls.count];
     
-    CGFloat margin = 50;// 上下空隙
+    CGFloat margin = 50;// 上下间隙
     for (int i = 0; i < imageUrls.count; i++) {
         UIImageView *imgV = [[UIImageView alloc] init];
         NSString *str = [[imageUrls[i] componentsSeparatedByString:@"@"] firstObject];

@@ -14,9 +14,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        
         [self setup];
-        
         [self share];
     }
     return self;

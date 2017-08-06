@@ -7,6 +7,9 @@
 //
 
 #import "SINSettingController.h"
+#import "SINFeedbackController.h"
+#import "SINAboutUsController.h"
+#import "SINPushViewController.h"
 
 @interface SINSettingController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -22,6 +25,18 @@
     [super viewDidLoad];
     
     [self setup];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tabBarController.tabBar setHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.tabBarController.tabBar setHidden:NO];
 }
 
 - (void)pan:(UIPanGestureRecognizer *)pan
@@ -102,9 +117,23 @@ static NSString * const SINDefaultText = @"清除缓存";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 3) {// 清理缓存
+    if (indexPath.row == 0) { // 意见反馈
+        SINFeedbackController *feedbackVC = [[SINFeedbackController alloc] init];
+        [self.navigationController pushViewController:feedbackVC animated:YES];
+    }else if (indexPath.row == 1){ // 推送消息
+        SINPushViewController *pushVC = [[SINPushViewController alloc] init];
+        [self.navigationController pushViewController:pushVC animated:YES];
+    }else if (indexPath.row == 2){
+        
+    }else if (indexPath.row == 3){ // 清理缓存
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self clearCache:cell];
+    }else if (indexPath.row == 4) { // 关于我们
+        SINAboutUsController *aboutUsVC = [[SINAboutUsController alloc] init];
+        [self.navigationController pushViewController:aboutUsVC animated:YES];
+    }else if (indexPath.row == 5) {
+        // 跳转到appstore百度外卖下载界面
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms://itunes.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E5%A4%96%E5%8D%96-%E5%93%81%E8%B4%A8%E7%94%9F%E6%B4%BB-%E5%AE%89%E5%85%A8%E9%80%81%E8%BE%BE/id911686788?l=en&mt=8"]];
     }
 }
 
@@ -137,12 +166,13 @@ static NSString * const SINDefaultText = @"清除缓存";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_icon_white_nomal_24x24_"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
     
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:pan];
+    
     self.tableView.rowHeight = 55;
     [self.view addSubview:self.tableView];
     self.tableView.frame = CGRectMake(0, 0, self.view.width, 55*self.data.count+64);
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    [self.view addGestureRecognizer:pan];
 }
 
 - (void)goBack

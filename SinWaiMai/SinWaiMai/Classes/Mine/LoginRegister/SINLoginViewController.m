@@ -79,7 +79,6 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     
     [self setupNavi];
-    
     [self setupChildView];
     [self layoutChildView];
     [self contentViewTap];
@@ -92,7 +91,6 @@ typedef enum : NSUInteger {
     
     self.pwdTextField.text = nil;
     self.accTextField.text = nil;
-    
     canJumpToPasswordApp = YES;
 }
 
@@ -252,7 +250,6 @@ static BOOL canJumpToPasswordApp = YES;
         
         return;
     }
-    
     
     BOOL bol = NO;
     
@@ -483,7 +480,7 @@ static BOOL canJumpToPasswordApp = YES;
     [self.pwdTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.accTextField);
         make.height.equalTo(@0);
-        make.top.equalTo(self.accTextField.mas_bottom);
+        make.top.equalTo(self.accTextField.mas_bottom).offset(-0.5);
         make.width.equalTo(@(SINScreenW - 20));
     }];
     
@@ -509,6 +506,31 @@ static BOOL canJumpToPasswordApp = YES;
     }];
 }
 
+- (UITextField *)createFieldWithplaceholder:(NSString *)placeholder
+{
+    UITextField *field = [[UITextField alloc] init];
+    field.placeholder = placeholder;
+    field.backgroundColor = [UIColor whiteColor];
+    field.font = [UIFont systemFontOfSize:15];
+    field.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    field.layer.borderWidth = 0.5;
+    field.delegate = self;
+    UIView *placeV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    field.leftView = placeV;
+    field.leftViewMode = UITextFieldViewModeAlways;
+    return field;
+}
+
+- (UIButton *)createBtnWithText:(NSString *)text textColor:(UIColor *)textColor font:(CGFloat)font action:(SEL)action
+{
+    UIButton *btn = [[UIButton alloc] init];
+    [btn setTitle:text forState:UIControlStateNormal];
+    [btn setTitleColor:textColor forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:font];
+    [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
 - (void)setupChildView
 {
     // 导航条
@@ -518,11 +540,7 @@ static BOOL canJumpToPasswordApp = YES;
     self.naviBar = naviBar;
     
     // 导航条子控件
-    UIButton *messageBtn = [[UIButton alloc] init];
-    [messageBtn setTitle:@"短信快捷登录" forState:UIControlStateNormal];
-    [messageBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-    messageBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [messageBtn addTarget:self action:@selector(messageLoginBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *messageBtn = [self createBtnWithText:@"短信快捷登录" textColor:[UIColor darkTextColor] font:15 action:@selector(messageLoginBtnClick)];
     [self.naviBar addSubview:messageBtn];
     self.messageLoginBtn = messageBtn;
     
@@ -531,12 +549,7 @@ static BOOL canJumpToPasswordApp = YES;
     [self.naviBar addSubview:messageLineV];
     self.messageLineView = messageLineV;
     
-    
-    UIButton *normalBtn = [[UIButton alloc] init];
-    [normalBtn setTitle:@"普通登录" forState:UIControlStateNormal];
-    [normalBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-    normalBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [normalBtn addTarget:self action:@selector(normalLoginBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *normalBtn = [self createBtnWithText:@"普通登录" textColor:[UIColor darkTextColor] font:15 action:@selector(normalLoginBtnClick)];
     [self.naviBar addSubview:normalBtn];
     self.normalLoginBtn = normalBtn;
     
@@ -559,53 +572,38 @@ static BOOL canJumpToPasswordApp = YES;
     self.logoView = logoView;
     
     // 账号输入框
-    UITextField *accTextField = [[UITextField alloc] init];
-    accTextField.placeholder = @"请输入手机号";
-    accTextField.backgroundColor = [UIColor whiteColor];
-    accTextField.font = [UIFont systemFontOfSize:15];
-    accTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    accTextField.layer.borderWidth = 0.5;
-    accTextField.delegate = self;
-    //    accTextField.alignmentRectInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    UITextField *accTextField = [self createFieldWithplaceholder:@"请输入手机号"];
     [self.contentView addSubview:accTextField];
     self.accTextField = accTextField;
     
     // 密码输入框
-    UITextField *pwdTextField = [[UITextField alloc] init];
-    pwdTextField.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    UITextField *pwdTextField = [self createFieldWithplaceholder:@""];
     pwdTextField.secureTextEntry = YES;
-    pwdTextField.delegate = self;
-    pwdTextField.layer.borderWidth = 0.5;
-    pwdTextField.backgroundColor = [UIColor whiteColor];
-    pwdTextField.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:pwdTextField];
     self.pwdTextField = pwdTextField;
     
     //登录按钮
-    UIButton *loginBtn = [[UIButton alloc] init];
-    [loginBtn setTitle:@"获取手机验证码" forState:UIControlStateNormal];
-    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    loginBtn.backgroundColor = [UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0];
+    UIButton *loginBtn = [self createBtnWithText:@"获取手机验证码" textColor:[UIColor whiteColor] font:17 action:@selector(login)];
     loginBtn.layer.cornerRadius = 2;
-    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    loginBtn.backgroundColor = [UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0];
     [self.contentView addSubview:loginBtn];
     self.loginBtn = loginBtn;
     
     // 问题label
-    UIButton *questionBtn = [[UIButton alloc] init];
-    [questionBtn setTitle:@"我已阅读并同意百度用户协议" forState:UIControlStateNormal];
-    [questionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    questionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [questionBtn addTarget:self action:@selector(questionBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    // 添加下划线
+//    NSMutableAttributedString *attStrM = [[NSMutableAttributedString alloc] initWithString:@""];
+//    NSDictionary *attDict = @{NSFontAttributeName:[UIFont systemFontOfSize:13],NSUnderlineStyleAttributeName:@1};
+//    NSMutableAttributedString *setStr = [[NSMutableAttributedString alloc] initWithString:@"百度用户协议" attributes:attDict];
+//    [attStrM appendAttributedString:setStr];
+//    [questionBtn setAttributedTitle:attStrM forState:UIControlStateNormal];
+//    [questionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    UIButton *questionBtn = [self createBtnWithText:@"我已阅读并同意" textColor:[UIColor darkGrayColor] font:13 action:@selector(questionBtnClick)];
     questionBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:questionBtn];
     self.questionBtn = questionBtn;
     
     // 立即注册
-    UIButton *registerBtn = [[UIButton alloc] init];
-    [registerBtn setTitleColor:[UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [registerBtn setTitle:@"立即注册" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(redisterBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *registerBtn = [self createBtnWithText:@"立即注册" textColor:[UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0] font:17 action:@selector(redisterBtnClick)];
     registerBtn.backgroundColor = [UIColor whiteColor];
     registerBtn.layer.borderWidth = 0.5;
     registerBtn.layer.borderColor = [UIColor colorWithRed:88/255.0 green:130/255.0 blue:252/255.0 alpha:1.0].CGColor;
